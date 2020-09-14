@@ -1,10 +1,11 @@
 import React from 'react';
+import { AiOutlineExpand } from 'react-icons/ai';
 import './index.css';
 
 function TokenDrawer(props) {
     let drawerState = 'token-drawer';
-    if(props.state === "drawerOpen"){
-        drawerState = 'token-drawer open'
+    if(props.state === "drawerDocked"){
+        drawerState = 'token-drawer docked'
     }
     else {
         drawerState = 'token-drawer';
@@ -12,7 +13,9 @@ function TokenDrawer(props) {
 
   return (
     <div className={drawerState} > 
-    I'm a drawer
+    tokens will be able to be added here and dragged onto the
+      <div className="token-options">
+      </div>
     </div>
   );
 }
