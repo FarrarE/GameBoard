@@ -14,37 +14,41 @@ import './index.css';
 function EditBar(props) {
   return (
     <div className="tray"> 
-        <div>
-            <MdLayers className="edit-icon"/>
+        <div className="edit-icon">
+            <MdLayers />
         </div>
-        <div>
-            <FaPaintBrush className="edit-icon"/>
+        <div className="edit-icon">
+            <FaPaintBrush />
         </div>
-        <div>
-            <CgColorBucket className="edit-icon"/>
+        <div className="edit-icon">
+            <CgColorBucket />
         </div>
-        <div>
-            <FaDrawPolygon className="edit-icon"/>
+        <div className="edit-icon">
+            <FaDrawPolygon />
         </div>
-        <div>
-            <GiSelect className="edit-icon"/>
+        <div className="edit-icon">
+            <GiSelect />
         </div>
-        <div>
-            <FiMove className="edit-icon"/>
-        </div>
-
-        <div>
-            <TiContacts onClick={props.toggleTokens} className="edit-icon"/>
+        <div className="edit-icon"> 
+            <FiMove />
         </div>
 
-        <div>
-            <RiTreasureMapLine  onClick={props.toggleMaps} className="edit-icon"/>
+        <div className="edit-bar">
+
         </div>
-        <div>
-            <CgMinimizeAlt onClick={props.close} className="edit-icon"/>
+
+        <div className="edit-icon">
+            <TiContacts onClick={props.toggleTokens} />
         </div>
-        <div>
-            <BiCog onClick={props.toggleOptions} className="edit-icon"/>
+
+        <div className="edit-icon">
+            <RiTreasureMapLine  onClick={props.toggleMaps} />
+        </div>
+        <div className="edit-icon">
+            <CgMinimizeAlt onClick={props.close} />
+        </div>
+        <div className="edit-icon">
+            <BiCog onClick={props.toggleOptions} />
         </div>
     </div>
   );
