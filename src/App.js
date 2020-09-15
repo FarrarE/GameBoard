@@ -5,7 +5,6 @@ import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
 import OptionTray from './Components/OptionTray';
-import Map from './Components/MapCanvas';
 
 
 
