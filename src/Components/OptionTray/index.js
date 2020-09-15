@@ -6,14 +6,13 @@ import './index.css';
 
 function OptionTray(props)  {
 
-
   return (
     <div className="options"> 
         <div>
             Grid Size
         </div>
         <div>
-            <input type="range" min="1" max="100" class="slider" />
+            <input type="range" min="1" max="100" class="slider" onInput={props.scaleGrid.bind(this)}/>
         </div>
         <div>
             Mode
