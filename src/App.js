@@ -83,6 +83,7 @@ function App(props) {
     let w = canvas.width;
     let h = canvas.height;
 
+    canvas.beginPath();
     for (let x = 0; x <= w; x += gridScale) {
         context.moveTo(0.5 + x, 0);
         context.lineTo(0.5 + x, h);
@@ -109,7 +110,7 @@ function App(props) {
       context.strokeStyle = "black";
       context.stroke();
     }
-
+    canvas.closePath();
   }
 
   function clearcanvas(){
