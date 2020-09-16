@@ -12,6 +12,8 @@ function App(props) {
   const [optionTray, setOptionTray] = useState(false);
   const [gridScale, setGridScale] = useState(50);
   const [currentMap, setCurrentMap] = useState(null);
+  const [width, setWidth] = useState(null);
+  const [height, setHeight] = useState(null);
   const canvasRef = useRef(null);  
 
   useEffect(() => {
@@ -65,35 +67,40 @@ function App(props) {
 
   function drawGrid(gridScale = 50, map = null){
 
-
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    let width = document.body.clientWidth;;
-    let height = document.body.clientHeight;
-    let p = 0;
-    canvas.width = width;
-    canvas.height = height;
-    
-    for (let x = 0; x <= width; x += gridScale) {
-        context.moveTo(0.5 + x, 0);
-        context.lineTo(0.5 + x, height);
+    if(width == null || height == null){
+      setWidth(document.body.clientWidth);
+      setHeight(document.body.clientHeight);
+      canvas.width = document.body.clientWidth;
+      canvas.height = document.body.clientHeight;
+    }else{
+      canvas.width = width;
+      canvas.height = height
     }
 
-    for (let x = 0; x <= height; x += gridScale) {
+    let w = canvas.width;
+    let h = canvas.height;
+
+    for (let x = 0; x <= w; x += gridScale) {
+        context.moveTo(0.5 + x, 0);
+        context.lineTo(0.5 + x, h);
+    }
+
+    for (let x = 0; x <= h; x += gridScale) {
         context.moveTo(0, 0.5 + x );
-        context.lineTo(width, 0.5 + x);
+        context.lineTo(w, 0.5 + x);
     }
 
     if(map){
 
       map.onload = function(){
-        
-        context.drawImage(map, 0, 0);
+        context.drawImage(map, 0, 0, w, h);
         context.strokeStyle = "black";
         context.stroke();
       }
-      context.drawImage(map, 0, 0);
+      context.drawImage(map, 0, 0, w, h);
       context.strokeStyle = "black";
       context.stroke();
       
