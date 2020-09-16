@@ -12,7 +12,24 @@ function MapDrawer(props) {
 
   return (
     <div className={drawerState} > 
-    Maps will go here.
+      <form action="/action_page.php">
+        <label for="img">Select image:</label>
+        <input type="file" id="img" name="img" accept="image/*" onChange={props.getMap}/>
+      </form>
+      <h1>Maps</h1>
+      <div className="map-container">
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+        <div className="map-thumbnail"></div>
+      </div>
+
     </div>
   );
 }

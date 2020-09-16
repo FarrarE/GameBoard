@@ -13,7 +13,7 @@ function TokenDrawer(props) {
 
   return (
     <div className={drawerState} > 
-    tokens will be able to be added here and dragged onto the
+    tokens will be able to be added here. They will be added to the map and organized using drag and drop.
       <div className="token-options">
       </div>
     </div>
