@@ -11,6 +11,7 @@ function App(props) {
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
   const [gridScale, setGridScale] = useState(50);
+  const [mapList, setMapList] = useState([]);
   const [currentMap, setCurrentMap] = useState(null);
   const [width, setWidth] = useState(null);
   const [height, setHeight] = useState(null);
@@ -83,7 +84,6 @@ function App(props) {
     let w = canvas.width;
     let h = canvas.height;
 
-    canvas.beginPath();
     for (let x = 0; x <= w; x += gridScale) {
         context.moveTo(0.5 + x, 0);
         context.lineTo(0.5 + x, h);
@@ -110,7 +110,6 @@ function App(props) {
       context.strokeStyle = "black";
       context.stroke();
     }
-    canvas.closePath();
   }
 
   function clearcanvas(){
@@ -136,7 +135,12 @@ function App(props) {
           let base_image = new Image();
           base_image.src = reader.result;
           base_image.width = "2000";
-          setCurrentMap(base_image);
+
+          if(!currentMap)
+            setCurrentMap(base_image);
+
+          mapList.push(base_image);
+
           drawGrid(gridScale, base_image);
         }
 
@@ -149,7 +153,7 @@ function App(props) {
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState}/>
-      <MapDrawer state={MapDrawerState} getMap={uploadHandler}/>
+      <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} />
       <canvas ref={canvasRef} className={"map-canvas"}/>
     </div>
   );
