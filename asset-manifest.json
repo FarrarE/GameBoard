@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/GameBoard/static/css/main.8f49b1bb.chunk.css",
-    "main.js": "/GameBoard/static/js/main.6968a24e.chunk.js",
-    "main.js.map": "/GameBoard/static/js/main.6968a24e.chunk.js.map",
+    "main.css": "/GameBoard/static/css/main.8e1b0fbe.chunk.css",
+    "main.js": "/GameBoard/static/js/main.b8f86172.chunk.js",
+    "main.js.map": "/GameBoard/static/js/main.b8f86172.chunk.js.map",
     "runtime-main.js": "/GameBoard/static/js/runtime-main.c5dbd50b.js",
     "runtime-main.js.map": "/GameBoard/static/js/runtime-main.c5dbd50b.js.map",
-    "static/js/2.8f548fc1.chunk.js": "/GameBoard/static/js/2.8f548fc1.chunk.js",
-    "static/js/2.8f548fc1.chunk.js.map": "/GameBoard/static/js/2.8f548fc1.chunk.js.map",
+    "static/js/2.e24a77a3.chunk.js": "/GameBoard/static/js/2.e24a77a3.chunk.js",
+    "static/js/2.e24a77a3.chunk.js.map": "/GameBoard/static/js/2.e24a77a3.chunk.js.map",
     "index.html": "/GameBoard/index.html",
-    "precache-manifest.0f67c4d3b77f01b403bb2c281b929a01.js": "/GameBoard/precache-manifest.0f67c4d3b77f01b403bb2c281b929a01.js",
+    "precache-manifest.c489ded03c2417c0151550c350ec5aab.js": "/GameBoard/precache-manifest.c489ded03c2417c0151550c350ec5aab.js",
     "service-worker.js": "/GameBoard/service-worker.js",
-    "static/css/main.8f49b1bb.chunk.css.map": "/GameBoard/static/css/main.8f49b1bb.chunk.css.map",
-    "static/js/2.8f548fc1.chunk.js.LICENSE.txt": "/GameBoard/static/js/2.8f548fc1.chunk.js.LICENSE.txt",
+    "static/css/main.8e1b0fbe.chunk.css.map": "/GameBoard/static/css/main.8e1b0fbe.chunk.css.map",
+    "static/js/2.e24a77a3.chunk.js.LICENSE.txt": "/GameBoard/static/js/2.e24a77a3.chunk.js.LICENSE.txt",
     "static/media/logo.svg": "/GameBoard/static/media/logo.5d5d9eef.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.c5dbd50b.js",
-    "static/js/2.8f548fc1.chunk.js",
-    "static/css/main.8f49b1bb.chunk.css",
-    "static/js/main.6968a24e.chunk.js"
+    "static/js/2.e24a77a3.chunk.js",
+    "static/css/main.8e1b0fbe.chunk.css",
+    "static/js/main.b8f86172.chunk.js"
   ]
 }
