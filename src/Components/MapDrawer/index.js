@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 import './index.css';
 
 function MapDrawer(props) {
+
+  
+
+
     let drawerState = 'map-drawer';
     if(props.state === "drawerOpen"){
         drawerState = 'map-drawer open'
@@ -10,7 +14,10 @@ function MapDrawer(props) {
         drawerState = 'map-drawer';
     }
 
+
+
   return (
+    
     <div className={drawerState} > 
       <form action="/action_page.php">
         <label for="img">Select image:</label>
@@ -18,16 +25,9 @@ function MapDrawer(props) {
       </form>
       <h1>Maps</h1>
       <div className="map-container">
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
-        <div className="map-thumbnail"></div>
+      <div>
+      {props.maps[0] && props.maps.map(map =>(<img src={map.src} alt="Girl in a jacket" width="200" height="150" />))} 
+      </div>
       </div>
 
     </div>

@@ -139,8 +139,7 @@ function App(props) {
           if(!currentMap)
             setCurrentMap(base_image);
 
-          mapList.push(base_image);
-
+          setMapList(mapList => [...mapList, base_image]);
           drawGrid(gridScale, base_image);
         }
 
