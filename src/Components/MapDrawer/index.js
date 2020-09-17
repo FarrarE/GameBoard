@@ -1,4 +1,5 @@
 import React from "react";
+import { BsPlusSquare } from 'react-icons/bs';
 import './index.css';
 
 function MapDrawer(props) {
@@ -19,11 +20,14 @@ function MapDrawer(props) {
   return (
     
     <div className={drawerState} > 
-      <form action="/action_page.php">
-        <label for="img">Select image:</label>
-        <input type="file" id="img" name="img" accept="image/*" onChange={props.getMap}/>
+
+      <form action="/action_page.php" className="map-form">
+        <label for="file-input">
+          <BsPlusSquare  />
+        </label>
+        <input id="file-input" type="file" onChange={props.getMap}/>
       </form>
-      <h1>Maps</h1>
+
       <div className="map-container">
       <div>
       {props.maps[0] && props.maps.map(map =>(<img src={map.src} alt="Girl in a jacket" width="200" height="150" />))} 

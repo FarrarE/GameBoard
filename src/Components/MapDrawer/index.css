@@ -29,3 +29,10 @@
     display:flex;
     justify-content: space-around;
  }
+
+ .map-form{
+   padding:10px;
+ }
+ .map-form>input{
+    display: none;
+ }
