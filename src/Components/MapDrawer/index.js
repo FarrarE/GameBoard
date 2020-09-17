@@ -30,7 +30,7 @@ function MapDrawer(props) {
 
       <div className="map-container">
       <div>
-      {props.maps[0] && props.maps.map(map =>(<img src={map.src} alt="Girl in a jacket" width="200" height="150" />))} 
+      {props.maps[0] && props.maps.map((map, index) =>(<img src={map.src} id={index +"map"} alt="Girl in a jacket" width="200" height="150" onClick={props.changeMap} />))} 
       </div>
       </div>
 

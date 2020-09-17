@@ -59,11 +59,15 @@ function App(props) {
 
   function scaleGrid(event){
 
+    let scale = parseInt(event.target.value);
+
     if(currentMap){
-      drawGrid(parseInt(event.target.value), currentMap);
+      drawGrid(scale, currentMap);
     }
     else 
-      drawGrid(parseInt(event.target.value));
+      drawGrid(scale);
+
+    setGridScale(scale);
   }
 
   function drawGrid(gridScale = 50, map = null){
@@ -112,16 +116,12 @@ function App(props) {
     }
   }
 
-  function clearcanvas(){
-
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    context.clearRect(0, 0, window.innerHeight, window.innerWidth);
-    context.beginPath();
-    canvas.width=canvas.width;
-    canvas.height=canvas.height;
+  function changeMap(event){
+    alert(event.target.id[0])
+    setCurrentMap(mapList[event.target.id[0]]);
+    drawGrid(gridScale, mapList[event.target.id[0]]);
   }
-
+  
   function uploadHandler(event){
 
     const imageFiles = event.target.files;
@@ -152,7 +152,7 @@ function App(props) {
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState}/>
-      <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} />
+      <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} changeMap={changeMap} />
       <canvas ref={canvasRef} className={"map-canvas"}/>
     </div>
   );
