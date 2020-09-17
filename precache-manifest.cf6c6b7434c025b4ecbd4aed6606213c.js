@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "dfa39cc1d66f7ae12fa8d3fa4ea1351c",
+    "revision": "5cb3cbb8ca07391f87eead320512576d",
     "url": "/GameBoard/index.html"
   },
   {
-    "revision": "6b7df07991e6672e3bb3",
-    "url": "/GameBoard/static/css/main.8e1b0fbe.chunk.css"
+    "revision": "70353be86b4eb0345379",
+    "url": "/GameBoard/static/css/main.8b13d7fc.chunk.css"
   },
   {
     "revision": "9d5c01f3c7b4245e4849",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/GameBoard/static/js/2.e24a77a3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6b7df07991e6672e3bb3",
-    "url": "/GameBoard/static/js/main.edc92259.chunk.js"
+    "revision": "70353be86b4eb0345379",
+    "url": "/GameBoard/static/js/main.a860b8e6.chunk.js"
   },
   {
     "revision": "17c5d782f0cf8d286825",
