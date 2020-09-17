@@ -117,9 +117,9 @@ function App(props) {
   }
 
   function changeMap(event){
-    alert(event.target.id[0])
-    setCurrentMap(mapList[event.target.id[0]]);
-    drawGrid(gridScale, mapList[event.target.id[0]]);
+    let newMap = mapList[event.target.id[0]]
+    setCurrentMap(newMap);
+    drawGrid(gridScale, newMap);
   }
   
   function uploadHandler(event){
@@ -136,11 +136,12 @@ function App(props) {
           base_image.src = reader.result;
           base_image.width = "2000";
 
-          if(!currentMap)
+          if(!currentMap){
             setCurrentMap(base_image);
+            drawGrid(gridScale, base_image);
+          }
 
           setMapList(mapList => [...mapList, base_image]);
-          drawGrid(gridScale, base_image);
         }
 
         reader.readAsDataURL(file);

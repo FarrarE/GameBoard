@@ -22,18 +22,17 @@ function MapDrawer(props) {
     <div className={drawerState} > 
 
       <form action="/action_page.php" className="map-form">
-        <label for="file-input">
-          <BsPlusSquare  />
+        <label for="file-input" >
+          <div className="add-icon">
+            <BsPlusSquare  />
+          </div>
         </label>
         <input id="file-input" type="file" onChange={props.getMap}/>
       </form>
 
       <div className="map-container">
-      <div>
-      {props.maps[0] && props.maps.map((map, index) =>(<img src={map.src} id={index +"map"} alt="Girl in a jacket" width="200" height="150" onClick={props.changeMap} />))} 
+        {props.maps[0] && props.maps.map((map, index) =>(<img src={map.src} id={index +"map"} width="100" height="50" onClick={props.changeMap} />))} 
       </div>
-      </div>
-
     </div>
   );
 }

@@ -26,13 +26,24 @@
  }
 
  .map-container{
+    padding:1%;
     display:flex;
-    justify-content: space-around;
+
+ }
+
+.add-icon{
+    font-size: 25px;
+ }
+
+ .map-container>img{
+    margin:10px;
+    border:solid 1px grey;
  }
 
  .map-form{
    padding:10px;
  }
+
  .map-form>input{
     display: none;
  }
