@@ -1,29 +1,18 @@
 .token-drawer{ 
-   display:flex;
-   border-radius: 50px;
-   left:0;
-   right:0;
-   margin-left:auto;
-   margin-right:auto;
-   justify-content: center;
-   justify-items: center;
-   height: 100%;
-   background:white;
-   position: fixed;
-   bottom: 0;
-   width: 80%;
-   z-index: 200;
-   box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
-   transform: translateY(100%);
-   transition: transform 0.3s ease-out;
- }
-
- .token-options{
-   right:0;
-   margin-top:2%;
-   margin-right:2%;
-   position: fixed;
-   top: 0;
+  border-radius: 50px;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  height: 100%;
+  background:white;
+  position: fixed;
+  bottom: 0;
+  width: 80%;
+  z-index: 300;
+  box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
  }
 
  .token-drawer.open {
@@ -33,5 +22,25 @@
   .token-drawer.docked {
     transform: translateY(80%);
  }
+
+ .token-container>img{
+  margin:10px;
+  border:solid 1px grey;
+  border-radius: 50%;
+}
+
+
+.token-container{
+  padding:1%;
+  display:flex;
+}
+
+.token-form{
+ padding:10px;
+}
+
+.token-form>input{
+  display: none;
+}
 
  

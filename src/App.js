@@ -12,6 +12,7 @@ function App(props) {
   const [optionTray, setOptionTray] = useState(false);
   const [gridScale, setGridScale] = useState(50);
   const [mapList, setMapList] = useState([]);
+  const [tokenList, setTokenList] = useState([]);
   const [currentMap, setCurrentMap] = useState(null);
   const [width, setWidth] = useState(null);
   const [height, setHeight] = useState(null);
@@ -148,11 +149,32 @@ function App(props) {
     }
   }
 
+  function uploadToken(event){
+
+    const imageFiles = event.target.files;
+    const filesLength = imageFiles.length; 
+    for(var i = 0; i < filesLength; i++) {
+        let reader = new FileReader();
+        let file = imageFiles[i];
+
+        reader.onloadend = () => {
+          
+          let base_image = new Image();
+          base_image.src = reader.result;
+          base_image.width = "2000";
+
+          setTokenList(mapList => [...mapList, base_image]);
+        }
+
+        reader.readAsDataURL(file);
+    }
+  }
+
   return (
     <div className="App">
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
-      <TokenDrawer state={TokenDrawerState}/>
+      <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} changeMap={changeMap} />
       <canvas ref={canvasRef} className={"map-canvas"}/>
     </div>

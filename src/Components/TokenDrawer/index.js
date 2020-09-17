@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineExpand } from 'react-icons/ai';
+import { BsPlusSquare } from 'react-icons/bs';
 import './index.css';
 
 function TokenDrawer(props) {
@@ -13,8 +13,16 @@ function TokenDrawer(props) {
 
   return (
     <div className={drawerState} > 
-    tokens will be able to be added here. They will be added to the map and organized using drag and drop.
-      <div className="token-options">
+      <form action="/action_page.php" className="token-form">
+        <label for="token-input" >
+          <div className="add-icon">
+          <BsPlusSquare  />
+          </div>
+        </label>
+        <input id="token-input" type="file" onChange={props.getToken}/>
+      </form>
+      <div className="token-container">
+        {props.tokens[0] && props.tokens.map((token, index) =>(<img src={token.src} id={index +"token"} width="100" height="100"  />))} 
       </div>
     </div>
   );
