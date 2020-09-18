@@ -118,6 +118,12 @@ function App(props) {
     }
   }
 
+  function drawToken(tokenImage, x, y){
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    context.drawImage(tokenImage, x, y);
+  }
+
   function changeMap(event){
     let newMap = mapList[event.target.id[0]]
     setCurrentMap(newMap);
@@ -167,13 +173,29 @@ function App(props) {
     }
   }
 
+  function drop(event){
+    event.preventDefault();
+    const data = event.dataTransfer.getData('transfer');
+
+    let tokenImage = new Image();
+    tokenImage.src = data;
+
+    let x = event.clientX;     // Get the horizontal coordinate
+    let y = event.clientY;
+    drawToken(tokenImage, x, y, 50, 50);
+  }
+
+  function allowDrop(event){
+      event.preventDefault();
+  }
+
   return (
     <div className="App">
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} changeMap={changeMap} />
-      <Droppable>
+      <Droppable drop={drop} allowDrop={allowDrop}>
       <canvas 
         ref={canvasRef} 
         className={"map-canvas"}

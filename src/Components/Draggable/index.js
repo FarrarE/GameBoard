@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 export default class Draggable extends React.Component{
     drag = (event) =>{
-        event.dataTransfer.setData('transfer', event.target.id);
+        event.dataTransfer.setData('transfer', event.target.src);
     }
 
-    noAllowDrop= (event) =>{
+    noAllowDrop = (event) =>{
         event.stopPropagation();
     }
 

@@ -28,13 +28,12 @@ function TokenDrawer(props) {
         {props.tokens[0] && props.tokens.map((token, index) =>(
           <Droppable id={index+"droppable"} >
             <Draggable id={index +"token"}  >
-            <img 
-            draggable src={token.src} 
-            width="100" height="100" 
-          />
-        </Draggable>
+              <img 
+                draggable="true" src={token.src} 
+                width="100" height="100" 
+              />
+            </Draggable>
           </Droppable>
-
         ))} 
       </div>
     </div>
