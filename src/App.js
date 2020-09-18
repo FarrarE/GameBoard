@@ -5,6 +5,7 @@ import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
 import OptionTray from './Components/OptionTray';
+import Droppable from "./Components/Droppable";
 
 function App(props) {
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
@@ -122,6 +123,13 @@ function App(props) {
     setCurrentMap(newMap);
     drawGrid(gridScale, newMap);
   }
+
+  function dragToken(event){
+    let base_image = new Image();
+    base_image.src = event.target.src;
+    canvasRef.current.getContext('2d').drawImage(base_image, 0, 0);
+
+  }
   
   function uploadHandler(event){
 
@@ -135,7 +143,6 @@ function App(props) {
           
           let base_image = new Image();
           base_image.src = reader.result;
-          base_image.width = "2000";
 
           if(!currentMap){
             setCurrentMap(base_image);
@@ -144,7 +151,6 @@ function App(props) {
 
           setMapList(mapList => [...mapList, base_image]);
         }
-
         reader.readAsDataURL(file);
     }
   }
@@ -153,6 +159,7 @@ function App(props) {
 
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length; 
+
     for(var i = 0; i < filesLength; i++) {
         let reader = new FileReader();
         let file = imageFiles[i];
@@ -160,12 +167,9 @@ function App(props) {
         reader.onloadend = () => {
           
           let base_image = new Image();
-          base_image.src = reader.result;
-          base_image.width = "2000";
-
+          base_image.src = reader.result;          
           setTokenList(mapList => [...mapList, base_image]);
         }
-
         reader.readAsDataURL(file);
     }
   }
@@ -174,9 +178,17 @@ function App(props) {
     <div className="App">
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
-      <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
+      <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} dragToken={dragToken} />
       <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} changeMap={changeMap} />
-      <canvas ref={canvasRef} className={"map-canvas"}/>
+      <Droppable>
+      <canvas 
+        ref={canvasRef} 
+        className={"map-canvas"}
+        className="droppable" 
+        onDrag={(event)=>this.onDragOver(event)}
+      />
+      </Droppable>
+
     </div>
   );
 }
