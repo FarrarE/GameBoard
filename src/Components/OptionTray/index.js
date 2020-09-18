@@ -11,7 +11,7 @@ function OptionTray(props)  {
             Grid Size
         </div>
         <div>
-            <input type="range" min="1" max="100" class="slider" onInput={props.scaleGrid.bind(this)}/>
+            <input type="range" min="10" max="100" class="slider" onInput={props.scaleGrid.bind(this)}/>
         </div>
         <div>
             Mode

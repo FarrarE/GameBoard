@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import './App.css';
+import { fabric } from "fabric";
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
@@ -18,11 +19,16 @@ function App(props) {
   const [width, setWidth] = useState(null);
   const [height, setHeight] = useState(null);
   const canvasRef = useRef(null);  
+  const [canvas, setCanvas] = useState(null);
 
   useEffect(() => {
-
+    
+    setWidth(document.body.clientWidth)
+    setHeight(document.body.clientHeight)
     // Initialize grid on canvas
-    drawGrid();
+    let canvas = new fabric.Canvas('c', { selection: false });
+    setCanvas(canvas)
+    drawGrid(canvas, document.body.clientWidth, document.body.clientHeight);
 
   },[]);
   
@@ -63,82 +69,64 @@ function App(props) {
 
     let scale = parseInt(event.target.value);
 
-    if(currentMap){
-      drawGrid(scale, currentMap);
+    var objects = canvas.getObjects('line');
+    for (let i in objects) {
+        canvas.remove(objects[i]);
     }
-    else 
-      drawGrid(scale);
+
+    drawBackground(currentMap, width, height);
+    drawGrid(canvas, width, height, scale);
+    canvas.renderAll()
     setGridScale(scale);
   }
 
-  function drawGrid(gridScale = 50, map = null){
-
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+  function drawGrid(canvas, width, height, scale = gridScale){
     
-    if(width == null || height == null){
-      setWidth(document.body.clientWidth);
-      setHeight(document.body.clientHeight);
-      canvas.width = document.body.clientWidth;
-      canvas.height = document.body.clientHeight;
-    }else{
-      canvas.width = width;
-      canvas.height = height
+    for (var i = 0; i < (width / scale); i++) {
+
+      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: '616161', selectable: false }));
+      canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: '616161', selectable: false }));
     }
 
-    let w = canvas.width;
-    let h = canvas.height;
+    canvas.on('object:moving', function(options) { 
+      options.target.set({
+        left: Math.round(options.target.left / scale) * scale,
+        top: Math.round(options.target.top / scale) * scale
+      });
+    });
+    
+  }
 
-    for (let x = 0; x <= w; x += gridScale) {
-        context.moveTo(0.5 + x, 0);
-        context.lineTo(0.5 + x, h);
-    }
+  function drawBackground(image){
 
-    for (let x = 0; x <= h; x += gridScale) {
-        context.moveTo(0, 0.5 + x );
-        context.lineTo(w, 0.5 + x);
-    }
-
-    if(map){
-
-      map.onload = function(){
-        context.drawImage(map, 0, 0, w, h);
-        context.strokeStyle = "black";
-        context.stroke();
-      }
-      context.drawImage(map, 0, 0, w, h);
-      context.strokeStyle = "black";
-      context.stroke();
-      
-    }
-    else {
-      context.strokeStyle = "black";
-      context.stroke();
+    if(image){
+      let left = (width / 2) - (image.width / 2);
+      let top = (height / 2) - (image.height / 2);
+      fabric.Image.fromURL(image.src, function(img) {
+        let oImg = img.set({ left: left, top: top, selectable: false}).scale(1);
+        canvas.setBackgroundImage(oImg);
+        canvas.renderAll();
+      });
     }
   }
 
   function drawToken(tokenImage, x, y){
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    context.drawImage(tokenImage, x, y,  50, 50);
-  }
-
-  function drawAllTokens(){
-    if(!currentTokens)
-      return;
-
-    currentTokens.forEach(item => {
-      drawToken(item.src, item.x, item.y);
+    
+    fabric.Image.fromURL(tokenImage.src, function(img) {
+      let oImg = img.set({ left: x, top: y, });
+      canvas.add(oImg)
+      canvas.renderAll();
     });
+
   }
 
   function changeMap(event){
     let newMap = mapList[event.target.id[0]]
     setCurrentMap(newMap);
-    drawGrid(gridScale, newMap);
+    drawBackground(newMap, width, height)
   }
   
-  function uploadHandler(event){
+  function uploadBackground(event){
 
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length; 
@@ -146,16 +134,19 @@ function App(props) {
         let reader = new FileReader();
         let file = imageFiles[i];
 
+
         reader.onloadend = () => {
           
           let base_image = new Image();
           base_image.src = reader.result;
 
           if(!currentMap){
-            setCurrentMap(base_image);
-            drawGrid(gridScale, base_image);
-          }
 
+            setCurrentMap(base_image);
+            base_image.onload = function() {
+                drawBackground(base_image);
+              };
+          }
           setMapList(mapList => [...mapList, base_image]);
         }
         reader.readAsDataURL(file);
@@ -209,13 +200,10 @@ function App(props) {
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
-      <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} changeMap={changeMap} />
-      <Droppable drop={drop} allowDrop={allowDrop}>
-      <canvas 
-        ref={canvasRef} 
-        className={"map-canvas"}
-      />
-      </Droppable>
+      <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
+        { <Droppable drop={drop} allowDrop={allowDrop}>
+        <canvas id="c" width={document.body.clientWidth} ref={canvasRef} height={document.body.clientHeight} />
+        </Droppable> }
 
     </div>
   );
