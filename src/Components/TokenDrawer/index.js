@@ -31,9 +31,6 @@ function TokenDrawer(props) {
             <img 
             draggable src={token.src} 
             width="100" height="100" 
-            onDragStart={e => {
-              dragUrl.current = e.target.src;
-            }}
           />
         </Draggable>
           </Droppable>

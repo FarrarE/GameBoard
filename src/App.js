@@ -123,13 +123,6 @@ function App(props) {
     setCurrentMap(newMap);
     drawGrid(gridScale, newMap);
   }
-
-  function dragToken(event){
-    let base_image = new Image();
-    base_image.src = event.target.src;
-    canvasRef.current.getContext('2d').drawImage(base_image, 0, 0);
-
-  }
   
   function uploadHandler(event){
 
@@ -178,14 +171,13 @@ function App(props) {
     <div className="App">
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
-      <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} dragToken={dragToken} />
+      <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadHandler} maps={mapList} changeMap={changeMap} />
       <Droppable>
       <canvas 
         ref={canvasRef} 
         className={"map-canvas"}
         className="droppable" 
-        onDrag={(event)=>this.onDragOver(event)}
       />
       </Droppable>
 
