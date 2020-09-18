@@ -13,12 +13,12 @@ function OptionTray(props)  {
         <div>
             <input type="range" min="10" max="100" class="slider" onInput={props.scaleGrid.bind(this)}/>
         </div>
-        <div>
+        {/* <div>
             Mode
         </div>
         <div>
             <BsToggleOff />
-        </div>
+        </div> */}
     </div>
   );
 }

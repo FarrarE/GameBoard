@@ -14,7 +14,7 @@ import './index.css';
 function EditBar(props) {
   return (
     <div className="tray"> 
-        <div className="edit-icon">
+        {/* <div className="edit-icon">
             <MdLayers />
         </div>
         <div className="edit-icon">
@@ -35,7 +35,7 @@ function EditBar(props) {
 
         <div className="edit-bar">
 
-        </div>
+        </div> */}
 
         <div className="edit-icon">
             <TiContacts onClick={props.toggleTokens} />
