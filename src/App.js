@@ -121,7 +121,7 @@ function App(props) {
   function drawToken(tokenImage, x, y){
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-    context.drawImage(tokenImage, x, y);
+    context.drawImage(tokenImage, x, y,  50, 50);
   }
 
   function changeMap(event){
@@ -180,9 +180,10 @@ function App(props) {
     let tokenImage = new Image();
     tokenImage.src = data;
 
-    let x = event.clientX;     // Get the horizontal coordinate
+    let x = event.clientX;
     let y = event.clientY;
-    drawToken(tokenImage, x, y, 50, 50);
+
+    drawToken(tokenImage, x, y);
   }
 
   function allowDrop(event){
