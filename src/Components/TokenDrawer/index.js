@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React from "react";
 import { BsPlusSquare } from 'react-icons/bs';
 import Draggable from "../Draggable";
 import Droppable from "../Droppable";
 import './index.css';
 
 function TokenDrawer(props) {
-  const dragUrl = React.useRef();
+
     let drawerState = 'token-drawer';
     if(props.state === "drawerDocked"){
         drawerState = 'token-drawer docked'
@@ -29,6 +29,7 @@ function TokenDrawer(props) {
           <Droppable id={index+"droppable"} >
             <Draggable id={index +"token"}  >
               <img 
+                alt="..."
                 draggable="true" src={token.src} 
                 width="100" height="100" 
               />

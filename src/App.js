@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from './logo.svg';
 import './App.css';
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
@@ -15,6 +14,7 @@ function App(props) {
   const [mapList, setMapList] = useState([]);
   const [tokenList, setTokenList] = useState([]);
   const [currentMap, setCurrentMap] = useState(null);
+  const [currentTokens, setCurrentTokens] = useState([]);
   const [width, setWidth] = useState(null);
   const [height, setHeight] = useState(null);
   const canvasRef = useRef(null);  
@@ -68,7 +68,6 @@ function App(props) {
     }
     else 
       drawGrid(scale);
-
     setGridScale(scale);
   }
 
@@ -76,7 +75,7 @@ function App(props) {
 
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
-
+    
     if(width == null || height == null){
       setWidth(document.body.clientWidth);
       setHeight(document.body.clientHeight);
@@ -122,6 +121,15 @@ function App(props) {
     const canvas = canvasRef.current;
     const context = canvas.getContext('2d');
     context.drawImage(tokenImage, x, y,  50, 50);
+  }
+
+  function drawAllTokens(){
+    if(!currentTokens)
+      return;
+
+    currentTokens.forEach(item => {
+      drawToken(item.src, item.x, item.y);
+    });
   }
 
   function changeMap(event){
@@ -182,7 +190,13 @@ function App(props) {
 
     let x = event.clientX;
     let y = event.clientY;
+    let tokenInfo = {
+      src: tokenImage,
+      x: x,
+      y: y,
+    }
 
+    setCurrentTokens(currentTokens => [...currentTokens, tokenInfo]);
     drawToken(tokenImage, x, y);
   }
 
@@ -200,7 +214,6 @@ function App(props) {
       <canvas 
         ref={canvasRef} 
         className={"map-canvas"}
-        className="droppable" 
       />
       </Droppable>
 

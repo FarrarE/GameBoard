@@ -29,7 +29,7 @@ function MapDrawer(props) {
         <input id="file-input" type="file" onChange={props.getMap}/>
       </form>
       <div className="map-container">
-        {props.maps[0] && props.maps.map((map, index) =>(<img src={map.src} id={index +"map"} width="100" height="50" onClick={props.changeMap} />))} 
+        {props.maps[0] && props.maps.map((map, index) =>(<img src={map.src} alt="..." id={index +"map"} width="100" height="50" onClick={props.changeMap} />))} 
       </div>
     </div>
   );
