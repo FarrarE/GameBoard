@@ -68,7 +68,12 @@ function App(props) {
   function scaleGrid(event){
 
     let scale = parseInt(event.target.value);
-    canvas.remove(...canvas.getObjects().concat())
+
+    var objects = canvas.getObjects('line');
+    for (let i in objects) {
+        canvas.remove(objects[i]);
+    }
+
     drawBackground(currentMap, width, height);
     drawGrid(canvas, width, height, scale);
     canvas.renderAll()
@@ -79,8 +84,8 @@ function App(props) {
     
     for (var i = 0; i < (width / scale); i++) {
 
-      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: 'black', selectable: false }));
-      canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: 'black', selectable: false }));
+      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: '616161', selectable: false }));
+      canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: '616161', selectable: false }));
     }
 
     canvas.on('object:moving', function(options) { 
@@ -98,7 +103,7 @@ function App(props) {
       let left = (width / 2) - (image.width / 2);
       let top = (height / 2) - (image.height / 2);
       fabric.Image.fromURL(image.src, function(img) {
-        var oImg = img.set({ left: left, top: top, selectable: false}).scale(1);
+        let oImg = img.set({ left: left, top: top, selectable: false}).scale(1);
         canvas.setBackgroundImage(oImg);
         canvas.renderAll();
       });
@@ -106,18 +111,13 @@ function App(props) {
   }
 
   function drawToken(tokenImage, x, y){
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
-    context.drawImage(tokenImage, x, y,  50, 50);
-  }
-
-  function drawAllTokens(){
-    if(!currentTokens)
-      return;
-
-    currentTokens.forEach(item => {
-      drawToken(item.src, item.x, item.y);
+    
+    fabric.Image.fromURL(tokenImage.src, function(img) {
+      let oImg = img.set({ left: x, top: y, });
+      canvas.add(oImg)
+      canvas.renderAll();
     });
+
   }
 
   function changeMap(event){
