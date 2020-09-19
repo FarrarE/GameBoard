@@ -6,6 +6,7 @@ import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
 import OptionTray from './Components/OptionTray';
 import Droppable from "./Components/Droppable";
+import Login from "./Components/Login";
 
 function App(props) {
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
@@ -198,7 +199,7 @@ function App(props) {
   {}
   return (
     <div className="App">
-
+      <Login />
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
