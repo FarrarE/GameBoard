@@ -16,22 +16,26 @@ function App(props) {
   const [tokenList, setTokenList] = useState([]);
   const [currentMap, setCurrentMap] = useState(null);
   const [currentTokens, setCurrentTokens] = useState([]);
-  const [width, setWidth] = useState(null);
-  const [height, setHeight] = useState(null);
-  const canvasRef = useRef(null);  
   const [canvas, setCanvas] = useState(null);
 
   useEffect(() => {
     
-    setWidth(document.body.clientWidth)
-    setHeight(document.body.clientHeight)
     // Initialize grid on canvas
-    let canvas = new fabric.Canvas('c', { selection: false });
-    setCanvas(canvas)
-    drawGrid(canvas, document.body.clientWidth, document.body.clientHeight);
-
+    let c = new fabric.Canvas('c', { selection: false });
+    setSnap(c, gridScale)
+    setCanvas(c, gridScale);
+    drawGrid(c, gridScale);
   },[]);
-  
+
+  function setSnap(canvas, scale){
+    canvas.on('object:moving', function(options) { 
+      console.log(scale)
+      options.target.left = Math.round(options.target.left / gridScale) * gridScale;
+      options.target.top = Math.round(options.target.top / gridScale) * gridScale
+      options.target.setCoords();
+    })
+  }
+
   function toggleOptionTray(){
     setOptionTray(!optionTray);
   }
@@ -69,35 +73,33 @@ function App(props) {
 
     let scale = parseInt(event.target.value);
 
-    var objects = canvas.getObjects('line');
+    let objects = canvas.getObjects('line');
+    
     for (let i in objects) {
         canvas.remove(objects[i]);
     }
-
-    drawBackground(currentMap, width, height);
-    drawGrid(canvas, width, height, scale);
-    canvas.renderAll()
+    canvas.off()
+    setSnap(canvas, scale);
     setGridScale(scale);
+    drawBackground(currentMap);
+    drawGrid(canvas, scale);
   }
 
-  function drawGrid(canvas, width, height, scale = gridScale){
+  function drawGrid(canvas, scale){
+    let width = document.body.clientWidth;
+    let height = document.body.clientHeight;
     
-    for (var i = 0; i < (width / scale); i++) {
+    for (let i = 0; i < (width / scale); i++) {
 
       canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: '616161', selectable: false }));
       canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: '616161', selectable: false }));
     }
 
-    canvas.on('object:moving', function(options) { 
-      options.target.set({
-        left: Math.round(options.target.left / scale) * scale,
-        top: Math.round(options.target.top / scale) * scale
-      });
-    });
-    
   }
 
   function drawBackground(image){
+    let width = document.body.clientWidth;
+    let height = document.body.clientHeight;
 
     if(image){
       let left = (width / 2) - (image.width / 2);
@@ -115,7 +117,6 @@ function App(props) {
     fabric.Image.fromURL(tokenImage.src, function(img) {
       let oImg = img.set({ left: x, top: y, });
       canvas.add(oImg)
-      canvas.renderAll();
     });
 
   }
@@ -123,17 +124,16 @@ function App(props) {
   function changeMap(event){
     let newMap = mapList[event.target.id[0]]
     setCurrentMap(newMap);
-    drawBackground(newMap, width, height)
+    drawBackground(newMap)
   }
   
   function uploadBackground(event){
 
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length; 
-    for(var i = 0; i < filesLength; i++) {
+    for(let i = 0; i < filesLength; i++) {
         let reader = new FileReader();
         let file = imageFiles[i];
-
 
         reader.onloadend = () => {
           
@@ -158,7 +158,7 @@ function App(props) {
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length; 
 
-    for(var i = 0; i < filesLength; i++) {
+    for(let i = 0; i < filesLength; i++) {
         let reader = new FileReader();
         let file = imageFiles[i];
 
@@ -195,16 +195,17 @@ function App(props) {
       event.preventDefault();
   }
 
+  {}
   return (
     <div className="App">
+
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
         { <Droppable drop={drop} allowDrop={allowDrop}>
-        <canvas id="c" width={document.body.clientWidth} ref={canvasRef} height={document.body.clientHeight} />
+        <canvas id="c" width={document.body.clientWidth} height={document.body.clientHeight} />
         </Droppable> }
-
     </div>
   );
 }
