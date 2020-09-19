@@ -30,8 +30,8 @@ function App(props) {
   function setSnap(canvas, scale){
     canvas.on('object:moving', function(options) { 
       console.log(scale)
-      options.target.left = Math.round(options.target.left / gridScale) * gridScale;
-      options.target.top = Math.round(options.target.top / gridScale) * gridScale
+      options.target.left = Math.round(options.target.left / scale) * scale;
+      options.target.top = Math.round(options.target.top / scale) * scale
       options.target.setCoords();
     })
   }
