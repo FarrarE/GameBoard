@@ -4,7 +4,6 @@ import { fabric } from "fabric";
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
-import MapScaler from "./Components/MapScaler";
 import OptionTray from './Components/OptionTray';
 import Droppable from "./Components/Droppable";
 import Login from "./Components/Login";
@@ -34,6 +33,8 @@ function App(props) {
     setSnap(c, gridScale)
     setCanvas(c, gridScale);
     drawGrid(c, gridScale);
+    setOnScroll(c);
+    
   },[]);
 
   function setSnap(canvas, scale){
@@ -42,6 +43,23 @@ function App(props) {
       options.target.left = Math.round(options.target.left / scale) * scale;
       options.target.top = Math.round(options.target.top / scale) * scale
       options.target.setCoords();
+    })
+  }
+
+  function setOnScroll(canvas){
+    let x = document.body.clientWidth / 2;
+    let y = document.body.clientHeight / 2;
+
+    canvas.on('mouse:wheel', function(opt) {
+
+      var delta = opt.e.deltaY;
+      var zoom = canvas.getZoom();
+      zoom *= 0.999 ** delta;
+      if (zoom > 20) zoom = 20;
+      if (zoom < 0.5) zoom = 0.5;
+      canvas.zoomToPoint({ x: x, y: y }, zoom);
+      opt.e.preventDefault();
+      opt.e.stopPropagation();
     })
   }
 
@@ -100,6 +118,7 @@ function App(props) {
         canvas.remove(objects[i]);
     }
     canvas.off()
+    setOnScroll(canvas);
     setSnap(canvas, scale);
     setGridScale(scale);
     drawBackground(currentMap);
@@ -110,10 +129,11 @@ function App(props) {
     let width = document.body.clientWidth;
     let height = document.body.clientHeight;
     
-    for (let i = 0; i < (width / scale); i++) {
-
-      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: '616161', selectable: false }));
+    for (let i = 0; i < (height / scale); i++) {
       canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: '616161', selectable: false }));
+    }
+    for (let i = 0; i < (width / scale); i++) {
+      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: '616161', selectable: false }));
     }
 
   }
@@ -230,9 +250,8 @@ function App(props) {
     <div className="App">
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated && <Login authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} />}
-      {optionTray && <OptionTray scaleGrid={scaleGrid} />}
+      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
 
-      <MapScaler scaleMap={scaleMap} />
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />

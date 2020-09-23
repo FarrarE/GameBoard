@@ -1,5 +1,4 @@
 import React from "react";
-import { BsToggleOff } from 'react-icons/bs';
 
 import './index.css';
 
@@ -13,12 +12,12 @@ function OptionTray(props)  {
         <div>
             <input type="range" min="10" max="100" class="slider" onInput={props.scaleGrid.bind(this)}/>
         </div>
-        {/* <div>
-            Mode
+        <div>
+            Map Size
         </div>
         <div>
-            <BsToggleOff />
-        </div> */}
+            <input type="range" min="10" max="100" class="slider" onInput={props.scaleMap.bind(this)}/>
+        </div>
     </div>
   );
 }
