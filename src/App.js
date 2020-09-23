@@ -7,6 +7,7 @@ import MapDrawer from './Components/MapDrawer';
 import OptionTray from './Components/OptionTray';
 import Droppable from "./Components/Droppable";
 import Login from "./Components/Login";
+import Signup from "./Components/Signup";
 
 function App(props) {
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
@@ -18,7 +19,7 @@ function App(props) {
   const [currentMap, setCurrentMap] = useState(null);
   const [currentTokens, setCurrentTokens] = useState([]);
   const [canvas, setCanvas] = useState(null);
-
+  const [signingUp, setSigningUp] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
@@ -40,6 +41,14 @@ function App(props) {
       options.target.top = Math.round(options.target.top / scale) * scale
       options.target.setCoords();
     })
+  }
+
+  function signUp(){
+    setSigningUp(true);
+  }
+
+  function confirmSignUp(){
+    setSigningUp(false);
   }
 
   function authenticateLogin(){
@@ -208,7 +217,8 @@ function App(props) {
   {}
   return (
     <div className="App">
-      {!isAuthenticated && <Login authenticateLogin={authenticateLogin} />}
+      {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
+      {!isAuthenticated && <Login authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} />}
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
