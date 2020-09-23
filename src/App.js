@@ -39,10 +39,15 @@ function App(props) {
 
   function setSnap(canvas, scale){
     canvas.on('object:moving', function(options) { 
-      console.log(scale)
       options.target.left = Math.round(options.target.left / scale) * scale;
       options.target.top = Math.round(options.target.top / scale) * scale
       options.target.setCoords();
+    })
+
+    canvas.on('mouse:dblclick', function(options) { 
+      canvas.getActiveObject().scaleToWidth(scale);
+      canvas.getActiveObject().scaleToHeight(scale);
+      canvas.renderAll();
     })
   }
 
@@ -157,7 +162,9 @@ function App(props) {
   function drawToken(tokenImage, x, y){
     
     fabric.Image.fromURL(tokenImage.src, function(img) {
-      let oImg = img.set({ left: x, top: y, });
+      let oImg = img.set({ left: x, top: y });
+      oImg.scaleToWidth(gridScale);
+      oImg.scaleToHeight(gridScale);
       canvas.add(oImg)
     });
 
@@ -221,6 +228,8 @@ function App(props) {
         reader.readAsDataURL(file);
     }
   }
+
+
 
   function drop(event){
     event.preventDefault();
