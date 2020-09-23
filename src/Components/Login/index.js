@@ -46,6 +46,8 @@ function OptionTray(props)  {
             </form>
             Dont have an account?
             <button onClick={props.signUp}>Sign up here</button>
+            or
+            <button onClick={props.authenticateLogin}>Test without signing up</button>
         </div>
     </div>
   );
