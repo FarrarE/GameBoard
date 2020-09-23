@@ -24,7 +24,7 @@ function TokenDrawer(props) {
         </label>
         <input id="token-input" type="file" onChange={props.getToken}/>
       </form>
-      Add a token and drop it onto the board.
+      Add a token and drop it onto the board. Double click token on the board will auto fit the token to the grid size.
       <div className="token-container">
         {props.tokens[0] && props.tokens.map((token, index) =>(
           <Droppable id={index+"droppable"} >
