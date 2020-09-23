@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 /src/Data/Maps/*
+/src/config.js
 
 # testing
 /coverage

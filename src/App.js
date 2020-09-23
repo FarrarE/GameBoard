@@ -19,6 +19,11 @@ function App(props) {
   const [currentTokens, setCurrentTokens] = useState([]);
   const [canvas, setCanvas] = useState(null);
 
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
+  
+
   useEffect(() => {
     
     // Initialize grid on canvas
@@ -35,6 +40,10 @@ function App(props) {
       options.target.top = Math.round(options.target.top / scale) * scale
       options.target.setCoords();
     })
+  }
+
+  function authenticateLogin(){
+    userHasAuthenticated(true)
   }
 
   function toggleOptionTray(){
@@ -199,7 +208,7 @@ function App(props) {
   {}
   return (
     <div className="App">
-      <Login />
+      {!isAuthenticated && <Login authenticateLogin={authenticateLogin} />}
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
