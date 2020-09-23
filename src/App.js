@@ -4,6 +4,7 @@ import { fabric } from "fabric";
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
+import MapScaler from "./Components/MapScaler";
 import OptionTray from './Components/OptionTray';
 import Droppable from "./Components/Droppable";
 import Login from "./Components/Login";
@@ -15,6 +16,7 @@ function App(props) {
   const [optionTray, setOptionTray] = useState(false);
   const [gridScale, setGridScale] = useState(50);
   const [mapList, setMapList] = useState([]);
+  const [mapScale, setMapScale] = useState(1);
   const [tokenList, setTokenList] = useState([]);
   const [currentMap, setCurrentMap] = useState(null);
   const [currentTokens, setCurrentTokens] = useState([]);
@@ -116,15 +118,16 @@ function App(props) {
 
   }
 
-  function drawBackground(image){
+  function drawBackground(image, scale = mapScale){
     let width = document.body.clientWidth;
     let height = document.body.clientHeight;
 
     if(image){
-      let left = (width / 2) - (image.width / 2);
-      let top = (height / 2) - (image.height / 2);
+      let left = (width / 2) - ((image.width / 2) * scale);
+      let top = (height / 2) - ((image.height / 2) * scale);
+
       fabric.Image.fromURL(image.src, function(img) {
-        let oImg = img.set({ left: left, top: top, selectable: false}).scale(1);
+        let oImg = img.set({ left: left, top: top, selectable: false}).scale(scale);
         canvas.setBackgroundImage(oImg);
         canvas.renderAll();
       });
@@ -146,6 +149,14 @@ function App(props) {
     drawBackground(newMap)
   }
   
+  function scaleMap(event){
+
+    let scale = event.target.value / 50;
+
+    drawBackground(currentMap, scale);
+    setMapScale(scale);
+  }
+
   function uploadBackground(event){
 
     const imageFiles = event.target.files;
@@ -219,13 +230,15 @@ function App(props) {
     <div className="App">
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated && <Login authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} />}
-      <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       {optionTray && <OptionTray scaleGrid={scaleGrid} />}
+
+      <MapScaler scaleMap={scaleMap} />
+      <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
-        { <Droppable drop={drop} allowDrop={allowDrop}>
+      <Droppable drop={drop} allowDrop={allowDrop}>
         <canvas id="c" width={document.body.clientWidth} height={document.body.clientHeight} />
-        </Droppable> }
+      </Droppable>
     </div>
   );
 }
