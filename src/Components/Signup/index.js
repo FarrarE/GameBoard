@@ -5,7 +5,7 @@ import "./index.css";
 export default function Signup(props) {
 
   const [newUser, setNewUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Need to find a loading animation or make one
   const [userName, setUserName] = useState(null);
   const [pass, setPass] = useState(null);
   const [passConfirm, setPassConfirm] = useState(null);
@@ -15,7 +15,6 @@ export default function Signup(props) {
     event.preventDefault();
 
     if(pass !== passConfirm) {
-        alert(pass + " " + passConfirm)
         alert("Passwords do not match");
         return;
     }
@@ -28,11 +27,11 @@ export default function Signup(props) {
         password: pass,
       });
       
-      alert("new email sent")
       setIsLoading(false);
       setNewUser(newUser);
     } catch (e) {
-      setIsLoading(false);
+        alert(e.message)
+        setIsLoading(false);
     }
   }
   
@@ -47,7 +46,7 @@ export default function Signup(props) {
         props.confirmSignUp();
         props.userHasAuthenticated(true);
     } catch (e) {
-        alert("Code not recognized")
+        alert(e.message);
         setIsLoading(false);
     }
   }
