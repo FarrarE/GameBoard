@@ -1,26 +1,15 @@
 import React, { useState } from "react";
-import { Auth } from "aws-amplify";
 import './index.css';
 
 function OptionTray(props)  {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("example@website.com");
+    const [password, setPassword] = useState("password");
   
     function validateForm() {
       return email.length > 0 && password.length > 0;
     }
   
-    async function handleSubmit(event) {
-      event.preventDefault();
-    
-      try {
-        await Auth.signIn(email, password);
-        alert("Logged in");
-        props.authenticateLogin();
-      } catch (e) {
-        alert(e.message);
-      }
-    }
+
 
   return (
     <div className="login-form"> 
@@ -28,7 +17,10 @@ function OptionTray(props)  {
             Login
         </div>
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => {
+              props.handleSubmit(email, password);
+              e.preventDefault();
+              }}>
                 <input
                     autoFocus
                     type="email"

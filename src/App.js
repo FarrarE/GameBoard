@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import './App.css';
+import { API, Auth } from "aws-amplify";
 import { fabric } from "fabric";
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
@@ -28,13 +29,64 @@ function App(props) {
 
   useEffect(() => {
     
-    // Initialize grid on canvas
     let c = new fabric.Canvas('c', { selection: false });
     setSnap(c, gridScale)
     setCanvas(c, gridScale);
     drawGrid(c, gridScale);
     setOnScroll(c);
+    setDelete();
+    onLoad();
+  },[]);
 
+  // Backend functions
+
+  async function onLoad() {
+    try {
+      await Auth.currentSession();
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+  
+    setIsAuthenticating(false);
+  }
+
+  async function loginHandler(email, password) {
+
+    try {
+      await Auth.signIn(email, password);
+      authenticateLogin();
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  async function handleUploadState() {
+
+    let content = {
+      maps: mapList,
+      Tokens: tokenList
+    }
+
+    try {
+      await uploadFiles({ content });
+      alert("Files Uploaded");
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+  
+  function uploadFiles(boardState) {
+    return API.post("gameboard", "/gameboard", {
+      body: "test"
+    });
+  }
+
+  //  Frontend functions
+
+  function setDelete(){
     fabric.Object.prototype.controls.deleteControl = new fabric.Control({
       x: 0.5,
       y: -0.5,
@@ -45,8 +97,7 @@ function App(props) {
       render: renderIcon(),
       cornerSize: 24
     });
-    
-  },[]);
+  }
 
   function deleteObject(eventData, target){
 
@@ -78,7 +129,7 @@ function App(props) {
   function setSnap(canvas, scale){
     canvas.on('object:moving', function(options) { 
       options.target.left = Math.round(options.target.left / scale) * scale;
-      options.target.top = Math.round(options.target.top / scale) * scale
+      options.target.top = Math.round(options.target.top / scale) * scale;
       options.target.setCoords();
     })
 
@@ -115,6 +166,7 @@ function App(props) {
   }
 
   function authenticateLogin(){
+    onLoad();
     userHasAuthenticated(true)
   }
 
@@ -234,20 +286,21 @@ function App(props) {
 
         reader.onloadend = () => {
           
-          let base_image = new Image();
-          base_image.src = reader.result;
+          let img = new Image();
+          img.src = reader.result;
 
           if(!currentMap){
 
-            setCurrentMap(base_image);
-            base_image.onload = function() {
-                drawBackground(base_image);
+            setCurrentMap(img);
+            img.onload = function() {
+                drawBackground(img);
               };
           }
-          setMapList(mapList => [...mapList, base_image]);
+          setMapList(mapList => [...mapList, img]);
         }
         reader.readAsDataURL(file);
     }
+    handleUploadState();
   }
 
   function uploadToken(event){
@@ -261,9 +314,10 @@ function App(props) {
 
         reader.onloadend = () => {
           
-          let base_image = new Image();
-          base_image.src = reader.result;          
-          setTokenList(mapList => [...mapList, base_image]);
+          let img = new Image();
+          img.src = reader.result;  
+
+          setTokenList(mapList => [...mapList, img]);
         }
         reader.readAsDataURL(file);
     }
@@ -298,7 +352,7 @@ function App(props) {
   return (
     <div className="App">
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
-      {!isAuthenticated && <Login authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} />}
+      {!isAuthenticated && <Login authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler}/>}
       {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
 
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
