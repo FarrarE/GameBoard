@@ -28,9 +28,12 @@ function MapDrawer(props) {
         </label>
         <input id="file-input" type="file" onChange={props.getMap}/>
       </form>
-      Add a map. Switch maps by clicking on the thumbnails.
       <div className="map-container">
-        {props.maps[0] && props.maps.map((map, index) =>(<img src={map.src} alt="..." id={index +"map"} width="100" height="50" onClick={props.changeMap} />))} 
+        {props.maps[0] ?  
+          props.maps.map((map, index) =>(<img src={map.src} alt="..." id={index +"map"} width="100" height="50" onClick={props.changeMap} />))
+         : 
+          <p>Add a map. Switch maps by clicking on the thumbnails.</p>
+        }
       </div>
     </div>
   );
