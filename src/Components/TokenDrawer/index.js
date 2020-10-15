@@ -25,7 +25,9 @@ function TokenDrawer(props) {
         <input id="token-input" type="file" onChange={props.getToken}/>
       </form>
       <div className="token-container">
-        {props.tokens[0] && props.tokens.map((token, index) =>(
+
+
+        {props.tokens[0] ? props.tokens.map((token, index) =>(
           <div className="token-img">
             <Droppable id={index+"droppable"} >
             <Draggable id={index +"token"}  >
@@ -37,7 +39,10 @@ function TokenDrawer(props) {
             </Draggable>
             </Droppable>
           </div>
-        ))} 
+        ))
+        :
+        <p>Add a token. Drag and drop the token onto the grid. Scale token to grid by double clicking the token.</p>
+        } 
       </div>
     </div>
   );

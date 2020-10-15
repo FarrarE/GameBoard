@@ -23,7 +23,13 @@
  }
 
  .token-container{
+    padding:1%;
    display:flex;
+ }
+
+ .token-container>p{
+   margin-right:auto;
+   margin-left:auto;
  }
 
  .token-img{

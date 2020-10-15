@@ -38,6 +38,11 @@
     border:solid 1px grey;
  }
 
+ .map-container>p{
+   margin-right:auto;
+   margin-left:auto;
+ }
+
  .map-form{
    padding:10px;
  }
