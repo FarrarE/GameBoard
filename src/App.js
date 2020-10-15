@@ -174,7 +174,6 @@ function App(props) {
   function runTest(){
     userHasAuthenticated(true);
     setIsTest(true);
-    alert("test")
   }
 
   function toggleOptionTray(){
