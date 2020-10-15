@@ -231,10 +231,10 @@ function App(props) {
     let height = document.body.clientHeight;
     
     for (let i = 0; i < (height / scale); i++) {
-      canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: '616161', selectable: false }));
+      canvas.add(new fabric.Line([ 0, i * scale, width, i * scale], { stroke: 'grey', selectable: false }));
     }
     for (let i = 0; i < (width / scale); i++) {
-      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: '616161', selectable: false }));
+      canvas.add(new fabric.Line([ i * scale, 0, i * scale, height], { stroke: 'grey', selectable: false }));
     }
 
   }
