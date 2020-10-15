@@ -1,10 +1,9 @@
 .token-drawer{ 
-  border-radius: 50px;
+  border-radius: 50px 50px 0 0;
   left:0;
   right:0;
   margin-left:auto;
   margin-right:auto;
-  height: 100%;
   background:white;
   position: fixed;
   bottom: 0;
@@ -20,24 +19,25 @@
  }
 
   .token-drawer.docked {
-    transform: translateY(80%);
+    transform: translateY(0%);
  }
 
- .token-container>img{
-  margin:10px;
-  border:solid 1px grey;
-  border-radius: 50%;
-}
+ .token-container{
+   display:flex;
+ }
+
+ .token-img{
+   margin:0 1rem 0 1rem;
+ }
+
+ .token-img img{
+   border-radius: 50%;
+ }
 
 #droppable2{
   height: 50px;
   width: 200px;
   background-color: black;;
-}
-
-.token-container{
-  padding:1%;
-  display:flex;
 }
 
 .token-form{
@@ -47,5 +47,4 @@
 .token-form>input{
   display: none;
 }
-
  

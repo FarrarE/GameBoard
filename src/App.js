@@ -33,7 +33,7 @@ function App(props) {
     setSnap(c, gridScale)
     setCanvas(c, gridScale);
     drawGrid(c, gridScale);
-    setOnScroll(c);
+    //setOnScroll(c);
     setDelete();
     onLoad();
   },[]);
@@ -348,7 +348,6 @@ function App(props) {
       event.preventDefault();
   }
 
-  {}
   return (
     <div className="App">
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
