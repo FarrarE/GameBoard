@@ -68,32 +68,34 @@ export default function Signup(props) {
 
   function renderForm() {
     return (
-      <form onSubmit={handleSubmit} className="signup-form">
-          <label>Email</label>
-          <input
-            autoFocus
-            type="email"
-            onChange={(event) => setUserName(event.target.value)}
-          />
+      <div className="signup-card">
+        <form onSubmit={handleSubmit} className="signup-form">
+            <label>Email</label>
+            <input
+              autoFocus
+              type="email"
+              onChange={(event) => setUserName(event.target.value)}
+            />
 
-          <label>Password</label>
-          <input
-            type="password"
-            onChange={(event) => setPass(event.target.value)}
-          />
+            <label>Password</label>
+            <input
+              type="password"
+              onChange={(event) => setPass(event.target.value)}
+            />
 
-          <label>Confirm Password</label>
-          <input
-            type="password"
-            onChange={(event) => setPassConfirm(event.target.value)}
-          />
-          <button>Submit</button>
-      </form>
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              onChange={(event) => setPassConfirm(event.target.value)}
+            />
+            <button>Submit</button>
+        </form>
+      </div>
     );
   }
 
   return (
-    <div className="signup-form">
+    <div className="signup-page">
       {newUser === null ? renderForm() : renderConfirmationForm()}
     </div>
   );
