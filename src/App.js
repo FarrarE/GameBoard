@@ -24,6 +24,7 @@ function App(props) {
   const [signingUp, setSigningUp] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
+  const [isTest, setIsTest] = useState(false);
 
   
 
@@ -167,7 +168,13 @@ function App(props) {
 
   function authenticateLogin(){
     onLoad();
-    userHasAuthenticated(true)
+    userHasAuthenticated(true);
+  }
+
+  function runTest(){
+    userHasAuthenticated(true);
+    setIsTest(true);
+    alert("test")
   }
 
   function toggleOptionTray(){
@@ -300,7 +307,6 @@ function App(props) {
         }
         reader.readAsDataURL(file);
     }
-    handleUploadState();
   }
 
   function uploadToken(event){
@@ -351,7 +357,7 @@ function App(props) {
   return (
     <div className="App">
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
-      {!isAuthenticated && <Login authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler}/>}
+      {!isAuthenticated && <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler}/>}
       {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
 
       <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
