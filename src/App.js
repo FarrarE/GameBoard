@@ -28,20 +28,17 @@ function App(props) {
   const [isTest, setIsTest] = useState(false);
 
   useEffect(() => {
-    onLoad();
+    checkForUser();
   }, []);
 
-  async function onLoad() {
+  async function checkForUser() {
     try {
       await Auth.currentSession();
       authenticateLogin();
     }
     catch (e) {
-      if (e !== 'No current user') {
-        alert(e);
-      }
+      console.log(e)
     }
-
   }
 
   async function loginHandler(email, password) {
@@ -57,6 +54,7 @@ function App(props) {
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
+    closeAll();
   }
 
   async function handleUploadState() {
