@@ -13,35 +13,34 @@ function App(props) {
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
-  const [gridScale, setGridScale] = useState(50);
+
+  // Canvas state variables
   const [mapList, setMapList] = useState([]);
-  const [mapScale, setMapScale] = useState(1);
   const [tokenList, setTokenList] = useState([]);
   const [currentMap, setCurrentMap] = useState(null);
-  const [currentTokens, setCurrentTokens] = useState([]);
+  const [mapScale, setMapScale] = useState(1);
+  const [gridScale, setGridScale] = useState(50);
+
+  // User authentication variables
   const [signingUp, setSigningUp] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isTest, setIsTest] = useState(false);
 
-  
-
   useEffect(() => {
     onLoad();
-  },[]);
-
-  // Backend functions
+  }, []);
 
   async function onLoad() {
     try {
       await Auth.currentSession();
     }
-    catch(e) {
+    catch (e) {
       if (e !== 'No current user') {
         alert(e);
       }
     }
-  
+
   }
 
   async function loginHandler(email, password) {
@@ -68,138 +67,133 @@ function App(props) {
       alert(e.message);
     }
   }
-  
+
   function uploadFiles(boardState) {
     return API.post("gameboard", "/gameboard", {
       body: "test"
     });
   }
 
-  //  Frontend functions
-
-
-
-  function signUp(){
+  function signUp() {
     setSigningUp(true);
   }
 
-  function confirmSignUp(){
+  function confirmSignUp() {
     setSigningUp(false);
   }
 
-  function authenticateLogin(){
+  function authenticateLogin() {
     onLoad();
     userHasAuthenticated(true);
   }
 
-  function runTest(){
+  function runTest() {
     userHasAuthenticated(true);
     setIsTest(true);
   }
 
-  function toggleOptionTray(){
+  function toggleOptionTray() {
     setOptionTray(!optionTray);
   }
 
-  function closeAll(){
+  function closeAll() {
     setOptionTray(false);
     setTokenDrawerState("drawerClosed");
     setMapDrawerState("drawerClosed");
   }
 
-  function toggleTokens(){
+  function toggleTokenTray() {
 
-    if(MapDrawerState === "drawerOpen")
+    if (MapDrawerState === "drawerOpen")
       toggleMaps();
 
-    if(TokenDrawerState === "drawerClosed")
+    if (TokenDrawerState === "drawerClosed")
       setTokenDrawerState("drawerDocked")
-    else 
+    else
       setTokenDrawerState("drawerClosed")
   }
 
-  function toggleMaps(){
+  function toggleMaps() {
 
-    if(TokenDrawerState === "drawerDocked")
-      toggleTokens();
+    if (TokenDrawerState === "drawerDocked")
+      toggleTokenTray();
 
-    if(MapDrawerState === "drawerClosed")
+    if (MapDrawerState === "drawerClosed")
       setMapDrawerState("drawerOpen")
-    else 
+    else
       setMapDrawerState("drawerClosed")
 
   }
 
-  function changeMap(event){
+  function changeMap(event) {
     let newMap = mapList[event.target.id[0]]
     setCurrentMap(newMap);
   }
-  
-  function scaleMap(event){
+
+  function scaleMap(event) {
     let scale = event.target.value / 50;
     setMapScale(scale);
   }
 
-  function uploadBackground(event){
+  function uploadBackground(event) {
 
     const imageFiles = event.target.files;
-    const filesLength = imageFiles.length; 
-    for(let i = 0; i < filesLength; i++) {
-        let reader = new FileReader();
-        let file = imageFiles[i];
+    const filesLength = imageFiles.length;
 
-        reader.onloadend = () => {
-          
-          let img = new Image();
-          img.src = reader.result;
+    for (let i = 0; i < filesLength; i++) {
+      let reader = new FileReader();
+      let file = imageFiles[i];
 
-          if(!currentMap){
+      reader.onloadend = () => {
 
-            setCurrentMap(img);
-            img.onload = function() {
-                //drawBackground(img);
-              };
-          }
-          setMapList(mapList => [...mapList, img]);
+        let img = new Image();
+        img.src = reader.result;
+
+        if (!currentMap) {
+          img.onload = function () { setCurrentMap(img) };
         }
-        reader.readAsDataURL(file);
+        setMapList(mapList => [...mapList, img]);
+      }
+      reader.readAsDataURL(file);
     }
   }
 
-  function scaleGrid(event){
-
+  function scaleGrid(event) {
     let scale = parseInt(event.target.value);
     setGridScale(scale);
   }
 
-  function uploadToken(event){
+  function uploadToken(event) {
 
     const imageFiles = event.target.files;
-    const filesLength = imageFiles.length; 
+    const filesLength = imageFiles.length;
 
-    for(let i = 0; i < filesLength; i++) {
-        let reader = new FileReader();
-        let file = imageFiles[i];
+    for (let i = 0; i < filesLength; i++) {
+      let reader = new FileReader();
+      let file = imageFiles[i];
 
-        reader.onloadend = () => {
-          
-          let img = new Image();
-          img.src = reader.result;  
+      reader.onloadend = () => {
 
-          setTokenList(mapList => [...mapList, img]);
-        }
-        reader.readAsDataURL(file);
+        let img = new Image();
+        img.src = reader.result;
+
+        setTokenList(mapList => [...mapList, img]);
+      }
+      reader.readAsDataURL(file);
     }
   }
 
   return (
     <div className="App">
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
-      {!isAuthenticated && <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler}/>}
-      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
+      {!isAuthenticated ?
+        <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
+        :
+        <Canvas gridScale={gridScale} currentMap={currentMap} />
+      }
 
-      <Canvas gridScale={gridScale} currentMap={currentMap}/>
-      <EditTray toggleTokens={toggleTokens} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
+      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
+      <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
     </div>
