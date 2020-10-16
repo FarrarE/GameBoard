@@ -22,4 +22,5 @@ Features with a ✅ are available on the deployed demo.
 - Touch Event Handling
 - Responsive Design
 - Dark Mode
+- Built in token image cropping
 - Social Features
