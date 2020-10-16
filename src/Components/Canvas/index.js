@@ -8,8 +8,11 @@ function Canvas(props) {
     const [canvas, setCanvas] = useState(null);
 
     useEffect(() => {
+        onLoad();
+    }, [props.currentMap]);
 
-
+    // Canvas initialization
+    function onLoad() {
         if (!canvas) {
             let newCanvas = new fabric.Canvas('c', { selection: false });
             setCanvas(newCanvas);
@@ -23,11 +26,9 @@ function Canvas(props) {
             drawBackground(props.currentMap);
             setDelete();
         }
+    }
 
-
-
-    }, [props.currentMap]);
-
+    // Renders token to canvas at set coordinates
     function drawToken(tokenImage, x, y) {
 
         fabric.Image.fromURL(tokenImage.src, function (img) {
@@ -39,6 +40,7 @@ function Canvas(props) {
 
     }
 
+    // Renders grid lines to canvas
     function drawGrid(canvas, scale) {
         let width = document.body.clientWidth;
         let height = document.body.clientHeight;
@@ -51,6 +53,7 @@ function Canvas(props) {
         }
     }
 
+    // Rescales grid on canvas, legacy code needs refactoring
     function scaleGrid(event) {
 
         let scale = parseInt(event.target.value);
@@ -60,13 +63,13 @@ function Canvas(props) {
             canvas.remove(objects[i]);
         }
         canvas.off()
-        setOnScroll(canvas);
         setSnap(canvas, scale);
         drawBackground(props.currentMap);
         drawGrid(canvas, scale);
     }
 
 
+    // Renders background to canvas
     function drawBackground(image) {
         if (!image)
             return;
@@ -88,13 +91,40 @@ function Canvas(props) {
     }
 
 
-    function deleteObject(eventData, target) {
-        let canvas = target.canvas;
-        canvas.remove(target);
-        canvas.requestRenderAll();
+    // Sets the grid snap points for tokens
+    function setSnap(canvas, scale) {
+        canvas.on('object:moving', function (options) {
+            options.target.left = Math.round(options.target.left / scale) * scale;
+            options.target.top = Math.round(options.target.top / scale) * scale;
+            options.target.setCoords();
+        })
 
+        canvas.on('mouse:dblclick', function (options) {
+            canvas.getActiveObject().scaleToWidth(scale);
+            canvas.getActiveObject().scaleToHeight(scale);
+            canvas.renderAll();
+        })
     }
 
+    // Sets onScroll handler to zoom on canvas, legacy code needs refactoring
+    function setOnScroll(canvas) {
+        let x = document.body.clientWidth / 2;
+        let y = document.body.clientHeight / 2;
+
+        canvas.on('mouse:wheel', function (opt) {
+            var delta = opt.e.deltaY;
+            var zoom = canvas.getZoom();
+            zoom *= 0.999 ** delta;
+            if (zoom > 20) zoom = 20;
+            if (zoom < 0.5) zoom = 0.5;
+            canvas.zoomToPoint({ x: x, y: y }, zoom);
+            opt.e.preventDefault();
+            opt.e.stopPropagation();
+        })
+    }
+
+
+    // Renders the delete icon from svg source.
     function renderIcon() {
         let deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
 
@@ -112,37 +142,7 @@ function Canvas(props) {
         }
     }
 
-    function setSnap(canvas, scale) {
-        canvas.on('object:moving', function (options) {
-            options.target.left = Math.round(options.target.left / scale) * scale;
-            options.target.top = Math.round(options.target.top / scale) * scale;
-            options.target.setCoords();
-        })
-
-        canvas.on('mouse:dblclick', function (options) {
-            canvas.getActiveObject().scaleToWidth(scale);
-            canvas.getActiveObject().scaleToHeight(scale);
-            canvas.renderAll();
-        })
-    }
-
-    function setOnScroll(canvas) {
-        let x = document.body.clientWidth / 2;
-        let y = document.body.clientHeight / 2;
-
-        canvas.on('mouse:wheel', function (opt) {
-
-            var delta = opt.e.deltaY;
-            var zoom = canvas.getZoom();
-            zoom *= 0.999 ** delta;
-            if (zoom > 20) zoom = 20;
-            if (zoom < 0.5) zoom = 0.5;
-            canvas.zoomToPoint({ x: x, y: y }, zoom);
-            opt.e.preventDefault();
-            opt.e.stopPropagation();
-        })
-    }
-
+    // Places the delete icon to the corner of each token.
     function setDelete() {
         fabric.Object.prototype.controls.deleteControl = new fabric.Control({
             x: 0.5,
@@ -156,7 +156,17 @@ function Canvas(props) {
         });
     }
 
+    // Onclick handler for delete icon. Removes selected object.
+    function deleteObject(eventData, target) {
+        let canvas = target.canvas;
+        canvas.remove(target);
+        canvas.requestRenderAll();
+
+    }
+
+
     // Droppable functions
+
     function drop(event) {
         event.preventDefault();
         const data = event.dataTransfer.getData('transfer');
