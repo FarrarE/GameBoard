@@ -20,7 +20,7 @@ function Canvas(props) {
         } else {
             setSnap(canvas, props.gridScale)
             drawGrid(canvas, props.gridScale);
-            drawBackground(canvas, props.currentMap);
+            drawBackground(props.currentMap);
             setDelete();
         }
 
@@ -67,7 +67,7 @@ function Canvas(props) {
     }
 
 
-    function drawBackground(c, image) {
+    function drawBackground(image) {
         if (!image)
             return;
 
