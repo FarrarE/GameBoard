@@ -39,6 +39,7 @@ function Canvas(props) {
             {
                 drawBackground(props.currentMap);
                 setOldMap(props.currentMap);
+                setOldMapScale(props.mapScale)
             }
         }
     }
