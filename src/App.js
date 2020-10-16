@@ -28,7 +28,6 @@ function App(props) {
   const [isTest, setIsTest] = useState(false);
 
   useEffect(() => {
-    onLoad();
   }, []);
 
   async function onLoad() {
