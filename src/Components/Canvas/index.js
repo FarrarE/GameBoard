@@ -6,25 +6,40 @@ import { fabric } from "fabric";
 
 function Canvas(props) {
     const [canvas, setCanvas] = useState(null);
+    const[oldMap, setOldMap] = useState(null);
+    const [oldMapScale, setOldMapScale] = useState(null);
+    const [oldGridScale, setOldGridScale] = useState(null);
+
 
     useEffect(() => {
         onLoad();
-    }, [props.currentMap]);
+    }, [props.currentMap, props.gridScale, props.mapScale]);
 
     // Canvas initialization
     function onLoad() {
         if (!canvas) {
-            let newCanvas = new fabric.Canvas('c', { selection: false });
+            let newCanvas = new fabric.Canvas('canvas', { selection: false });
             setCanvas(newCanvas);
             setSnap(newCanvas, props.gridScale)
             drawGrid(newCanvas, props.gridScale);
             drawBackground(props.currentMap);
             setDelete();
+
+            setOldGridScale(props.gridScale);
+            setOldMapScale(props.mapScale);
+            setOldMap(props.currentMap);
         } else {
-            setSnap(canvas, props.gridScale)
-            drawGrid(canvas, props.gridScale);
-            drawBackground(props.currentMap);
-            setDelete();
+
+            if(props.gridScale !== oldGridScale){
+                setSnap(canvas, props.gridScale)
+                drawGrid(canvas, props.gridScale);
+                setOldGridScale(props.gridScale);
+            }
+            if(props.currentMap !== oldMap | props.mapScale !== oldMapScale)
+            {
+                drawBackground(props.currentMap);
+                setOldMap(props.currentMap);
+            }
         }
     }
 
@@ -45,6 +60,11 @@ function Canvas(props) {
         let width = document.body.clientWidth;
         let height = document.body.clientHeight;
 
+        var objects = canvas.getObjects('line');
+        for (let i in objects) {
+            canvas.remove(objects[i]);
+        }
+
         for (let i = 0; i < (height / scale); i++) {
             canvas.add(new fabric.Line([0, i * scale, width, i * scale], { stroke: 'grey', selectable: false }));
         }
@@ -62,7 +82,6 @@ function Canvas(props) {
         for (let i in objects) {
             canvas.remove(objects[i]);
         }
-        canvas.off()
         setSnap(canvas, scale);
         drawBackground(props.currentMap);
         drawGrid(canvas, scale);
@@ -74,7 +93,7 @@ function Canvas(props) {
         if (!image)
             return;
 
-        let scale = props.gridScale;
+        let scale = props.mapScale;
         let width = document.body.clientWidth;
         let height = document.body.clientHeight;
 
@@ -93,6 +112,10 @@ function Canvas(props) {
 
     // Sets the grid snap points for tokens
     function setSnap(canvas, scale) {
+
+        // Clears canvas events so events don't stack on rerender
+        canvas.off()
+
         canvas.on('object:moving', function (options) {
             options.target.left = Math.round(options.target.left / scale) * scale;
             options.target.top = Math.round(options.target.top / scale) * scale;
@@ -161,7 +184,6 @@ function Canvas(props) {
         let canvas = target.canvas;
         canvas.remove(target);
         canvas.requestRenderAll();
-
     }
 
 
@@ -190,7 +212,7 @@ function Canvas(props) {
 
     return (
         <Droppable drop={drop} allowDrop={allowDrop}>
-            <canvas id="c" width={document.body.clientWidth} height={document.body.clientHeight} />
+            <canvas id="canvas" width={document.body.clientWidth} height={document.body.clientHeight} />
         </Droppable>
     );
 }

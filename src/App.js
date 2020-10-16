@@ -122,7 +122,6 @@ function App(props) {
       setMapDrawerState("drawerOpen")
     else
       setMapDrawerState("drawerClosed")
-
   }
 
   function changeMap(event) {
@@ -133,6 +132,11 @@ function App(props) {
   function scaleMap(event) {
     let scale = event.target.value / 50;
     setMapScale(scale);
+  }
+
+    function scaleGrid(event) {
+    let scale = parseInt(event.target.value);
+    setGridScale(scale);
   }
 
   function uploadBackground(event) {
@@ -158,12 +162,7 @@ function App(props) {
     }
   }
 
-  function scaleGrid(event) {
-    let scale = parseInt(event.target.value);
-    setGridScale(scale);
-  }
-
-  function uploadToken(event) {
+  function uploadTokenHandler(event) {
 
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length;
@@ -189,12 +188,12 @@ function App(props) {
       {!isAuthenticated ?
         <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
         :
-        <Canvas gridScale={gridScale} currentMap={currentMap} />
+        <Canvas gridScale={gridScale} currentMap={currentMap} mapScale={mapScale} />
       }
 
       {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
       <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
-      <TokenDrawer state={TokenDrawerState} getToken={uploadToken} tokens={tokenList} />
+      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
     </div>
   );
