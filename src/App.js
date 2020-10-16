@@ -28,11 +28,13 @@ function App(props) {
   const [isTest, setIsTest] = useState(false);
 
   useEffect(() => {
+    onLoad();
   }, []);
 
   async function onLoad() {
     try {
       await Auth.currentSession();
+      authenticateLogin();
     }
     catch (e) {
       if (e !== 'No current user') {
@@ -52,15 +54,20 @@ function App(props) {
     }
   }
 
+  async function handleLogout() {
+    await Auth.signOut();
+    userHasAuthenticated(false);
+  }
+
   async function handleUploadState() {
 
-    let content = {
-      maps: mapList,
-      Tokens: tokenList
+    let canvasState = {
+      gridScale: gridScale,
+      mapScale: mapScale
     }
 
     try {
-      await uploadFiles({ content });
+      await uploadFiles({ canvasState });
       alert("Files Uploaded");
     } catch (e) {
       alert(e.message);
@@ -69,7 +76,7 @@ function App(props) {
 
   function uploadFiles(boardState) {
     return API.post("gameboard", "/gameboard", {
-      body: "test"
+      body: boardState
     });
   }
 
@@ -82,7 +89,6 @@ function App(props) {
   }
 
   function authenticateLogin() {
-    onLoad();
     userHasAuthenticated(true);
   }
 
@@ -133,7 +139,7 @@ function App(props) {
     setMapScale(scale);
   }
 
-    function scaleGrid(event) {
+  function scaleGrid(event) {
     let scale = parseInt(event.target.value);
     setGridScale(scale);
   }
@@ -183,6 +189,7 @@ function App(props) {
 
   return (
     <div className="App">
+      
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
         <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
@@ -190,7 +197,7 @@ function App(props) {
         <Canvas gridScale={gridScale} currentMap={currentMap} mapScale={mapScale} />
       }
 
-      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} />}
+      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
       <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} />
       <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
