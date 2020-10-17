@@ -10,6 +10,7 @@ import Signup from "./Components/Signup";
 import Canvas from "./Components/Canvas";
 
 function App(props) {
+  // User interface variables
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
