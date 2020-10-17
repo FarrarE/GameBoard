@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import './App.css';
-import { API, Auth } from "aws-amplify";
+import './libs/s3Bucket';
+import { API, Auth, Storage } from "aws-amplify";
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
@@ -163,22 +164,28 @@ function App(props) {
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length;
 
-    for (let i = 0; i < filesLength; i++) {
-      let reader = new FileReader();
-      let file = imageFiles[i];
 
-      reader.onloadend = () => {
+    let reader = new FileReader();
+    let file = imageFiles[0];
 
-        let img = new Image();
-        img.src = reader.result;
+    // checkFilesize fails if file is too large 
+    if(!checkFilesize(file))
+      return;
 
-        if (!currentMap) {
-          img.onload = function () { setCurrentMap(img) };
-        }
-        setMapList(mapList => [...mapList, img]);
+
+    reader.onloadend = () => {
+
+      let img = new Image();
+      img.src = reader.result;
+
+
+      if (!currentMap) {
+        img.onload = function () { setCurrentMap(img) };
       }
-      reader.readAsDataURL(file);
+      setMapList(mapList => [...mapList, img]);
     }
+    reader.readAsDataURL(file);
+
   }
 
   function uploadTokenHandler(event) {
@@ -201,9 +208,21 @@ function App(props) {
     }
   }
 
+  function checkFilesize(file){
+    if (file && file.size > 200000) {
+      alert(
+        `Please pick a file smaller than ${
+          200000 / 1000000
+        } MB.`
+      );
+      return 0;
+    }
+    return 1;
+  }
+
   return (
     <div className="App">
-      
+
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
         <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
