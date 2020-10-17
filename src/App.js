@@ -9,6 +9,7 @@ import OptionTray from './Components/OptionTray';
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Canvas from "./Components/Canvas";
+import { s3Upload } from "./libs/s3Bucket";
 
 function App(props) {
   // User interface variables
@@ -159,7 +160,7 @@ function App(props) {
 
 
   // Fetch file from user functions
-  function uploadBackground(event) {
+  async function uploadBackground(event) {
 
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length;
@@ -172,18 +173,29 @@ function App(props) {
     if(!checkMapSize(file))
       return;
 
+    let img = new Image();
 
-    reader.onloadend = () => {
+    reader.onloadend = () => {img.src = reader.result;}
 
-      let img = new Image();
-      img.src = reader.result;
-
-
-      if (!currentMap) {
-        img.onload = function () { setCurrentMap(img) };
-      }
-      setMapList(mapList => [...mapList, img]);
+    if (!currentMap) {
+      img.onload = function () { setCurrentMap(img) };
     }
+
+    let fileKey;
+
+    try{
+      fileKey = await s3Upload(img, "map");
+    } catch(e){
+      alert(e);
+      return;
+    }
+    
+    let newMap = {
+      img: img,
+      key: fileKey
+    }
+
+    setMapList(mapList => [...mapList, newMap]);
     reader.readAsDataURL(file);
 
   }
