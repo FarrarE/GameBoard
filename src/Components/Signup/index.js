@@ -88,7 +88,7 @@ export default function Signup(props) {
               onChange={(event) => setPassConfirm(event.target.value)}
             />
             <div>
-              <button type="button">Back</button>
+              <button type="button" onClick={props.confirmSignUp}>Back</button>
               <span> </span>
               <button type="submit">Submit</button>
             </div>
