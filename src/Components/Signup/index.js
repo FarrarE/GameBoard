@@ -53,16 +53,18 @@ export default function Signup(props) {
 
   function renderConfirmationForm() {
     return (
-      <form onSubmit={handleConfirmationSubmit}>
-        <label>Confirmation Code</label>
-        <input
-          autoFocus
-          type="tel"
-          onChange={(event) => setCode(event.target.value)}
-        />
-        <button>Submit</button>
-        <h1>Please check your email for the code.</h1>
-      </form>
+      <div className="ribbon confirmation">
+        <form onSubmit={handleConfirmationSubmit}>
+          <label>Confirmation Code </label>
+          <input
+            autoFocus
+            type="tel"
+            onChange={(event) => setCode(event.target.value)}
+          />
+          <button>Submit</button>
+          <h1>Please check your email for the code.</h1>
+        </form>
+      </div>
     );
   }
 
