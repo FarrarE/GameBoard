@@ -168,8 +168,8 @@ function App(props) {
     let reader = new FileReader();
     let file = imageFiles[0];
 
-    // checkFilesize fails if file is too large 
-    if(!checkFilesize(file))
+    // checkMapSize fails if file is too large 
+    if(!checkMapSize(file))
       return;
 
 
@@ -193,27 +193,41 @@ function App(props) {
     const imageFiles = event.target.files;
     const filesLength = imageFiles.length;
 
-    for (let i = 0; i < filesLength; i++) {
-      let reader = new FileReader();
-      let file = imageFiles[i];
+    let reader = new FileReader();
+    let file = imageFiles[0];
 
-      reader.onloadend = () => {
+    // checkTokenSize fails if file is too large 
+    if(!checkTokenSize(file))
+      return;
 
-        let img = new Image();
-        img.src = reader.result;
+    reader.onloadend = () => {
 
-        setTokenList(mapList => [...mapList, img]);
-      }
-      reader.readAsDataURL(file);
+      let img = new Image();
+      img.src = reader.result;
+
+      setTokenList(mapList => [...mapList, img]);
     }
+    reader.readAsDataURL(file);
   }
 
-  function checkFilesize(file){
+  function checkMapSize(file){
     if (file && file.size > 200000) {
       alert(
         `Please pick a file smaller than ${
           200000 / 1000000
         } MB.`
+      );
+      return 0;
+    }
+    return 1;
+  }
+
+  function checkTokenSize(file){
+    if (file && file.size > 160000) {
+      alert(
+        `Please pick a file smaller than ${
+          160000 / 8000
+        } kb.`
       );
       return 0;
     }
