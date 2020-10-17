@@ -79,6 +79,19 @@ h1{
     border:1px solid grey;
     background-color:rgb(231, 239, 245);
 }
+
+.login-form input{
+    color:grey
+}
+
+.login-form input:focus{
+    color:grey
+}
+
+.login-form, input, textarea{
+    color:grey;
+}
+
 .login-button{
     width:99%;
     margin-left:auto;
@@ -131,4 +144,4 @@ button:active {
         margin-top:-2rem;
 
     }
-  }
+}
