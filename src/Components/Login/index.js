@@ -39,14 +39,16 @@ function OptionTray(props) {
               type="password"
             />
             <button block bsSize="large" disabled={!validateForm()} type="submit">
+              <span>
               Login
-                  </button>
+              </span>
+            </button>
           </form>
           <div>
             Dont have an account?
-            <button onClick={props.signUp}>Sign up here</button>
-            or
-            <button onClick={props.runTest}>Test without signing up</button>
+            <button onClick={props.signUp}><span>Sign up here</span></button>
+            Or
+            <button onClick={props.runTest}><span>Try without signing up</span></button>
           </div>
         </div>
       </div>

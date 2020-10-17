@@ -27,7 +27,7 @@
     top: 0; 
     bottom: 0; 
     height:50%;
-    background-color: white;
+    background-color:white;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
@@ -61,12 +61,42 @@ h1{
     box-shadow: 0px 5px 10px rgba(0,0,0,0.1); 
     padding:3rem;
     border-radius: 1rem;
-    background-color: white;
+    background-color:white;
 }
 
 .login-form input{
     margin-right:1rem;
     margin-bottom:1rem;
+}
+
+button {
+    padding:.5rem;
+    background: white;
+    position: relative;
+    border:none;
+    outline:none;
+    border-radius: .5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    margin:.1rem;
+    background-color: white;
+}
+button span {
+    font-size: 1rem;
+}
+button {
+    box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+    color: grey;
+}
+button:hover {
+    opacity: 0.5;
+    box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+button:active {
+    opacity: 1;
+    box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+    color: #79e3b6;
 }
 
 @media only screen and (max-width: 1300px) {
