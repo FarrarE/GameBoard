@@ -14,82 +14,86 @@ export default function Signup(props) {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if(pass !== passConfirm) {
-        alert("Passwords do not match");
-        return;
+    if (pass !== passConfirm) {
+      alert("Passwords do not match");
+      return;
     }
 
     setIsLoading(true);
-  
+
     try {
       const newUser = await Auth.signUp({
         username: userName,
         password: pass,
       });
-      
+
       setIsLoading(false);
       setNewUser(newUser);
     } catch (e) {
-        alert(e.message)
-        setIsLoading(false);
+      alert(e.message)
+      setIsLoading(false);
     }
   }
-  
+
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
-    
+
     setIsLoading(true);
-  
+
     try {
-        await Auth.confirmSignUp(userName, code);
-        await Auth.signIn(userName, pass);
-        props.confirmSignUp();
-        props.userHasAuthenticated(true);
+      await Auth.confirmSignUp(userName, code);
+      await Auth.signIn(userName, pass);
+      props.confirmSignUp();
+      props.userHasAuthenticated(true);
     } catch (e) {
-        alert(e.message);
-        setIsLoading(false);
+      alert(e.message);
+      setIsLoading(false);
     }
   }
 
   function renderConfirmationForm() {
     return (
       <form onSubmit={handleConfirmationSubmit}>
-          <label>Confirmation Code</label>
-          <input
-            autoFocus
-            type="tel"
-            onChange={(event) => setCode(event.target.value)}
-          />
+        <label>Confirmation Code</label>
+        <input
+          autoFocus
+          type="tel"
+          onChange={(event) => setCode(event.target.value)}
+        />
         <button>Submit</button>
-      <h1>Please check your email for the code.</h1>   
+        <h1>Please check your email for the code.</h1>
       </form>
     );
   }
 
   function renderForm() {
     return (
-      <div className="signup-card">
-        <form onSubmit={handleSubmit} className="signup-form">
+      <div className="ribbon">
+        <div className="signup-card">
+          <form onSubmit={handleSubmit} className="signup-form">
             <label>Email</label>
             <input
               autoFocus
               type="email"
               onChange={(event) => setUserName(event.target.value)}
             />
-
             <label>Password</label>
             <input
               type="password"
               onChange={(event) => setPass(event.target.value)}
             />
-
             <label>Confirm Password</label>
             <input
               type="password"
               onChange={(event) => setPassConfirm(event.target.value)}
             />
-            <button>Submit</button>
-        </form>
+            <div>
+              <button type="button">Back</button>
+              <span> </span>
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
