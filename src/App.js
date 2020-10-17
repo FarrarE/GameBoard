@@ -31,37 +31,7 @@ function App(props) {
     checkForUser();
   }, []);
 
-  async function checkForUser() {
-    try {
-      await Auth.currentSession();
-      authenticateLogin();
-    }
-    catch (e) {
-      console.log(e)
-    }
-  }
-
-  async function loginHandler(email, password) {
-
-    try {
-      await Auth.signIn(email, password);
-      authenticateLogin();
-    } catch (e) {
-      alert(e.message);
-    }
-  }
-
-  async function handleLogout() {
-    await Auth.signOut();
-    userHasAuthenticated(false);
-    setTokenList([]);
-    setMapList([]);
-    setCurrentMap(null);
-    setGridScale(50);
-    setMapScale(1);
-    closeAll();
-  }
-
+  // Backend file upload functions
   async function handleUploadState() {
 
     let canvasState = {
@@ -83,6 +53,41 @@ function App(props) {
     });
   }
 
+
+  // User authentication functions
+
+  async function loginHandler(email, password) {
+
+    try {
+      await Auth.signIn(email, password);
+      authenticateLogin();
+    } catch (e) {
+      alert(e.message);
+    }
+  }
+
+  async function checkForUser() {
+    try {
+      await Auth.currentSession();
+      authenticateLogin();
+    }
+    catch (e) {
+      console.log(e)
+    }
+  }
+
+  async function handleLogout() {
+    await Auth.signOut();
+
+    userHasAuthenticated(false);
+    setTokenList([]);
+    setMapList([]);
+    setCurrentMap(null);
+    setGridScale(50);
+    setMapScale(1);
+    closeAll();
+  }
+
   function signUp() {
     setSigningUp(true);
   }
@@ -100,6 +105,7 @@ function App(props) {
     setIsTest(true);
   }
 
+  // User interface functions
   function toggleOptionTray() {
     setOptionTray(!optionTray);
   }
@@ -132,6 +138,8 @@ function App(props) {
       setMapDrawerState("drawerClosed")
   }
 
+
+  // Canvas variable functions
   function changeMap(event) {
     let newMap = mapList[event.target.id[0]]
     setCurrentMap(newMap);
@@ -147,6 +155,8 @@ function App(props) {
     setGridScale(scale);
   }
 
+
+  // Fetch file from user functions
   function uploadBackground(event) {
 
     const imageFiles = event.target.files;
