@@ -38,7 +38,7 @@ function OptionTray(props) {
               onChange={e => setPassword(e.target.value)}
               type="password"
             />
-            <button block bsSize="large" disabled={!validateForm()} type="submit">
+            <button className="login-button" block bsSize="large" disabled={!validateForm()} type="submit">
               <span>
               Login
               </span>
@@ -52,7 +52,6 @@ function OptionTray(props) {
           </div>
         </div>
       </div>
-
     </div>
   );
 }
