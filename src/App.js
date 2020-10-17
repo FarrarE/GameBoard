@@ -54,6 +54,11 @@ function App(props) {
   async function handleLogout() {
     await Auth.signOut();
     userHasAuthenticated(false);
+    setTokenList([]);
+    setMapList([]);
+    setCurrentMap(null);
+    setGridScale(50);
+    setMapScale(1);
     closeAll();
   }
 
