@@ -33,7 +33,7 @@ function TokenDrawer(props) {
             <Draggable id={index +"token"}  >
               <img 
                 alt="..."
-                draggable="true" src={token.src} 
+                draggable="true" src={token.img.src} 
                 width="100" height="100" 
               />
             </Draggable>
