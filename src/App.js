@@ -72,6 +72,7 @@ function App(props) {
         // parses out that information into state
         gameState.gameId = games[0].gameid;
         gameState.mapKeys = games[0].content.maps;
+        gameState.tokenKeys = games[0].content.tokens
 
         // Fetches assets from backend and populates local data structures
         for(let i = 0; i < gameState.mapKeys.length;++i){
@@ -85,6 +86,19 @@ function App(props) {
           }
     
           setMapList(mapList => [...mapList, newMap]);
+        }
+
+        for(let i = 0; i < gameState.tokenKeys.length;++i){
+          let file = await s3Get(gameState.tokenKeys[i]);
+          let img = new Image();
+          img.src = file;
+          
+          let newToken = {
+            img: img,
+            key: gameState.tokenKeys[i]
+          }
+    
+          setTokenList(tokenList => [...tokenList, newToken]);
         }
       }
     } catch (e) {
@@ -211,7 +225,7 @@ function App(props) {
     reader.onloadend = () => { img.src = reader.result; }
 
     if (!currentMap) {
-      img.onload = function () { setCurrentMap(img) };
+      setCurrentMap(img);
     }
 
 
@@ -225,7 +239,7 @@ function App(props) {
 
     if(!gameList[0]){
       try {
-        fileKey = await s3Upload(file, file.type);
+        fileKey = await s3Upload(file, file.type, "map");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
         gameState.gameId = gameId.gameid;
         gameState.mapKeys = [fileKey]
@@ -235,7 +249,7 @@ function App(props) {
     }else{
 
       try{
-        fileKey = await s3Upload(file, file.type);
+        fileKey = await s3Upload(file, file.type, "map");
         let list = gameState.mapKeys;
         gameState.mapKeys =  [...list, fileKey];
         await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
@@ -251,7 +265,7 @@ function App(props) {
 
   }
 
-  function uploadTokenHandler(event) {
+  async function uploadTokenHandler(event) {
 
     const imageFiles = event.target.files;
 
@@ -262,13 +276,39 @@ function App(props) {
     if (!checkTokenSize(file))
       return;
 
-    reader.onloadend = () => {
+    let img = new Image();
+    reader.onloadend = () => {img.src = reader.result;}
 
-      let img = new Image();
-      img.src = reader.result;
+    let fileKey;
+    let gameId;
 
-      setTokenList(mapList => [...mapList, img]);
+    let newToken = {
+      img: img,
+      key: fileKey
     }
+
+    if(!gameList[0]){
+      try {
+        fileKey = await s3Upload(file, file.type, "token");
+        gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
+        gameState.gameId = gameId.gameid;
+        gameState.tokenKeys = [fileKey]
+      } catch (e) {
+        alert(e);
+      }
+    }else{
+
+      try{
+        fileKey = await s3Upload(file, file.type, "token");
+        let list = gameState.tokenKeys;
+        gameState.tokenKeys =  [...list, fileKey];
+        await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
+      }catch(e){
+        alert(e);
+      }
+    }
+
+    setTokenList(tokenList => [...tokenList, newToken]);
     reader.readAsDataURL(file);
   }
 
