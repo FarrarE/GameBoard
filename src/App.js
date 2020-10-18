@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import './App.css';
-import './libs/s3Bucket';
-import { API, Auth, Storage } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
@@ -9,9 +7,21 @@ import OptionTray from './Components/OptionTray';
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Canvas from "./Components/Canvas";
-import { s3Upload } from "./libs/s3Bucket";
+import s3Upload from "./libs/s3Bucket";
+import s3Get from './libs/s3Get';
+import postFiles from './libs/postFiles';
+import getFiles from './libs/getFiles';
+import updateFile from './libs/updateFile';
+import './App.css';
+import config from './config';
 
 function App(props) {
+  // List of game states
+  const [gameList, setGameList] = useState(null);
+
+  // Current game state
+  const [gameState, SetGameState] = useState({gameId:null, mapKeys:[],tokenKeys:[]});
+
   // User interface variables
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
@@ -32,28 +42,53 @@ function App(props) {
 
   useEffect(() => {
     checkForUser();
-  }, []);
+    loadDB();
+  }, [isAuthenticated]);
+
+  // State object function. Returns an object with the correct attributes to match schema for backend.
+  function boardState(maps,tokens){
+    const state = {
+        content: {
+            maps:maps,
+            tokens:tokens
+        }
+    }
+    return state;
+}
 
   // Backend file upload functions
-  async function handleUploadState() {
 
-    let canvasState = {
-      gridScale: gridScale,
-      mapScale: mapScale
-    }
-
+  async function loadDB() {
+    if(!isAuthenticated || isTest)
+      return;
     try {
-      await uploadFiles({ canvasState });
-      alert("Files Uploaded");
-    } catch (e) {
-      alert(e.message);
-    }
-  }
+      // getFiles is a lib function that queries backend for content
+      const games = await getFiles();
 
-  function uploadFiles(boardState) {
-    return API.post("gameboard", "/gameboard", {
-      body: boardState
-    });
+      if(games[0]){
+        // Stores information
+        setGameList(games);
+
+        // parses out that information into state
+        gameState.gameId = games[0].gameid;
+        gameState.mapKeys = games[0].content.maps;
+
+        // Fetches assets from backend and populates local data structures
+        for(let i = 0; i < gameState.mapKeys.length;++i){
+          let file = await s3Get(gameState.mapKeys[i]);
+          let img = new Image();
+          img.src = file;
+  
+          let newMap = {
+            img: img,
+            key: gameState.mapKeys[i]
+          }
+    
+          setMapList(mapList => [...mapList, newMap]);
+        }
+      }
+    } catch (e) {
+    }
   }
 
 
@@ -65,7 +100,7 @@ function App(props) {
       await Auth.signIn(email, password);
       authenticateLogin();
     } catch (e) {
-      alert(e.message);
+      alert("Login error:" + e.message);
     }
   }
 
@@ -88,6 +123,7 @@ function App(props) {
     setCurrentMap(null);
     setGridScale(50);
     setMapScale(1);
+    setIsTest(false);
     closeAll();
   }
 
@@ -145,7 +181,7 @@ function App(props) {
   // Canvas variable functions
   function changeMap(event) {
     let newMap = mapList[event.target.id[0]]
-    setCurrentMap(newMap);
+    setCurrentMap(newMap.img);
   }
 
   function scaleMap(event) {
@@ -163,39 +199,54 @@ function App(props) {
   async function uploadBackground(event) {
 
     const imageFiles = event.target.files;
-    const filesLength = imageFiles.length;
-
 
     let reader = new FileReader();
     let file = imageFiles[0];
 
     // checkMapSize fails if file is too large 
-    if(!checkMapSize(file))
+    if (!checkMapSize(file))
       return;
 
     let img = new Image();
-
-    reader.onloadend = () => {img.src = reader.result;}
+    reader.onloadend = () => { img.src = reader.result; }
 
     if (!currentMap) {
       img.onload = function () { setCurrentMap(img) };
     }
 
-    let fileKey;
 
-    try{
-      fileKey = await s3Upload(img, "map");
-    } catch(e){
-      alert(e);
-      return;
-    }
-    
+    let fileKey;
+    let gameId;
+
     let newMap = {
       img: img,
       key: fileKey
     }
 
+    if(!gameList[0]){
+      try {
+        fileKey = await s3Upload(file, file.type);
+        gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
+        gameState.gameId = gameId.gameid;
+        gameState.mapKeys = [fileKey]
+      } catch (e) {
+        alert(e);
+      }
+    }else{
+
+      try{
+        fileKey = await s3Upload(file, file.type);
+        let list = gameState.mapKeys;
+        gameState.mapKeys =  [...list, fileKey];
+        await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
+      }catch(e){
+        alert(e);
+      }
+    }
+
+
     setMapList(mapList => [...mapList, newMap]);
+
     reader.readAsDataURL(file);
 
   }
@@ -203,13 +254,12 @@ function App(props) {
   function uploadTokenHandler(event) {
 
     const imageFiles = event.target.files;
-    const filesLength = imageFiles.length;
 
     let reader = new FileReader();
     let file = imageFiles[0];
 
     // checkTokenSize fails if file is too large 
-    if(!checkTokenSize(file))
+    if (!checkTokenSize(file))
       return;
 
     reader.onloadend = () => {
@@ -222,11 +272,10 @@ function App(props) {
     reader.readAsDataURL(file);
   }
 
-  function checkMapSize(file){
-    if (file && file.size > 200000) {
+  function checkMapSize(file) {
+    if (file && file.size > config.MAX_MAP_SIZE) {
       alert(
-        `Please pick a file smaller than ${
-          200000 / 1000000
+        `Please pick a file smaller than ${config.MAX_MAP_SIZE / 1000000
         } MB.`
       );
       return 0;
@@ -234,11 +283,10 @@ function App(props) {
     return 1;
   }
 
-  function checkTokenSize(file){
-    if (file && file.size > 160000) {
+  function checkTokenSize(file) {
+    if (file && file.size > config.MAX_TOKEN_SIZE) {
       alert(
-        `Please pick a file smaller than ${
-          160000 / 8000
+        `Please pick a file smaller than ${config.MAX_TOKEN_SIZE / 8000
         } kb.`
       );
       return 0;
