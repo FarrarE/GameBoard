@@ -125,6 +125,25 @@ function App(props) {
     }
   }
 
+  async function deleteToken(key){
+    try{
+      let index = gameState.tokenKeys.indexOf(key);
+      if (index > -1) {
+        gameState.tokenKeys.splice(index, 1);
+
+        // Array needs to be copied so when setMapList is called, the app rerenders.
+        let newList = [...tokenList];
+        newList.splice(index,1);
+        setTokenList(newList);
+      }
+
+      const newState = boardState(gameState.mapKeys, gameState.tokenKeys);
+      await deleteFiles(gameState.gameId, newState, key);
+    }catch(e){
+      alert(e);
+    }
+  }
+
 
   // User authentication functions
 
@@ -366,7 +385,7 @@ function App(props) {
 
       {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
       <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
-      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} />
+      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} deleteToken={deleteToken}/>
       <MapDrawer 
         state={MapDrawerState} 
         getMap={uploadBackground} 
