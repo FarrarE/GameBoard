@@ -27,15 +27,15 @@
  .map-container{
     padding:1%;
     display:flex;
+    flex-wrap: wrap;
  }
 
 .add-icon{
     font-size: 25px;
  }
 
- .map-container>img{
+ .map-container img{
     margin:10px;
-    border:solid 1px grey;
  }
 
  .map-container>p{
@@ -50,3 +50,22 @@
  .map-form>input{
     display: none;
  }
+
+
+ .map-thumbnails{
+    position: relative;
+ }
+ 
+ .delete-map{
+    position: absolute;
+    right: 0;
+    top: -2rem;
+    width:2rem;
+    z-index:300;
+ }
+
+ @media only screen and (max-width: 1300px) {
+   .map-container{
+       justify-content: space-around;
+   }
+}
