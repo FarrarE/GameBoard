@@ -21,7 +21,7 @@ function App(props) {
   const [gameList, setGameList] = useState(null);
 
   // Current game state
-  const [gameState, SetGameState] = useState({gameId:null, mapKeys:[],tokenKeys:[]});
+  const [gameState, SetGameState] = useState({ gameId: null, mapKeys: [], tokenKeys: [] });
 
   // User interface variables
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
@@ -47,26 +47,27 @@ function App(props) {
   }, [isAuthenticated]);
 
   // State object function. Returns an object with the correct attributes to match schema for backend.
-  function boardState(maps,tokens){
+  function boardState(maps, tokens) {
     const state = {
-        content: {
-            maps:maps,
-            tokens:tokens
-        }
+      content: {
+        maps: maps,
+        tokens: tokens
+      }
     }
     return state;
-}
+  }
 
   // Backend file upload functions
 
   async function loadDB() {
-    if(!isAuthenticated || isTest)
+    if (!isAuthenticated || isTest)
       return;
+
     try {
       // getFiles is a lib function that queries backend for content
       const games = await getFiles();
 
-      if(games[0]){
+      if (games[0]) {
         // Stores information
         setGameList(games);
 
@@ -76,29 +77,29 @@ function App(props) {
         gameState.tokenKeys = games[0].content.tokens
 
         // Fetches assets from backend and populates local data structures
-        for(let i = 0; i < gameState.mapKeys.length;++i){
+        for (let i = 0; i < gameState.mapKeys.length; ++i) {
           let file = await s3Get(gameState.mapKeys[i]);
           let img = new Image();
           img.src = file;
-  
+
           let newMap = {
             img: img,
             key: gameState.mapKeys[i]
           }
-    
+
           setMapList(mapList => [...mapList, newMap]);
         }
 
-        for(let i = 0; i < gameState.tokenKeys.length;++i){
+        for (let i = 0; i < gameState.tokenKeys.length; ++i) {
           let file = await s3Get(gameState.tokenKeys[i]);
           let img = new Image();
           img.src = file;
-          
+
           let newToken = {
             img: img,
             key: gameState.tokenKeys[i]
           }
-    
+
           setTokenList(tokenList => [...tokenList, newToken]);
         }
       }
@@ -106,40 +107,40 @@ function App(props) {
     }
   }
 
-  async function deleteMap(key){
-    try{
+  async function deleteMap(key) {
+    try {
       let index = gameState.mapKeys.indexOf(key);
       if (index > -1) {
         gameState.mapKeys.splice(index, 1);
 
         // Array needs to be copied so when setMapList is called, the app rerenders.
         let newList = [...mapList];
-        newList.splice(index,1);
+        newList.splice(index, 1);
         setMapList(newList);
       }
 
       const newState = boardState(gameState.mapKeys, gameState.tokenKeys);
       await deleteFiles(gameState.gameId, newState, key);
-    }catch(e){
+    } catch (e) {
       alert(e);
     }
   }
 
-  async function deleteToken(key){
-    try{
+  async function deleteToken(key) {
+    try {
       let index = gameState.tokenKeys.indexOf(key);
       if (index > -1) {
         gameState.tokenKeys.splice(index, 1);
 
         // Array needs to be copied so when setMapList is called, the app rerenders.
         let newList = [...tokenList];
-        newList.splice(index,1);
+        newList.splice(index, 1);
         setTokenList(newList);
       }
 
       const newState = boardState(gameState.mapKeys, gameState.tokenKeys);
       await deleteFiles(gameState.gameId, newState, key);
-    }catch(e){
+    } catch (e) {
       alert(e);
     }
   }
@@ -261,7 +262,7 @@ function App(props) {
     let fileKey;
     let gameId;
 
-    if(!gameList){
+    if (!gameList && !isTest) {
       try {
         fileKey = await s3Upload(file, file.type, "map");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -270,23 +271,24 @@ function App(props) {
       } catch (e) {
         alert(e);
       }
-    }else{
-
-      try{
-        fileKey = await s3Upload(file, file.type, "map");
-        let list = gameState.mapKeys;
-        gameState.mapKeys =  [...list, fileKey];
-        await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
-      }catch(e){
-        alert(e);
+    } else {
+      if (!isTest) {
+        try {
+          fileKey = await s3Upload(file, file.type, "map");
+          let list = gameState.mapKeys;
+          gameState.mapKeys = [...list, fileKey];
+          await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
+        } catch (e) {
+          alert(e);
+        }
       }
     }
 
     let reader = new FileReader();
 
-    reader.onload = () => { 
+    reader.onload = () => {
       let img = new Image();
-      img.src = reader.result; 
+      img.src = reader.result;
 
       let newMap = {
         img: img,
@@ -315,7 +317,7 @@ function App(props) {
     let fileKey;
     let gameId;
 
-    if(!gameList){
+    if (!gameList && !isTest) {
       try {
         fileKey = await s3Upload(file, file.type, "token");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -324,15 +326,16 @@ function App(props) {
       } catch (e) {
         alert(e);
       }
-    }else{
-
-      try{
-        fileKey = await s3Upload(file, file.type, "token");
-        let list = gameState.tokenKeys;
-        gameState.tokenKeys =  [...list, fileKey];
-        await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
-      }catch(e){
-        alert(e);
+    } else {
+      if (!isTest) {
+        try {
+          fileKey = await s3Upload(file, file.type, "token");
+          let list = gameState.tokenKeys;
+          gameState.tokenKeys = [...list, fileKey];
+          await updateFile(boardState(gameState.mapKeys, gameState.tokenKeys), gameState.gameId);
+        } catch (e) {
+          alert(e);
+        }
       }
     }
 
@@ -383,11 +386,11 @@ function App(props) {
 
       {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
       <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
-      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} deleteToken={deleteToken}/>
-      <MapDrawer 
-        state={MapDrawerState} 
-        getMap={uploadBackground} 
-        maps={mapList} changeMap={changeMap} 
+      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} deleteToken={deleteToken} />
+      <MapDrawer
+        state={MapDrawerState}
+        getMap={uploadBackground}
+        maps={mapList} changeMap={changeMap}
         deleteMap={deleteMap}
       />
     </div>
