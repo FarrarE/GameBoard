@@ -12,8 +12,9 @@ import s3Get from './libs/s3Get';
 import postFiles from './libs/postFiles';
 import getFiles from './libs/getFiles';
 import updateFile from './libs/updateFile';
+import deleteFiles from './libs/deleteFiles';
 import './App.css';
-import config from './config';
+import * as Constants from './constants';
 
 function App(props) {
   // List of game states
@@ -102,6 +103,25 @@ function App(props) {
         }
       }
     } catch (e) {
+    }
+  }
+
+  async function deleteMap(key){
+    try{
+      let index = gameState.mapKeys.indexOf(key);
+      if (index > -1) {
+        gameState.mapKeys.splice(index, 1);
+
+        // Array needs to be copied so when setMapList is called, the app rerenders.
+        let newList = [...mapList];
+        newList.splice(index,1);
+        setMapList(newList);
+      }
+
+      const newState = boardState(gameState.mapKeys, gameState.tokenKeys);
+      await deleteFiles(gameState.gameId, newState, key);
+    }catch(e){
+      alert(e);
     }
   }
 
@@ -313,9 +333,9 @@ function App(props) {
   }
 
   function checkMapSize(file) {
-    if (file && file.size > config.MAX_MAP_SIZE) {
+    if (file && file.size > Constants.MAX_MAP_SIZE) {
       alert(
-        `Please pick a file smaller than ${config.MAX_MAP_SIZE / 1000000
+        `Please pick a file smaller than ${Constants.MAX_MAP_SIZE / 1000000
         } MB.`
       );
       return 0;
@@ -324,9 +344,9 @@ function App(props) {
   }
 
   function checkTokenSize(file) {
-    if (file && file.size > config.MAX_TOKEN_SIZE) {
+    if (file && file.size > Constants.MAX_TOKEN_SIZE) {
       alert(
-        `Please pick a file smaller than ${config.MAX_TOKEN_SIZE / 8000
+        `Please pick a file smaller than ${Constants.MAX_TOKEN_SIZE / 8000
         } kb.`
       );
       return 0;
@@ -347,7 +367,12 @@ function App(props) {
       {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
       <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
       <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} />
-      <MapDrawer state={MapDrawerState} getMap={uploadBackground} maps={mapList} changeMap={changeMap} />
+      <MapDrawer 
+        state={MapDrawerState} 
+        getMap={uploadBackground} 
+        maps={mapList} changeMap={changeMap} 
+        deleteMap={deleteMap}
+      />
     </div>
   );
 }
