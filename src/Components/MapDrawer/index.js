@@ -1,6 +1,7 @@
 import React from "react";
 import { BsPlusSquare } from 'react-icons/bs';
 import './index.css';
+import * as Constants from '../../constants';
 
 function MapDrawer(props) {
 
@@ -15,8 +16,6 @@ function MapDrawer(props) {
         drawerState = 'map-drawer';
     }
 
-
-
   return (
     
     <div className={drawerState} > 
@@ -30,7 +29,12 @@ function MapDrawer(props) {
       </form>
       <div className="map-container">
         {props.maps[0] ?  
-          props.maps.map((map, index) =>(<img src={map.img.src} alt="..." id={index +"map"} width="100" height="50" onClick={props.changeMap} />))
+          props.maps.map((map, index) =>(
+            <div className="map-thumbnails">
+              <img src={map.img.src} alt="..." id={index +"map"} width="100" height="50" onClick={props.changeMap}/>
+              <img className="delete-map" src={Constants.DELETE_ICON} onClick={() => props.deleteMap(map.key)} />
+            </div>
+          ))
          : 
           <p>Add a map. Switch maps by clicking on the thumbnails.</p>
         }
