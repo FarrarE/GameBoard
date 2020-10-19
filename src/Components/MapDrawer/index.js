@@ -12,6 +12,19 @@ function MapDrawer(props) {
 
   function setFocus(event) {
     setSelected(parseInt(event.target.id[0]));
+    props.changeMap(event);
+
+    if(className === "selected show-options")
+      setClassName("selected");
+  }
+
+  function showOptions(event){
+    setSelected(parseInt(event.target.id[0]));
+
+    if(className === "selected show-options")
+      setClassName("selected");
+    else
+      setClassName("selected show-options");
   }
 
   let drawerState = 'map-drawer';
@@ -45,8 +58,8 @@ function MapDrawer(props) {
                   id={index + "m"}
                   width="100"
                   height="50"
-                  onDoubleClick={props.changeMap}
                   onClick={setFocus}
+                  onDoubleClick={showOptions}
                 />
                 :
                 <img
@@ -55,8 +68,8 @@ function MapDrawer(props) {
                   id={index + "map"}
                   width="100"
                   height="50"
-                  onDoubleClick={props.changeMap}
                   onClick={setFocus}
+                  onDoubleClick={showOptions}
                 />
               }
 
