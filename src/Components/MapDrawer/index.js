@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BsPlusSquare } from 'react-icons/bs';
 import './index.css';
 import * as Constants from '../../constants';
@@ -6,9 +6,6 @@ import * as Constants from '../../constants';
 function MapDrawer(props) {
   const [selected, setSelected] = useState(null);
   const [className, setClassName] = useState("selected");
-
-  useEffect(() => {
-  }, [selected]);
 
   function setFocus(event) {
     setSelected(parseInt(event.target.id[0]));
