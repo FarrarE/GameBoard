@@ -124,8 +124,12 @@ function Canvas(props) {
         })
 
         canvas.on('mouse:dblclick', function (options) {
-            canvas.getActiveObject().scaleToWidth(scale);
-            canvas.getActiveObject().scaleToHeight(scale);
+            const active = canvas.getActiveObject()
+            if(!active)
+                return;
+
+            active.scaleToWidth(scale);
+            active.scaleToHeight(scale);
             canvas.renderAll();
         })
     }
