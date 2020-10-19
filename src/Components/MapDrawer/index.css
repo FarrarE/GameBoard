@@ -57,6 +57,7 @@
  }
  
  .delete-map{
+    display:none;
     position: absolute;
     right: 0;
     top: -2rem;
@@ -68,4 +69,12 @@
    .map-container{
        justify-content: space-around;
    }
+}
+
+.selected{
+   box-shadow: 0 0 2rem #9999cf;
+}
+
+.selected + .delete-map{
+   display:block;
 }
