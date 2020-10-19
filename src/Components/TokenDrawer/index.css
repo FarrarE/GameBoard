@@ -50,7 +50,29 @@
  padding:10px;
 }
 
+.token-thumbnails{
+  position: relative;
+}
+
 .token-form>input{
   display: none;
+}
+
+.show-options + .delete-token{
+  display:block;
+}
+
+.delete-token{
+  display:none;
+  position: absolute;
+  right: 0;
+  top: -1rem;
+  width:2rem;
+  z-index:300;
+
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-timing-function: ease-in;
+  animation-duration: .2s;
 }
  
