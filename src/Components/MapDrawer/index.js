@@ -11,14 +11,14 @@ function MapDrawer(props) {
     setSelected(parseInt(event.target.id[0]));
     props.changeMap(event);
 
-    if(className === "selected show-options")
+    if (className === "selected show-options")
       setClassName("selected");
   }
 
-  function showOptions(event){
+  function showOptions(event) {
     setSelected(parseInt(event.target.id[0]));
 
-    if(className === "selected show-options")
+    if (className === "selected show-options")
       setClassName("selected");
     else
       setClassName("selected show-options");
@@ -35,41 +35,39 @@ function MapDrawer(props) {
   return (
 
     <div className={drawerState} >
-      <form action="/action_page.php" className="map-form">
-        <label for="file-input" >
-          <div className="add-icon">
-            <BsPlusSquare />
-          </div>
-        </label>
-        <input id="file-input" type="file" onChange={props.getMap} />
-      </form>
       <div className="map-container">
+        <div className="upload-form">
+          <form action="/action_page.php" className="map-form">
+            <label for="file-input" >
+              <div className="add-icon">
+                <BsPlusSquare />
+              </div>
+            </label>
+            <input id="file-input" type="file" onChange={props.getMap} />
+          </form>
+        </div>
         {props.maps[0] ?
           props.maps.map((map, index) => (
             <div className="map-thumbnails">
               {(selected === index) ?
                 <img
-                  className={className}
+                  className={className + " " + "map"}
                   src={map.img.src}
                   alt="..."
                   id={index + "m"}
-                  width="100"
-                  height="50"
                   onClick={setFocus}
                   onDoubleClick={showOptions}
                 />
                 :
                 <img
+                  className={"map"}
                   src={map.img.src}
                   alt="..."
                   id={index + "map"}
-                  width="100"
-                  height="50"
                   onClick={setFocus}
                   onDoubleClick={showOptions}
                 />
               }
-
               <img className="delete-map" src={Constants.DELETE_ICON} onClick={() => props.deleteMap(map.key)} />
             </div>
           ))
