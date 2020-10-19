@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color:rgb(247, 247, 247);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     max-width: 90%;
     max-height: 90%;
@@ -30,7 +30,7 @@ input{
 
 .logout-button {
     padding:.5rem;
-    background: white;
+    background-color: rgb(240, 240, 240);
     position: relative;
     border-radius: .5rem;
     text-align: center;
