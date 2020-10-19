@@ -252,31 +252,16 @@ function App(props) {
   async function uploadBackground(event) {
 
     const imageFiles = event.target.files;
-
-    let reader = new FileReader();
     let file = imageFiles[0];
 
     // checkMapSize fails if file is too large 
     if (!checkMapSize(file))
       return;
 
-    let img = new Image();
-    reader.onloadend = () => { img.src = reader.result; }
-
-    if (!currentMap) {
-      setCurrentMap(img);
-    }
-
-
     let fileKey;
     let gameId;
 
-    let newMap = {
-      img: img,
-      key: fileKey
-    }
-
-    if(!gameList[0]){
+    if(!gameList){
       try {
         fileKey = await s3Upload(file, file.type, "map");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -297,8 +282,19 @@ function App(props) {
       }
     }
 
+    let reader = new FileReader();
 
-    setMapList(mapList => [...mapList, newMap]);
+    reader.onload = () => { 
+      let img = new Image();
+      img.src = reader.result; 
+
+      let newMap = {
+        img: img,
+        key: fileKey
+      }
+
+      setMapList(mapList => [...mapList, newMap]);
+    }
 
     reader.readAsDataURL(file);
 
@@ -315,18 +311,11 @@ function App(props) {
     if (!checkTokenSize(file))
       return;
 
-    let img = new Image();
-    reader.onloadend = () => {img.src = reader.result;}
 
     let fileKey;
     let gameId;
 
-    let newToken = {
-      img: img,
-      key: fileKey
-    }
-
-    if(!gameList[0]){
+    if(!gameList){
       try {
         fileKey = await s3Upload(file, file.type, "token");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -347,7 +336,16 @@ function App(props) {
       }
     }
 
-    setTokenList(tokenList => [...tokenList, newToken]);
+    reader.onload = () => {
+      let img = new Image();
+      img.src = reader.result;
+      let newToken = {
+        img: img,
+        key: fileKey
+      }
+      setTokenList(tokenList => [...tokenList, newToken]);
+    }
+
     reader.readAsDataURL(file);
   }
 
