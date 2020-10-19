@@ -24,10 +24,6 @@
    margin:1rem;
  }
 
- .control-bar{
-    background-color: rgb(240, 240, 240);
- }
-
  .map-container{
     display:flex;
     flex-wrap: wrap;
@@ -40,7 +36,8 @@
  }
 
  .add-icon svg{
-    margin-top:1.8rem;
+   margin-top:1.8rem;
+   border-radius: .3rem;
  }
 
  .selected{
@@ -50,8 +47,7 @@
  .map-container .map{
    width:10rem;
    height:5.62rem;
-   border:.2rem solid rgb(105, 105, 105);
-   border-radius: .2rem;
+   border:.2rem solid grey;
  }
 
  .map-form{
@@ -63,10 +59,10 @@
  }
 
  .upload-form{
+   opacity: 50%;
    width:10rem;
    height:5.62rem;
    border:.2rem solid grey;
-   border-radius: .2rem;
    margin:1rem;
  } 
  

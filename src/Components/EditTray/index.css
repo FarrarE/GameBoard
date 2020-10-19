@@ -1,7 +1,7 @@
 .tray{
     position: absolute;
     display: flex;
-    border-radius: 20px;
+    border-radius: .5rem;
     justify-content: space-around;
     background-color:rgb(247, 247, 247);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);

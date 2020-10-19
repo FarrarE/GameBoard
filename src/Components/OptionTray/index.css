@@ -1,7 +1,7 @@
 .options{
     position: absolute;
     display: flex;
-    border-radius: 20px;
+    border-radius: .5rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
