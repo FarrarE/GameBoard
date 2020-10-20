@@ -26,6 +26,7 @@ function OptionTray(props) {
                 <div>
                     <input type="range" min="10" max="100" class="slider" onInput={props.scaleMap.bind(this)} />
                 </div>
+                <hr></hr>
                 <div>
                     <div className="logout-button" onClick={props.handleLogout.bind(this)}><span>Log Out</span></div>
                 </div>
