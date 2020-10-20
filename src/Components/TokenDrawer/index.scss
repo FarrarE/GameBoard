@@ -25,34 +25,35 @@
 .add-icon-token{
   font-size: 2rem;
   color:grey;
-}
- .add-icon-token svg{
-  margin-top:.5rem;
-  border-radius: .3rem;
+
+  svg{
+    margin-top:.5rem;
+    border-radius: .3rem;
+  }
 }
 
- .token-container{
+.token-container{
     padding:1rem;
     display:flex;
     flex-wrap: wrap;
+    p{
+      margin-right:auto;
+      margin-left:auto;
+    }
  }
 
- .token-container>p{
-    margin-right:auto;
-    margin-left:auto;
- }
-
- .token-img .token{
-   margin:0 .5rem;
-   width:4rem;
-   height:4rem;
-   border-radius: 50%;
-   border:.2rem solid grey;
+ .token-img {
+  .token{
+    margin:0 .5rem;
+    width:4rem;
+    height:4rem;
+    border-radius: 50%;
+    border:.2rem solid grey;
+  }
  }
  
- .upload-form-token{
+.upload-form-token{
   margin:1rem 0;
-  opacity: 50%;
   width:4rem;
   height:4rem;
   border:.2rem solid grey;
@@ -90,7 +91,6 @@
   top: 1rem;
   width:2rem;
   z-index:300;
-
   opacity: 1;
   animation-name: fadeInOpacity;
   animation-timing-function: ease-in;

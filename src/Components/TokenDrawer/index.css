@@ -48,7 +48,7 @@
       flex-wrap: wrap;
 }
 
-.token-container > p {
+.token-container p {
   margin-right: auto;
   margin-left: auto;
 }
@@ -63,7 +63,6 @@
 
 .upload-form-token {
   margin: 1rem 0;
-  opacity: 50%;
   width: 4rem;
   height: 4rem;
   border: .2rem solid grey;
