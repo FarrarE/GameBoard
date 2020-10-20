@@ -38,17 +38,17 @@ function OptionTray(props) {
               onChange={e => setPassword(e.target.value)}
               type="password"
             />
-            <button className="login-button" block bsSize="large" disabled={!validateForm()} type="submit">
+            <button className="login-button" block bsSize="large" disabled={!validateForm()} type="submit" tabIndex="3">
               <span>
-              Login
+                Login
               </span>
             </button>
           </form>
-          <div>
-            Dont have an account?
-            <button onClick={props.signUp}><span>Sign up here</span></button>
-             <span> or </span>
-            <button onClick={props.runTest}><span>Try without signing up</span></button>
+          <div className="links">
+            <span>Dont have an account?</span>
+            <a onClick={props.signUp} tabIndex="1"><span> Sign up here</span></a>
+            <span>or</span>
+            <a onClick={props.runTest} tabIndex="2"><span>Try without signing up</span></a>
           </div>
         </div>
       </div>
