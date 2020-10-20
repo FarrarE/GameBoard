@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BsPlusSquare } from 'react-icons/bs';
+import { RiAddLine } from 'react-icons/ri';
 import Draggable from "../Draggable";
 import Droppable from "../Droppable";
 import * as Constants from '../../constants';
@@ -32,7 +32,7 @@ function TokenDrawer(props) {
           <form action="/action_page.php" className="token-form">
             <label for="token-input" >
               <div className="add-icon-token">
-                  <BsPlusSquare />
+                  <RiAddLine />
               </div>
             </label>
             <input id="token-input" type="file" onChange={props.getToken} />

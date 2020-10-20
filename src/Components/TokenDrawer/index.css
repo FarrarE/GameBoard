@@ -58,21 +58,23 @@
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  border: .2rem solid grey;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
 }
 
 .upload-form-token {
   margin: 1rem 0;
   width: 4rem;
   height: 4rem;
-  border: .2rem solid grey;
   border-radius: 50%;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  background-color: white;
 }
 
 #droppable2 {
   height: 50px;
   width: 200px;
-  background-color: black;
 }
 
 .token-form {

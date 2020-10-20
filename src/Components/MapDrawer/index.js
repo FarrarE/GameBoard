@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BsPlusSquare } from 'react-icons/bs';
+import { RiAddLine } from 'react-icons/ri';
 import './index.css';
 import * as Constants from '../../constants';
 
@@ -40,7 +40,7 @@ function MapDrawer(props) {
           <form action="/action_page.php" className="map-form">
             <label for="map-file-input" >
               <div className="add-icon">
-                <BsPlusSquare />
+                <RiAddLine />
               </div>
             </label>
             <input id="map-file-input" type="file" onChange={props.getMap} />

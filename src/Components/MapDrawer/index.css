@@ -31,13 +31,12 @@
  }
 
 .add-icon{
-   font-size: 2rem;
+   font-size: 3rem;
    color:grey;
  }
 
  .add-icon svg{
-   margin-top:1.8rem;
-   border-radius: .3rem;
+   margin-top:1.5rem;
  }
 
  .selected{
@@ -47,7 +46,7 @@
  .map-container .map{
    width:10rem;
    height:5.62rem;
-   border:.2rem solid grey;
+   box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
  }
 
  .map-form{
@@ -61,8 +60,9 @@
  .upload-form{
    width:10rem;
    height:5.62rem;
-   border:.2rem solid grey;
    margin:1rem;
+   background-color: rgb(255, 255, 255);
+   box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
  } 
  
  .delete-map{
