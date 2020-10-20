@@ -13,10 +13,10 @@ function OptionTray(props) {
     const [update, setUpdate] = useState(null);
 
     return (
-        <Draggable>
+        <Draggable handle=".handle">
             <div className="options">
                 <div>
-                    <MdDragHandle className="drag-icon" />
+                    <MdDragHandle className="drag-icon handle" />
                 </div>
                 <div>
                     Grid Size
