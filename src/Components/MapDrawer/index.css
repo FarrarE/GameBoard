@@ -54,12 +54,12 @@
     position: relative;
  }
 
- .map-form>input{
+ #map-file-input{
     display: none;
  }
 
  .upload-form{
-   opacity: 50%;
+   opacity: 25%;
    width:10rem;
    height:5.62rem;
    border:.2rem solid grey;

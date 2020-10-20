@@ -38,12 +38,12 @@ function MapDrawer(props) {
       <div className="map-container">
         <div className="upload-form">
           <form action="/action_page.php" className="map-form">
-            <label for="file-input" >
+            <label for="map-file-input" >
               <div className="add-icon">
                 <BsPlusSquare />
               </div>
             </label>
-            <input id="file-input" type="file" onChange={props.getMap} />
+            <input id="map-file-input" type="file" onChange={props.getMap} />
           </form>
         </div>
         {props.maps[0] ?
