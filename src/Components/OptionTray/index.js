@@ -5,12 +5,8 @@ import { MdDragHandle } from 'react-icons/md';
 import './index.css';
 
 function OptionTray(props) {
-    const [element, setElement] = useState(null);
-    const [pos1, setPos1] = useState(0);
-    const [pos2, setPos2] = useState(0);
-    const [pos3, setPos3] = useState(0);
-    const [pos4, setPos4] = useState(0);
-    const [update, setUpdate] = useState(null);
+
+
 
     return (
         <Draggable handle=".handle">
