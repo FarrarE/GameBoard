@@ -62,7 +62,6 @@ function App(props) {
   async function loadDB() {
     if (!isAuthenticated || isTest)
       return;
-
     try {
       // getFiles is a lib function that queries backend for content
       const games = await getFiles();
@@ -253,11 +252,18 @@ function App(props) {
   async function uploadBackground(event) {
 
     const imageFiles = event.target.files;
+    let reader = new FileReader();
     let file = imageFiles[0];
 
     // checkMapSize fails if file is too large 
     if (!checkMapSize(file))
       return;
+
+    if(mapList.length > 4){
+      alert("You cannot have more than 5 maps uploaded during this stage of development.");
+      return;
+    }
+
 
     let fileKey;
     let gameId;
@@ -283,8 +289,6 @@ function App(props) {
         }
       }
     }
-
-    let reader = new FileReader();
 
     reader.onload = () => {
       let img = new Image();
@@ -313,11 +317,15 @@ function App(props) {
     if (!checkTokenSize(file))
       return;
 
+    if(tokenList.length > 9){
+      alert("You cannot have more than 10 tokens uploaded during this stage of development.");
+      return;
+    }
 
     let fileKey;
     let gameId;
 
-    if (!gameList && !isTest) {
+    if (!gameList && !isTest ) {
       try {
         fileKey = await s3Upload(file, file.type, "token");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
