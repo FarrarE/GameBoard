@@ -1,0 +1,62 @@
+$base-color: #313534;
+$secondary-color: #4f5453;
+$shadow-color: #282b2b;
+$font-color: white;
+$button-highlight: -6px -6px 7px #5d6362;
+
+.dark-mode {
+    .signup-page {
+        background-color: #525959;
+        background-image: linear-gradient(to right, grey 1px, transparent 1px),
+            linear-gradient(to bottom, grey 1px, transparent 1px);
+    }
+
+    .ribbon {
+        background-color: $base-color;
+        box-shadow: 0px 2px 5px $shadow-color;
+        color:white;
+    }
+
+    h1 {
+        color: lightgrey;
+    }
+
+    .title {
+        color: rgb(158, 158, 158);
+    }
+
+    .login-form {
+        box-shadow: 0px 5px 10px $shadow-color;
+        background-color: $secondary-color;
+    }
+
+    .login-form,
+    input,
+    textarea {
+        color: $font-color;
+    }
+    button span {
+        font-size: 1rem;
+    }
+
+    button {
+        box-shadow: $button-highlight, 3px 3px 5px $shadow-color;
+        color: $font-color;
+        background: $base-color;
+    }
+
+    button:hover {
+        opacity: 0.5;
+        box-shadow: $button-highlight, 3px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+        opacity: 1;
+        box-shadow: inset -4px -4px 8px rgba(190, 190, 190, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
+        color: #79e3b6;
+    }
+
+    #login-toggle {
+        color: white;
+    }
+}
