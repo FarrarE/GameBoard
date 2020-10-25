@@ -390,7 +390,12 @@ function App(props) {
       {!isAuthenticated ?
         <Login mode={mode} runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
         :
-        <Canvas gridScale={gridScale} currentMap={currentMap} mapScale={mapScale} />
+        <Canvas 
+          mode={mode}
+          gridScale={gridScale} 
+          currentMap={currentMap} 
+          mapScale={mapScale} 
+        />
       }
 
       {optionTray && <OptionTray mode={mode} scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
