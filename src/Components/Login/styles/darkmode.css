@@ -34,16 +34,16 @@
 }
 
 .dark-mode button {
-  -webkit-box-shadow: -6px -6px 7px #5d6362, 3px 3px 5px #282b2b;
-          box-shadow: -6px -6px 7px #5d6362, 3px 3px 5px #282b2b;
+  -webkit-box-shadow: -2px -2px 7px #5d6362, 3px 3px 5px #282b2b;
+          box-shadow: -2px -2px 7px #5d6362, 3px 3px 5px #282b2b;
   color: white;
   background: #313534;
 }
 
 .dark-mode button:hover {
   opacity: 0.5;
-  -webkit-box-shadow: -6px -6px 7px #5d6362, 3px 3px 5px rgba(0, 0, 0, 0.2);
-          box-shadow: -6px -6px 7px #5d6362, 3px 3px 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: -2px -2px 7px #5d6362, 3px 3px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: -2px -2px 7px #5d6362, 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 .dark-mode button:active {
