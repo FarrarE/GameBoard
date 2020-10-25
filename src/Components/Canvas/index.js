@@ -13,16 +13,18 @@ function Canvas(props) {
 
     useEffect(() => {
         onLoad();
-    }, [props.currentMap, props.gridScale, props.mapScale]);
+
+    }, [props.currentMap, props.gridScale, props.mapScale, props.mode]);
 
     // Canvas initialization
     function onLoad() {
+        
+
         if (!canvas) {
             let newCanvas = new fabric.Canvas('canvas', { selection: false });
 
-            if (props.mode === "dark-mode") {
+            if (props.mode === "dark-mode")
                 newCanvas.backgroundColor = "#525959";
-            }
 
             setCanvas(newCanvas);
             setSnap(newCanvas, props.gridScale)
@@ -34,6 +36,14 @@ function Canvas(props) {
             setOldMapScale(props.mapScale);
             setOldMap(props.currentMap);
         } else {
+            if(props.mode === "dark-mode"){
+                canvas.backgroundColor = "#525959";
+                canvas.renderAll()
+            }
+            else{
+                canvas.backgroundColor = "white";
+                canvas.renderAll()
+            }
 
             if (props.gridScale !== oldGridScale) {
                 setSnap(canvas, props.gridScale)
@@ -64,7 +74,6 @@ function Canvas(props) {
     function drawGrid(canvas, scale) {
         let width = document.body.clientWidth;
         let height = document.body.clientHeight;
-        let gridColor;
 
         var objects = canvas.getObjects('line');
         for (let i in objects) {
