@@ -38,7 +38,7 @@ function MapDrawer(props) {
       <div className="map-container">
         <div className="upload-form">
           <form action="/action_page.php" className="map-form">
-            <label for="map-file-input" >
+            <label className="map-file-input" >
               <div className="add-icon">
                 <RiAddLine />
               </div>

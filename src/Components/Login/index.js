@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import './index.css';
 
 function OptionTray(props) {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
 
   function validateForm() {
     if (email && password)
@@ -38,7 +38,7 @@ function OptionTray(props) {
               onChange={e => setPassword(e.target.value)}
               type="password"
             />
-            <button className="login-button" block bsSize="large" disabled={!validateForm()} type="submit" tabIndex="3">
+            <button className="login-button" disabled={!validateForm()} type="submit" tabIndex="3">
               <span>
                 Login
               </span>
