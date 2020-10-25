@@ -1,40 +1,40 @@
-.options{
+.options {
     position: absolute;
     display: flex;
     border-radius: .5rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:rgb(247, 247, 247);
+    background-color: rgb(247, 247, 247);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     max-width: 90%;
     max-height: 90%;
     width: max-content;
     height: max-content;
-    left: 0; 
-    right: 0; 
-    top: 0; 
-    bottom: 0; 
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
     padding: 1%;
     z-index: 100;
-    color:grey;
+    color: grey;
 }
 
-.drag-icon{
+.drag-icon {
     margin-top: -1rem;
     font-size: 2rem;
 }
 
-input{
+input {
     text-align: center;
 }
 
 .logout-button {
-    padding:.5rem;
+    padding: .5rem;
     background-color: rgb(240, 240, 240);
     position: relative;
     border-radius: .5rem;
@@ -42,17 +42,21 @@ input{
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 }
+
 .logout-button span {
     font-size: 1rem;
 }
+
 .logout-button {
     box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
     color: grey;
 }
+
 .logout-button:hover {
     opacity: 0.5;
     box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
+
 .logout-button:active {
     opacity: 1;
     box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
