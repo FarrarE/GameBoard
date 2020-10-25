@@ -45,7 +45,7 @@ function App(props) {
   useEffect(() => {
     checkForUser();
     loadDB();
-  }, [isAuthenticated, mode]);
+  }, [isAuthenticated]);
 
   function defaultMode(stored){
     if(stored === null)
@@ -405,7 +405,14 @@ function App(props) {
 
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
-        <Login mode={mode} runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
+        <Login 
+          mode={mode} 
+          toggleMode={toggleModeHandler}
+          runTest={runTest} 
+          authenticateLogin={authenticateLogin} 
+          signUp={signUp} confirmSignUp={confirmSignUp} 
+          handleSubmit={loginHandler}
+        />
         :
         <Canvas
           mode={mode}

@@ -153,6 +153,13 @@ button {
   transition: all 0.3s ease-in-out 0s;
 }
 
+#login-toggle {
+  position: fixed;
+  right: 1rem;
+  top: 1rem;
+  z-index: 400;
+}
+
 @media only screen and (max-width: 1300px) {
   .ribbon {
     -webkit-box-orient: vertical;
@@ -160,6 +167,9 @@ button {
         -ms-flex-direction: column;
             flex-direction: column;
     height: 75%;
+  }
+  .ribbon .login-form {
+    border-radius: 0;
   }
   h1 {
     font-size: 3rem;

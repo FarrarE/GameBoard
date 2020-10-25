@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ToggleMode from '../ToggleMode';
 import './styles/darkmode.css';
 import './styles/index.css';
 import './styles/lightmode.css';
@@ -6,7 +7,11 @@ import './styles/lightmode.css';
 function OptionTray(props) {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
-  const [mode, setMode] = useState(props.mode);
+  const [mode, setMode] = useState();
+
+  useEffect(() => {
+    setMode(props.mode)
+  }, [props.mode]);
 
   function validateForm() {
     if (email && password)
@@ -58,6 +63,9 @@ function OptionTray(props) {
             </div>
           </div>
         </div>
+      </div>
+      <div id="login-toggle" className={props.mode}>
+        <ToggleMode check={props.mode === "dark-mode" ? true : false} toggleMode={props.toggleMode} mode={props.mode} />
       </div>
     </div>
   );

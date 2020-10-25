@@ -8,8 +8,6 @@ import './styles/mode.css'
 
 function OptionTray(props) {
 
-
-
     return (
         <div className={props.mode}>
             <Draggable handle=".handle">
