@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/GameBoard/static/css/main.73f03929.chunk.css",
-    "main.js": "/GameBoard/static/js/main.cd579f4a.chunk.js",
-    "main.js.map": "/GameBoard/static/js/main.cd579f4a.chunk.js.map",
+    "main.css": "/GameBoard/static/css/main.1af7fd4d.chunk.css",
+    "main.js": "/GameBoard/static/js/main.45b2881f.chunk.js",
+    "main.js.map": "/GameBoard/static/js/main.45b2881f.chunk.js.map",
     "runtime-main.js": "/GameBoard/static/js/runtime-main.c5dbd50b.js",
     "runtime-main.js.map": "/GameBoard/static/js/runtime-main.c5dbd50b.js.map",
-    "static/js/2.9f7f86a1.chunk.js": "/GameBoard/static/js/2.9f7f86a1.chunk.js",
-    "static/js/2.9f7f86a1.chunk.js.map": "/GameBoard/static/js/2.9f7f86a1.chunk.js.map",
+    "static/js/2.06d75980.chunk.js": "/GameBoard/static/js/2.06d75980.chunk.js",
+    "static/js/2.06d75980.chunk.js.map": "/GameBoard/static/js/2.06d75980.chunk.js.map",
     "index.html": "/GameBoard/index.html",
-    "precache-manifest.ed3777e4c0c1caa13abdd82f4233f9a9.js": "/GameBoard/precache-manifest.ed3777e4c0c1caa13abdd82f4233f9a9.js",
+    "precache-manifest.868bb0da453a389299e3c4b54e5c064f.js": "/GameBoard/precache-manifest.868bb0da453a389299e3c4b54e5c064f.js",
     "service-worker.js": "/GameBoard/service-worker.js",
-    "static/css/main.73f03929.chunk.css.map": "/GameBoard/static/css/main.73f03929.chunk.css.map",
-    "static/js/2.9f7f86a1.chunk.js.LICENSE.txt": "/GameBoard/static/js/2.9f7f86a1.chunk.js.LICENSE.txt"
+    "static/css/main.1af7fd4d.chunk.css.map": "/GameBoard/static/css/main.1af7fd4d.chunk.css.map",
+    "static/js/2.06d75980.chunk.js.LICENSE.txt": "/GameBoard/static/js/2.06d75980.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c5dbd50b.js",
-    "static/js/2.9f7f86a1.chunk.js",
-    "static/css/main.73f03929.chunk.css",
-    "static/js/main.cd579f4a.chunk.js"
+    "static/js/2.06d75980.chunk.js",
+    "static/css/main.1af7fd4d.chunk.css",
+    "static/js/main.45b2881f.chunk.js"
   ]
 }
