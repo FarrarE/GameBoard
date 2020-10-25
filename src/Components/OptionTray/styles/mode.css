@@ -37,7 +37,7 @@
 }
 
 .dark-mode .options {
-  background-color: #313534;
+  background: linear-gradient(145deg, #2c302f, #343938);
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   color: white;

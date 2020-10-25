@@ -35,14 +35,33 @@ $button-highlight: -2px -2px 7px #5d6362;
     textarea {
         color: $font-color;
     }
-    button span {
-        font-size: 1rem;
+
+    $base-color: #313534;
+    $secondary-color: #4f5453;
+    $shadow-color: #282b2b;
+    $font-color: white;
+    $button-highlight: -3px -3px 7px #383d3c;;
+
+    .options {
+        background: linear-gradient(145deg, #2c302f, #343938);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        color: white;
     }
 
     button {
+        padding: 0.5rem;
+        position: relative;
+        border-radius: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.1s ease-in-out;
         box-shadow: $button-highlight, 3px 3px 5px $shadow-color;
         color: $font-color;
-        background: $base-color;
+        background: $secondary-color;
+    }
+
+    button span {
+        font-size: 1rem;
     }
 
     button:hover {
@@ -52,7 +71,8 @@ $button-highlight: -2px -2px 7px #5d6362;
 
     button:active {
         opacity: 1;
-        box-shadow: inset -4px -4px 8px rgba(190, 190, 190, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
+        background-color: $base-color;
+        box-shadow: inset -4px -4px 8px rgba(160, 160, 160, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
         color: #79e3b6;
     }
 
