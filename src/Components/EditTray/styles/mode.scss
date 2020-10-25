@@ -1,0 +1,15 @@
+.light-mode{
+    .tray {
+        background-color: rgb(247, 247, 247);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.dark-mode{
+    .tray {
+        background-color: #313534;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        color:lightgray;
+    }
+}
+

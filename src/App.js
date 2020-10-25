@@ -24,6 +24,7 @@ function App(props) {
   const [gameState, SetGameState] = useState({ gameId: null, mapKeys: [], tokenKeys: [] });
 
   // User interface variables
+  const [mode, setMode] = useState("dark-mode")
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
@@ -259,7 +260,7 @@ function App(props) {
     if (!checkMapSize(file))
       return;
 
-    if(mapList.length > 4){
+    if (mapList.length > 4) {
       alert("You cannot have more than 5 maps uploaded during this stage of development.");
       return;
     }
@@ -317,7 +318,7 @@ function App(props) {
     if (!checkTokenSize(file))
       return;
 
-    if(tokenList.length > 9){
+    if (tokenList.length > 9) {
       alert("You cannot have more than 10 tokens uploaded during this stage of development.");
       return;
     }
@@ -325,7 +326,7 @@ function App(props) {
     let fileKey;
     let gameId;
 
-    if (!gameList && !isTest ) {
+    if (!gameList && !isTest) {
       try {
         fileKey = await s3Upload(file, file.type, "token");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -387,15 +388,27 @@ function App(props) {
 
       {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
-        <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
+        <Login mode={mode} runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
         :
         <Canvas gridScale={gridScale} currentMap={currentMap} mapScale={mapScale} />
       }
 
-      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
-      <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
-      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} deleteToken={deleteToken} />
+      {optionTray && <OptionTray mode={mode} scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
+      <EditTray
+        mode={mode}
+        toggleTokens={toggleTokenTray}
+        toggleMaps={toggleMaps}
+        toggleOptions={toggleOptionTray}
+        close={closeAll} />
+      <TokenDrawer
+        mode={mode}
+        state={TokenDrawerState}
+        getToken={uploadTokenHandler}
+        tokens={tokenList}
+        deleteToken={deleteToken}
+      />
       <MapDrawer
+        mode={mode}
         state={MapDrawerState}
         getMap={uploadBackground}
         maps={mapList} changeMap={changeMap}

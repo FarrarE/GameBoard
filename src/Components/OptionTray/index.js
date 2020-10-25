@@ -3,35 +3,39 @@ import Draggable from 'react-draggable';
 import { MdDragHandle } from 'react-icons/md';
 
 import './index.css';
+import './styles/mode.css'
 
 function OptionTray(props) {
 
 
 
     return (
-        <Draggable handle=".handle">
-            <div className="options">
-                <div>
-                    <MdDragHandle className="drag-icon handle" />
+        <div className={props.mode}>
+            <Draggable handle=".handle">
+                <div className="options">
+                    <div>
+                        <MdDragHandle className="drag-icon handle" />
+                    </div>
+                    <div>
+                        Grid Size
+                    </div>
+                    <div>
+                        <input type="range" min="10" max="100" class="slider" onInput={props.scaleGrid.bind(this)} />
+                    </div>
+                    <div>
+                        Map Size
+                    </div>
+                    <div>
+                        <input type="range" min="10" max="100" class="slider" onInput={props.scaleMap.bind(this)} />
+                    </div>
+                    <hr></hr>
+                    <div>
+                        <div className="logout-button" onClick={props.handleLogout.bind(this)}><span>Log Out</span></div>
+                    </div>
                 </div>
-                <div>
-                    Grid Size
-            </div>
-                <div>
-                    <input type="range" min="10" max="100" class="slider" onInput={props.scaleGrid.bind(this)} />
-                </div>
-                <div>
-                    Map Size
-            </div>
-                <div>
-                    <input type="range" min="10" max="100" class="slider" onInput={props.scaleMap.bind(this)} />
-                </div>
-                <hr></hr>
-                <div>
-                    <div className="logout-button" onClick={props.handleLogout.bind(this)}><span>Log Out</span></div>
-                </div>
-            </div>
-        </Draggable>
+            </Draggable>
+        </div>
+
     );
 }
 

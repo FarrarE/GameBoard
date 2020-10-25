@@ -1,4 +1,4 @@
-#login-page {
+.login-page {
   position: absolute;
   left: 0;
   right: 0;
@@ -11,8 +11,6 @@
   z-index: 200;
   background-size: 50px 50px;
   font-size: 1.2rem;
-  background-color: white;
-  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
 }
 
 .ribbon {

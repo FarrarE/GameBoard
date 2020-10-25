@@ -1,3 +1,8 @@
+.dark-mode .login-page {
+  background-color: #fefefe;
+  background-image: linear-gradient(to right, grey 1px, transparent 1px), linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+
 .dark-mode .ribbon {
   background-color: #313534;
   -webkit-box-shadow: 0px 2px 5px #282b2b;
@@ -18,7 +23,9 @@
   background-color: #4f5453;
 }
 
-.dark-mode .login-form, .dark-mode input, .dark-mode textarea {
+.dark-mode .login-form,
+.dark-mode input,
+.dark-mode textarea {
   color: white;
 }
 
