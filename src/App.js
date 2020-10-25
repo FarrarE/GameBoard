@@ -24,7 +24,7 @@ function App(props) {
   const [gameState, SetGameState] = useState({ gameId: null, mapKeys: [], tokenKeys: [] });
 
   // User interface variables
-  const [mode, setMode] = useState("dark-mode")
+  const [mode, setMode] = useState(defaultMode(localStorage.getItem('mode')));
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
@@ -46,6 +46,12 @@ function App(props) {
     checkForUser();
     loadDB();
   }, [isAuthenticated, mode]);
+
+  function defaultMode(stored){
+    if(stored === null)
+      return "light-mode"
+    else return stored;
+  }
 
   // State object function. Returns an object with the correct attributes to match schema for backend.
   function boardState(maps, tokens) {
@@ -209,10 +215,15 @@ function App(props) {
     setMapDrawerState("drawerClosed");
   }
 
-  function toggleModeHandler(){
-    if(mode === "light-mode"){
+  function toggleModeHandler() {
+    if (mode === "light-mode") {
       setMode("dark-mode")
-    }else{setMode("light-mode")}
+      localStorage.setItem('mode', 'dark-mode');
+    } else {
+      setMode("light-mode")
+      localStorage.setItem('mode', 'light-mode');
+    }
+
   }
 
   function toggleTokenTray() {
@@ -396,22 +407,22 @@ function App(props) {
       {!isAuthenticated ?
         <Login mode={mode} runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
         :
-        <Canvas 
+        <Canvas
           mode={mode}
-          gridScale={gridScale} 
-          currentMap={currentMap} 
-          mapScale={mapScale} 
+          gridScale={gridScale}
+          currentMap={currentMap}
+          mapScale={mapScale}
         />
       }
 
       {optionTray &&
-        <OptionTray 
-          mode={mode} 
-          scaleGrid={scaleGrid} 
-          scaleMap={scaleMap} 
-          handleLogout={handleLogout} 
+        <OptionTray
+          mode={mode}
+          scaleGrid={scaleGrid}
+          scaleMap={scaleMap}
+          handleLogout={handleLogout}
           toggleMode={toggleModeHandler}
-      />}
+        />}
       <EditTray
         mode={mode}
         toggleTokens={toggleTokenTray}
