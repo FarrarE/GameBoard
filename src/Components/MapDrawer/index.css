@@ -1,88 +1,114 @@
 .map-drawer {
-   left: 0;
-   right: 0;
-   margin-left: auto;
-   margin-right: auto;
-   position: fixed;
-   bottom: 0;
-   height: 9rem;
-   z-index: 300;
-   transform: translateY(100%);
-   transition: transform 0.3s ease-out;
-   overflow-y: scroll;
-   overflow: hidden;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  bottom: 0;
+  height: 9rem;
+  z-index: 300;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.map-drawer p {
+  margin-top: 3rem;
 }
 
 .map-drawer.open {
-   transform: translateY(0%);
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
 }
 
 .map-thumbnails {
-   position: relative;
-   margin: 1rem;
+  position: relative;
+  margin: 1rem;
 }
 
 .map-container {
-   display: flex;
-   flex-wrap: wrap;
-   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 100%;
 }
 
 .add-icon {
-   font-size: 3rem;
+  font-size: 3rem;
 }
 
 .add-icon svg {
-   margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .map-container .map {
-   width: 10rem;
-   height: 5.62rem;
+  width: 10rem;
+  height: 5.62rem;
 }
 
 .map-form {
-   position: relative;
+  position: relative;
 }
 
 #map-file-input {
-   display: none;
+  display: none;
 }
 
 .upload-form {
-   width: 10rem;
-   height: 5.62rem;
-   margin: 1rem;
+  width: 10rem;
+  height: 5.62rem;
+  margin: 1rem;
 }
 
 .delete-map {
-   display: none;
-   position: absolute;
-   right: 0;
-   top: -1rem;
-   width: 2rem;
-   z-index: 300;
-   opacity: 1;
-   animation-name: fadeInOpacity;
-   animation-timing-function: ease-in;
-   animation-duration: .2s;
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -1rem;
+  width: 2rem;
+  z-index: 300;
+  opacity: 1;
+  -webkit-animation-name: fadeInOpacity;
+          animation-name: fadeInOpacity;
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+  -webkit-animation-duration: .2s;
+          animation-duration: .2s;
 }
 
 @media only screen and (max-width: 1300px) {
-   .map-container {
-      justify-content: space-around;
-   }
+  .map-container {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
 }
 
-.show-options+.delete-map {
-   display: block;
+.show-options + .delete-map {
+  display: block;
+}
+
+@-webkit-keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInOpacity {
-   0% {
-      opacity: 0;
-   }
-   100% {
-      opacity: 1;
-   }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
+/*# sourceMappingURL=index.css.map */
