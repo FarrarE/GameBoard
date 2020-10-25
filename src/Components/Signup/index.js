@@ -39,7 +39,6 @@ export default function Signup(props) {
 
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
-
     setIsLoading(true);
 
     try {
@@ -55,52 +54,54 @@ export default function Signup(props) {
 
   function renderConfirmationForm() {
     return (
-      <div className="ribbon confirmation">
-        <form onSubmit={handleConfirmationSubmit}>
-          <label>Confirmation Code </label>
-          <input
-            autoFocus
-            type="tel"
-            onChange={(event) => setCode(event.target.value)}
-          />
-          <button>Submit</button>
-          <h1>Please check your email for the code.</h1>
-        </form>
+      <div className="signup-page">
+        <div className="ribbon confirmation">
+          <form onSubmit={handleConfirmationSubmit}>
+            <label>Confirmation Code </label>
+            <input
+              autoFocus
+              type="tel"
+              onChange={(event) => setCode(event.target.value)}
+            />
+            <button>Submit</button>
+            <h1>Please check your email for the code.</h1>
+          </form>
+        </div>
       </div>
     );
   }
 
   function renderForm() {
     return (
-        <div id="signup-page">
-          <div className="ribbon">
-            <div className="signup-card">
-              <form onSubmit={handleSubmit} className="signup-form">
-                <label>Email</label>
-                <input
-                  autoFocus
-                  type="email"
-                  onChange={(event) => setUserName(event.target.value)}
-                />
-                <label>Password</label>
-                <input
-                  type="password"
-                  onChange={(event) => setPass(event.target.value)}
-                />
-                <label>Confirm Password</label>
-                <input
-                  type="password"
-                  onChange={(event) => setPassConfirm(event.target.value)}
-                />
-                <div>
-                  <button type="button" onClick={props.confirmSignUp}>Back</button>
-                  <span> </span>
-                  <button type="submit">Submit</button>
-                </div>
-              </form>
-            </div>
+      <div className="signup-page">
+        <div className="ribbon">
+          <div className="signup-card">
+            <form onSubmit={handleSubmit} className="signup-form">
+              <label>Email</label>
+              <input
+                autoFocus
+                type="email"
+                onChange={(event) => setUserName(event.target.value)}
+              />
+              <label>Password</label>
+              <input
+                type="password"
+                onChange={(event) => setPass(event.target.value)}
+              />
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                onChange={(event) => setPassConfirm(event.target.value)}
+              />
+              <div>
+                <button type="button" onClick={props.confirmSignUp}>Back</button>
+                <span> </span>
+                <button type="submit">Submit</button>
+              </div>
+            </form>
           </div>
         </div>
+      </div>
     );
   }
 

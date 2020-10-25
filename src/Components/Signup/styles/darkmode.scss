@@ -5,12 +5,15 @@ $font-color: white;
 $button-highlight: -2px -2px 7px #5d6362;
 
 .dark-mode {
-    #signup-page {
+    .signup-page {
 
         .ribbon {
             background-color: $base-color;
             box-shadow: 0px 2px 5px $shadow-color;
             color: white;
+            input{
+                color:black;
+            }
         }
 
         h1 {
