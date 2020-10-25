@@ -45,7 +45,7 @@ function App(props) {
   useEffect(() => {
     checkForUser();
     loadDB();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, mode]);
 
   // State object function. Returns an object with the correct attributes to match schema for backend.
   function boardState(maps, tokens) {
@@ -207,6 +207,12 @@ function App(props) {
     setOptionTray(false);
     setTokenDrawerState("drawerClosed");
     setMapDrawerState("drawerClosed");
+  }
+
+  function toggleModeHandler(){
+    if(mode === "light-mode"){
+      setMode("dark-mode")
+    }else{setMode("light-mode")}
   }
 
   function toggleTokenTray() {
@@ -398,7 +404,14 @@ function App(props) {
         />
       }
 
-      {optionTray && <OptionTray mode={mode} scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
+      {optionTray &&
+        <OptionTray 
+          mode={mode} 
+          scaleGrid={scaleGrid} 
+          scaleMap={scaleMap} 
+          handleLogout={handleLogout} 
+          toggleMode={toggleModeHandler}
+      />}
       <EditTray
         mode={mode}
         toggleTokens={toggleTokenTray}

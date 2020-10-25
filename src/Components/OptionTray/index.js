@@ -1,5 +1,6 @@
 import React, { useState, useEffect, } from "react";
 import Draggable from 'react-draggable';
+import ToggleMode from '../ToggleMode';
 import { MdDragHandle } from 'react-icons/md';
 
 import './index.css';
@@ -28,7 +29,9 @@ function OptionTray(props) {
                     <div>
                         <input type="range" min="10" max="100" class="slider" onInput={props.scaleMap.bind(this)} />
                     </div>
-                    <hr></hr>
+                    <div>
+                        <ToggleMode check={props.mode === "dark-mode" ? true : false} toggleMode={props.toggleMode} mode={props.mode} />
+                    </div>
                     <div>
                         <div className="logout-button" onClick={props.handleLogout.bind(this)}><span>Log Out</span></div>
                     </div>
