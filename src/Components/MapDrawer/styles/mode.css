@@ -28,6 +28,7 @@
   background-color: #313534;
   -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
           box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .dark-mode .add-icon {
