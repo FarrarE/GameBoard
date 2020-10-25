@@ -72,40 +72,40 @@ export default function Signup(props) {
 
   function renderForm() {
     return (
-      <div className={props.mode}>
-        <div className="ribbon">
-          <div className="signup-card">
-            <form onSubmit={handleSubmit} className="signup-form">
-              <label>Email</label>
-              <input
-                autoFocus
-                type="email"
-                onChange={(event) => setUserName(event.target.value)}
-              />
-              <label>Password</label>
-              <input
-                type="password"
-                onChange={(event) => setPass(event.target.value)}
-              />
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                onChange={(event) => setPassConfirm(event.target.value)}
-              />
-              <div>
-                <button type="button" onClick={props.confirmSignUp}>Back</button>
-                <span> </span>
-                <button type="submit">Submit</button>
-              </div>
-            </form>
+        <div id="signup-page">
+          <div className="ribbon">
+            <div className="signup-card">
+              <form onSubmit={handleSubmit} className="signup-form">
+                <label>Email</label>
+                <input
+                  autoFocus
+                  type="email"
+                  onChange={(event) => setUserName(event.target.value)}
+                />
+                <label>Password</label>
+                <input
+                  type="password"
+                  onChange={(event) => setPass(event.target.value)}
+                />
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  onChange={(event) => setPassConfirm(event.target.value)}
+                />
+                <div>
+                  <button type="button" onClick={props.confirmSignUp}>Back</button>
+                  <span> </span>
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
     );
   }
 
   return (
-    <div className="signup-page">
+    <div className={props.mode}>
       {newUser === null ? renderForm() : renderConfirmationForm()}
     </div>
   );
