@@ -17,12 +17,13 @@ Features with a ✅ are available on the deployed demo.
 - Grid Token Snapping   ✅
 - Map Resize            ✅
 - User Login            ✅
-- Map Respositioning
 - Backend Storage       ✅
+- Dark Mode             ✅
+- Canvas Repositioning  ✅ 
+- Map Respositioning
 - Touch Event Handling
 - Responsive Design
-- Dark Mode
-- Built in token image cropping
+- Token cropping
 - Social Features
 
 ### Backend Technologies
