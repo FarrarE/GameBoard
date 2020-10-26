@@ -14,14 +14,25 @@ function Canvas(props) {
     useEffect(() => {
         onLoad();
 
+        window.addEventListener('contextmenu', function (e) {
+            // do something here... 
+            e.preventDefault();
+        }, false);
+
     }, [props.currentMap, props.gridScale, props.mapScale, props.mode]);
 
     // Canvas initialization
     function onLoad() {
-        
+
 
         if (!canvas) {
-            let newCanvas = new fabric.Canvas('canvas', { selection: false });
+            let newCanvas = new fabric.Canvas('canvas', {
+                selection: false,
+                // height: height,
+                // width: width,
+                fireRightClick: true,
+                //fireMiddleClick: true, 
+            });
 
             if (props.mode === "dark-mode")
                 newCanvas.backgroundColor = "#525959";
@@ -36,11 +47,11 @@ function Canvas(props) {
             setOldMapScale(props.mapScale);
             setOldMap(props.currentMap);
         } else {
-            if(props.mode === "dark-mode"){
+            if (props.mode === "dark-mode") {
                 canvas.backgroundColor = "#525959";
                 canvas.renderAll()
             }
-            else{
+            else {
                 canvas.backgroundColor = "white";
                 canvas.renderAll()
             }
@@ -131,13 +142,13 @@ function Canvas(props) {
         // Clears canvas events so events don't stack on rerender
         canvas.off()
 
-        canvas.on('object:moving', function (options) {
-            options.target.left = Math.round(options.target.left / scale) * scale;
-            options.target.top = Math.round(options.target.top / scale) * scale;
-            options.target.setCoords();
+        canvas.on('object:moving', function (eventions) {
+            eventions.target.left = Math.round(eventions.target.left / scale) * scale;
+            eventions.target.top = Math.round(eventions.target.top / scale) * scale;
+            eventions.target.setCoords();
         })
 
-        canvas.on('mouse:dblclick', function (options) {
+        canvas.on('mouse:dblclick', function (eventions) {
             const active = canvas.getActiveObject()
             if (!active)
                 return;
@@ -146,25 +157,49 @@ function Canvas(props) {
             active.scaleToHeight(scale);
             canvas.renderAll();
         })
-    }
 
-    // Sets onScroll handler to zoom on canvas, legacy code needs refactoring
-    function setOnScroll(canvas) {
-        let x = document.body.clientWidth / 2;
-        let y = document.body.clientHeight / 2;
+        canvas.on('mouse:down', function (opt) {
+            if (opt.button !== 3)
+                return;
 
-        canvas.on('mouse:wheel', function (opt) {
-            var delta = opt.e.deltaY;
+            var e = opt.e;
+            this.isDragging = true;
+            this.selection = false;
+            this.lastPosX = e.clientX;
+            this.lastPosY = e.clientY;
+        });
+
+        canvas.on('mouse:move', function (opt) {
+            if (this.isDragging) {
+                var e = opt.e;
+                var vpt = this.viewportTransform;
+                vpt[4] += e.clientX - this.lastPosX;
+                vpt[5] += e.clientY - this.lastPosY;
+                this.requestRenderAll();
+                this.lastPosX = e.clientX;
+                this.lastPosY = e.clientY;
+            }
+        });
+        canvas.on('mouse:up', function (opt) {
+            // on mouse up we want to recalculate new interaction
+            // for all objects, so we call setViewportTransform
+            this.setViewportTransform(this.viewportTransform);
+            this.isDragging = false;
+            this.selection = true;
+        });
+
+        // zooms in and out of canvas
+        canvas.on('mouse:wheel', function (event) {
+            var delta = event.e.deltaY;
             var zoom = canvas.getZoom();
             zoom *= 0.999 ** delta;
             if (zoom > 20) zoom = 20;
-            if (zoom < 0.5) zoom = 0.5;
-            canvas.zoomToPoint({ x: x, y: y }, zoom);
-            opt.e.preventDefault();
-            opt.e.stopPropagation();
-        })
+            if (zoom < 0.01) zoom = 0.01;
+            canvas.zoomToPoint({ x: event.e.offsetX, y: event.e.offsetY }, zoom);
+            event.e.preventDefault();
+            event.e.stopPropagation();
+        });
     }
-
 
     // Renders the delete icon from svg source.
     function renderIcon() {
