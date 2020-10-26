@@ -1,0 +1,53 @@
+.light-mode .map-drawer {
+  background-color: #f7f7f7;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.light-mode .add-icon {
+  color: grey;
+}
+
+.light-mode .selected {
+  -webkit-box-shadow: 0 0 2rem #661313;
+          box-shadow: 0 0 2rem #661313;
+}
+
+.light-mode .map-container .map {
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.light-mode .upload-form {
+  background-color: white;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .map-drawer {
+  background-color: #313534;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.dark-mode .add-icon {
+  color: grey;
+}
+
+.dark-mode .selected {
+  -webkit-box-shadow: 0 0 2rem #661313;
+          box-shadow: 0 0 2rem #661313;
+}
+
+.dark-mode .map-container .map {
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .upload-form {
+  background-color: white;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+/*# sourceMappingURL=mode.css.map */

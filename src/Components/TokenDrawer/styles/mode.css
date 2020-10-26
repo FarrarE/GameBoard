@@ -1,0 +1,43 @@
+.light-mode .token-drawer {
+  background-color: #f7f7f7;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.light-mode .add-icon-token {
+  color: grey;
+}
+
+.light-mode .token-container .token-img .token {
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.light-mode .token-container .upload-form-token {
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  background-color: white;
+}
+
+.dark-mode .token-drawer {
+  background-color: #313534;
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.dark-mode .add-icon-token {
+  color: grey;
+}
+
+.dark-mode .token-container .token-img .token {
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .token-container .upload-form-token {
+  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  background-color: white;
+}
+/*# sourceMappingURL=mode.css.map */

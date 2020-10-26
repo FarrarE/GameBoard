@@ -1,0 +1,78 @@
+.light-mode {
+    .options {
+        background-color: rgb(247, 247, 247);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        color: grey;
+    }
+
+    .logout-button {
+        padding: 0.5rem;
+        background-color: rgb(240, 240, 240);
+        position: relative;
+        border-radius: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.1s ease-in-out;
+        box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+        color: grey;
+    }
+
+    .logout-button span {
+        font-size: 1rem;
+    }
+
+    .logout-button:hover {
+        opacity: 0.5;
+        box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .logout-button:active {
+        opacity: 1;
+        box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+        color: #79e3b6;
+    }
+}
+
+.dark-mode {
+
+
+    $base-color: #313534;
+    $secondary-color: #4f5453;
+    $shadow-color: #282b2b;
+    $font-color: white;
+    $button-highlight: -3px -3px 7px #383d3c;;
+
+    .options {
+        background: linear-gradient(145deg, #2c302f, #343938);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        color: white;
+    }
+
+    .logout-button {
+        padding: 0.5rem;
+        position: relative;
+        border-radius: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.1s ease-in-out;
+        box-shadow: $button-highlight, 3px 3px 5px $shadow-color;
+        color: $font-color;
+        background: $secondary-color;
+    }
+
+    .logout-button span {
+        font-size: 1rem;
+    }
+
+    .logout-button:hover {
+        opacity: 0.5;
+        box-shadow: $button-highlight, 3px 3px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .logout-button:active {
+        opacity: 1;
+        background-color: $base-color;
+        box-shadow: inset -4px -4px 8px rgba(160, 160, 160, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
+        color: #79e3b6;
+    }
+}

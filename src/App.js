@@ -16,6 +16,9 @@ import deleteFiles from './libs/deleteFiles';
 import './App.css';
 import * as Constants from './constants';
 
+import testToken1 from './Data/tokens/dax.jpg';
+import testToken2 from './Data/tokens/pop.jpg';
+
 function App(props) {
   // List of game states
   const [gameList, setGameList] = useState(null);
@@ -24,6 +27,7 @@ function App(props) {
   const [gameState, SetGameState] = useState({ gameId: null, mapKeys: [], tokenKeys: [] });
 
   // User interface variables
+  const [mode, setMode] = useState(defaultMode(localStorage.getItem('mode')));
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
@@ -44,7 +48,43 @@ function App(props) {
   useEffect(() => {
     checkForUser();
     loadDB();
+
+    if (isTest)
+      prepareTest();
+
   }, [isAuthenticated]);
+
+  function defaultMode(stored) {
+    if (stored === null)
+      return "light-mode"
+    else return stored;
+  }
+
+  function prepareTest() {
+
+
+    let img = new Image();
+    let img2 = new Image();
+    let array = new Array();
+
+    img.src = testToken1;
+    img2.src = testToken2;
+
+    let newToken = {
+      img: img,
+      key: "testToken1"
+    }
+
+    let newToken2 = {
+      img: img2,
+      key: "testToken2"
+    }
+
+    array.push(newToken);
+    array.push(newToken2);
+
+    setTokenList(array);
+  }
 
   // State object function. Returns an object with the correct attributes to match schema for backend.
   function boardState(maps, tokens) {
@@ -107,6 +147,18 @@ function App(props) {
   }
 
   async function deleteMap(key) {
+
+    if (isTest) {
+      let newList = new Array();
+      for (let i = 0; i < mapList.length; i++) {
+        if (mapList[i].key !== key) {
+          newList.push(mapList[i]);
+        }
+      }
+      setMapList(newList);
+      return;
+    }
+
     try {
       let index = gameState.mapKeys.indexOf(key);
       if (index > -1) {
@@ -126,6 +178,20 @@ function App(props) {
   }
 
   async function deleteToken(key) {
+
+    // If not logged in, delete works locally only.
+    if (isTest) {
+      let newList = new Array();
+      for (let i = 0; i < tokenList.length; i++) {
+        if (tokenList[i].key !== key) {
+          newList.push(tokenList[i]);
+        }
+      }
+      setTokenList(newList);
+      return;
+    }
+
+    // If logged in, delete needs update DB
     try {
       let index = gameState.tokenKeys.indexOf(key);
       if (index > -1) {
@@ -208,6 +274,17 @@ function App(props) {
     setMapDrawerState("drawerClosed");
   }
 
+  function toggleModeHandler() {
+    if (mode === "light-mode") {
+      setMode("dark-mode")
+      localStorage.setItem('mode', 'dark-mode');
+    } else {
+      setMode("light-mode")
+      localStorage.setItem('mode', 'light-mode');
+    }
+
+  }
+
   function toggleTokenTray() {
 
     if (MapDrawerState === "drawerOpen")
@@ -251,15 +328,16 @@ function App(props) {
   // Fetch file from user functions
   async function uploadBackground(event) {
 
-    const imageFiles = event.target.files;
     let reader = new FileReader();
+
+    const imageFiles = event.target.files;
     let file = imageFiles[0];
 
     // checkMapSize fails if file is too large 
     if (!checkMapSize(file))
       return;
 
-    if(mapList.length > 4){
+    if (mapList.length > 4) {
       alert("You cannot have more than 5 maps uploaded during this stage of development.");
       return;
     }
@@ -290,6 +368,13 @@ function App(props) {
       }
     }
 
+
+    // This should only happen when isTesting is true
+    if (fileKey === undefined) {
+      let date = new Date();
+      fileKey = date.getTime();
+    }
+
     reader.onload = () => {
       let img = new Image();
       img.src = reader.result;
@@ -303,7 +388,6 @@ function App(props) {
     }
 
     reader.readAsDataURL(file);
-
   }
 
   async function uploadTokenHandler(event) {
@@ -317,7 +401,7 @@ function App(props) {
     if (!checkTokenSize(file))
       return;
 
-    if(tokenList.length > 9){
+    if (tokenList.length > 9) {
       alert("You cannot have more than 10 tokens uploaded during this stage of development.");
       return;
     }
@@ -325,7 +409,7 @@ function App(props) {
     let fileKey;
     let gameId;
 
-    if (!gameList && !isTest ) {
+    if (!gameList && !isTest) {
       try {
         fileKey = await s3Upload(file, file.type, "token");
         gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -345,6 +429,12 @@ function App(props) {
           alert(e);
         }
       }
+    }
+
+    // This should only happen when isTesting is true
+    if (fileKey === undefined) {
+      let date = new Date();
+      fileKey = date.getTime();
     }
 
     reader.onload = () => {
@@ -385,17 +475,48 @@ function App(props) {
   return (
     <div className="App">
 
-      {signingUp && <Signup userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
+      {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
-        <Login runTest={runTest} authenticateLogin={authenticateLogin} signUp={signUp} confirmSignUp={confirmSignUp} handleSubmit={loginHandler} />
+        <Login
+          mode={mode}
+          toggleMode={toggleModeHandler}
+          runTest={runTest}
+          authenticateLogin={authenticateLogin}
+          signUp={signUp} confirmSignUp={confirmSignUp}
+          handleSubmit={loginHandler}
+        />
         :
-        <Canvas gridScale={gridScale} currentMap={currentMap} mapScale={mapScale} />
+        <Canvas
+          mode={mode}
+          gridScale={gridScale}
+          currentMap={currentMap}
+          mapScale={mapScale}
+        />
       }
 
-      {optionTray && <OptionTray scaleGrid={scaleGrid} scaleMap={scaleMap} handleLogout={handleLogout} />}
-      <EditTray toggleTokens={toggleTokenTray} toggleMaps={toggleMaps} toggleOptions={toggleOptionTray} close={closeAll} />
-      <TokenDrawer state={TokenDrawerState} getToken={uploadTokenHandler} tokens={tokenList} deleteToken={deleteToken} />
+      {optionTray &&
+        <OptionTray
+          mode={mode}
+          scaleGrid={scaleGrid}
+          scaleMap={scaleMap}
+          handleLogout={handleLogout}
+          toggleMode={toggleModeHandler}
+        />}
+      <EditTray
+        mode={mode}
+        toggleTokens={toggleTokenTray}
+        toggleMaps={toggleMaps}
+        toggleOptions={toggleOptionTray}
+        close={closeAll} />
+      <TokenDrawer
+        mode={mode}
+        state={TokenDrawerState}
+        getToken={uploadTokenHandler}
+        tokens={tokenList}
+        deleteToken={deleteToken}
+      />
       <MapDrawer
+        mode={mode}
         state={MapDrawerState}
         getMap={uploadBackground}
         maps={mapList} changeMap={changeMap}

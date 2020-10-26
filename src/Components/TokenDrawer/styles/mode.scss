@@ -1,0 +1,49 @@
+.light-mode {
+    .token-drawer {
+        background-color: rgb(247, 247, 247);
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+    }
+
+    .add-icon-token {
+        color: grey;
+    }
+
+    .token-container {
+        .token-img {
+            .token {
+                box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .upload-form-token {
+            box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+            background-color: white;
+        }
+    }
+}
+
+.dark-mode {
+
+    .token-drawer {
+        background-color: #313534;;
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+        color:white;
+    }
+
+    .add-icon-token {
+        color: grey;
+    }
+
+    .token-container {
+        .token-img {
+            .token {
+                box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .upload-form-token {
+            box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+            background-color: white;
+        }
+    }
+}

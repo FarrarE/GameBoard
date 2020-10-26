@@ -1,98 +1,114 @@
-.map-drawer{ 
-   left:0;
-   right:0;
-   margin-left:auto;
-   margin-right:auto;
-   background-color:rgb(247, 247, 247);
-   position: fixed;
-   bottom: 0;
-   height:9rem;
-   z-index: 300;
-   box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
-   transform: translateY(100%);
-   transition: transform 0.3s ease-out;
-   overflow-y: scroll;
-   overflow: hidden;
- }
-
- .map-drawer.open {
-    transform: translateY(0%);
- }
-
- .map-thumbnails{
-   position: relative;
-   margin:1rem;
- }
-
- .map-container{
-    display:flex;
-    flex-wrap: wrap;
-    height:100%;
- }
-
-.add-icon{
-   font-size: 3rem;
-   color:grey;
- }
-
- .add-icon svg{
-   margin-top:1.5rem;
- }
-
- .selected{
-   box-shadow: 0 0 2rem #661313;
+.map-drawer {
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  bottom: 0;
+  height: 9rem;
+  z-index: 300;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  overflow: hidden;
+  overflow-y: scroll;
 }
- 
- .map-container .map{
-   width:10rem;
-   height:5.62rem;
-   box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
- }
 
- .map-form{
-    position: relative;
- }
+.map-drawer p {
+  margin-top: 3rem;
+}
 
- #map-file-input{
-    display: none;
- }
+.map-drawer.open {
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
 
- .upload-form{
-   width:10rem;
-   height:5.62rem;
-   margin:1rem;
-   background-color: rgb(255, 255, 255);
-   box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
- } 
- 
- .delete-map{
-    display:none;
-    position: absolute;
-    right: 0;
-    top: -1rem;
-    width:2rem;
-    z-index:300;
+.map-thumbnails {
+  position: relative;
+  margin: 1rem;
+}
+
+.map-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 100%;
+}
+
+.add-icon {
+  font-size: 3rem;
+}
+
+.add-icon svg {
+  margin-top: 1.5rem;
+}
+
+.map-container .map {
+  width: 10rem;
+  height: 5.62rem;
+}
+
+.map-form {
+  position: relative;
+}
+
+#map-file-input {
+  display: none;
+}
+
+.upload-form {
+  width: 10rem;
+  height: 5.62rem;
+  margin: 1rem;
+}
+
+.delete-map {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: -1rem;
+  width: 2rem;
+  z-index: 300;
+  opacity: 1;
+  -webkit-animation-name: fadeInOpacity;
+          animation-name: fadeInOpacity;
+  -webkit-animation-timing-function: ease-in;
+          animation-timing-function: ease-in;
+  -webkit-animation-duration: .2s;
+          animation-duration: .2s;
+}
+
+@media only screen and (max-width: 1300px) {
+  .map-container {
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+}
+
+.show-options + .delete-map {
+  display: block;
+}
+
+@-webkit-keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
-    animation-name: fadeInOpacity;
-    animation-timing-function: ease-in;
-    animation-duration: .2s;
- }
-
- @media only screen and (max-width: 1300px) {
-   .map-container{
-       justify-content: space-around;
-   }
-}
-
-.show-options + .delete-map{
-   display:block;
+  }
 }
 
 @keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
+/*# sourceMappingURL=index.css.map */

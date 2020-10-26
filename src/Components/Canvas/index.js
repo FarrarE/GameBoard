@@ -6,19 +6,26 @@ import * as Constants from "../../constants";
 
 function Canvas(props) {
     const [canvas, setCanvas] = useState(null);
-    const[oldMap, setOldMap] = useState(null);
+    const [oldMap, setOldMap] = useState(null);
     const [oldMapScale, setOldMapScale] = useState(null);
     const [oldGridScale, setOldGridScale] = useState(null);
 
 
     useEffect(() => {
         onLoad();
-    }, [props.currentMap, props.gridScale, props.mapScale]);
+
+    }, [props.currentMap, props.gridScale, props.mapScale, props.mode]);
 
     // Canvas initialization
     function onLoad() {
+        
+
         if (!canvas) {
             let newCanvas = new fabric.Canvas('canvas', { selection: false });
+
+            if (props.mode === "dark-mode")
+                newCanvas.backgroundColor = "#525959";
+
             setCanvas(newCanvas);
             setSnap(newCanvas, props.gridScale)
             drawGrid(newCanvas, props.gridScale);
@@ -29,14 +36,21 @@ function Canvas(props) {
             setOldMapScale(props.mapScale);
             setOldMap(props.currentMap);
         } else {
+            if(props.mode === "dark-mode"){
+                canvas.backgroundColor = "#525959";
+                canvas.renderAll()
+            }
+            else{
+                canvas.backgroundColor = "white";
+                canvas.renderAll()
+            }
 
-            if(props.gridScale !== oldGridScale){
+            if (props.gridScale !== oldGridScale) {
                 setSnap(canvas, props.gridScale)
                 drawGrid(canvas, props.gridScale);
                 setOldGridScale(props.gridScale);
             }
-            if(props.currentMap !== oldMap | props.mapScale !== oldMapScale)
-            {
+            if (props.currentMap !== oldMap | props.mapScale !== oldMapScale) {
                 drawBackground(props.currentMap);
                 setOldMap(props.currentMap);
                 setOldMapScale(props.mapScale)
@@ -67,10 +81,10 @@ function Canvas(props) {
         }
 
         for (let i = 0; i < (height / scale); i++) {
-            canvas.add(new fabric.Line([0, i * scale, width, i * scale], { stroke: 'grey', selectable: false }));
+            canvas.add(new fabric.Line([0, i * scale, width, i * scale], { stroke: "grey", selectable: false }));
         }
         for (let i = 0; i < (width / scale); i++) {
-            canvas.add(new fabric.Line([i * scale, 0, i * scale, height], { stroke: 'grey', selectable: false }));
+            canvas.add(new fabric.Line([i * scale, 0, i * scale, height], { stroke: "grey", selectable: false }));
         }
     }
 
@@ -125,7 +139,7 @@ function Canvas(props) {
 
         canvas.on('mouse:dblclick', function (options) {
             const active = canvas.getActiveObject()
-            if(!active)
+            if (!active)
                 return;
 
             active.scaleToWidth(scale);

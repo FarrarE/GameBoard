@@ -1,0 +1,77 @@
+.light-mode .options {
+  background-color: #f7f7f7;
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  color: grey;
+}
+
+.light-mode .logout-button {
+  padding: 0.5rem;
+  background-color: #f0f0f0;
+  position: relative;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  -webkit-box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+  color: grey;
+}
+
+.light-mode .logout-button span {
+  font-size: 1rem;
+}
+
+.light-mode .logout-button:hover {
+  opacity: 0.5;
+  -webkit-box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.light-mode .logout-button:active {
+  opacity: 1;
+  -webkit-box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+          box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+  color: #79e3b6;
+}
+
+.dark-mode .options {
+  background: linear-gradient(145deg, #2c302f, #343938);
+  -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.dark-mode .logout-button {
+  padding: 0.5rem;
+  position: relative;
+  border-radius: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  -webkit-box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px #282b2b;
+          box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px #282b2b;
+  color: white;
+  background: #4f5453;
+}
+
+.dark-mode .logout-button span {
+  font-size: 1rem;
+}
+
+.dark-mode .logout-button:hover {
+  opacity: 0.5;
+  -webkit-box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px rgba(0, 0, 0, 0.2);
+          box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .logout-button:active {
+  opacity: 1;
+  background-color: #313534;
+  -webkit-box-shadow: inset -4px -4px 8px rgba(160, 160, 160, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
+          box-shadow: inset -4px -4px 8px rgba(160, 160, 160, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
+  color: #79e3b6;
+}
+/*# sourceMappingURL=mode.css.map */

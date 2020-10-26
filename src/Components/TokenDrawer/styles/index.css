@@ -3,13 +3,10 @@
   right: 0;
   margin-left: auto;
   margin-right: auto;
-  background-color: #f7f7f7;
   position: fixed;
   bottom: 0;
   height: 9rem;
   z-index: 300;
-  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
   -webkit-transition: -webkit-transform 0.3s ease-out;
@@ -31,7 +28,6 @@
 
 .add-icon-token {
   font-size: 2rem;
-  color: grey;
 }
 
 .add-icon-token svg {
@@ -58,8 +54,6 @@
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
 }
 
 .upload-form-token {
@@ -67,9 +61,6 @@
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
-  -webkit-box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-          box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-  background-color: white;
 }
 
 #droppable2 {

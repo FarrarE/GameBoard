@@ -1,0 +1,46 @@
+.light-mode{
+    .map-drawer {
+        background-color: rgb(247, 247, 247);
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+     }
+     
+     .add-icon {
+        color: grey;
+     }
+     
+     .selected {
+        box-shadow: 0 0 2rem #661313;
+     }
+     
+     .map-container .map {
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+     }
+     .upload-form {
+        background-color: rgb(255, 255, 255);
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+     }
+}
+
+.dark-mode{
+    .map-drawer {
+        background-color:#313534;
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+        color:white;
+     }
+     
+     .add-icon {
+        color: grey;
+     }
+     
+     .selected {
+        box-shadow: 0 0 2rem #661313;
+     }
+     
+     .map-container .map {
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+     }
+     .upload-form {
+        background-color: rgb(255, 255, 255);
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+     }
+}
