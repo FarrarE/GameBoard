@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Droppable from "../Droppable";
 import { fabric } from "fabric";
+import { MdFilterCenterFocus } from 'react-icons/md';
+import './index.css';
 import * as Constants from "../../constants";
 
 
@@ -86,7 +88,7 @@ function Canvas(props) {
         let width = document.body.clientWidth;
         let height = document.body.clientHeight;
 
-        var objects = canvas.getObjects('line');
+        let objects = canvas.getObjects('line');
         for (let i in objects) {
             canvas.remove(objects[i]);
         }
@@ -97,20 +99,6 @@ function Canvas(props) {
         for (let i = 0; i < (width / scale); i++) {
             canvas.add(new fabric.Line([i * scale, 0, i * scale, height], { stroke: "grey", selectable: false }));
         }
-    }
-
-    // Rescales grid on canvas, legacy code needs refactoring
-    function scaleGrid(event) {
-
-        let scale = parseInt(event.target.value);
-        let objects = canvas.getObjects('line');
-
-        for (let i in objects) {
-            canvas.remove(objects[i]);
-        }
-        setSnap(canvas, scale);
-        drawBackground(props.currentMap);
-        drawGrid(canvas, scale);
     }
 
 
@@ -158,21 +146,30 @@ function Canvas(props) {
             canvas.renderAll();
         })
 
-        canvas.on('mouse:down', function (opt) {
-            if (opt.button !== 3)
+        canvas.on('mouse:down', function (event) {
+
+            let evt = event.e;
+            if (evt.altKey === true) {
+                this.isDragging = true;
+                this.selection = false;
+                this.lastPosX = evt.clientX;
+                this.lastPosY = evt.clientY;
+            }
+
+            if (event.button !== 3)
                 return;
 
-            var e = opt.e;
+            let e = event.e;
             this.isDragging = true;
             this.selection = false;
             this.lastPosX = e.clientX;
             this.lastPosY = e.clientY;
         });
 
-        canvas.on('mouse:move', function (opt) {
+        canvas.on('mouse:move', function (event) {
             if (this.isDragging) {
-                var e = opt.e;
-                var vpt = this.viewportTransform;
+                let e = event.e;
+                let vpt = this.viewportTransform;
                 vpt[4] += e.clientX - this.lastPosX;
                 vpt[5] += e.clientY - this.lastPosY;
                 this.requestRenderAll();
@@ -180,25 +177,44 @@ function Canvas(props) {
                 this.lastPosY = e.clientY;
             }
         });
-        canvas.on('mouse:up', function (opt) {
-            // on mouse up we want to recalculate new interaction
-            // for all objects, so we call setViewportTransform
-            this.setViewportTransform(this.viewportTransform);
-            this.isDragging = false;
-            this.selection = true;
+        canvas.on('mouse:up', function (event) {
+            if (this.isDragging) {
+                // on mouse up we want to recalculate new interaction
+                // for all objects, so we call setViewportTransform
+                this.setViewportTransform(this.viewportTransform);
+                this.isDragging = false;
+                this.selection = true;
+                document.getElementById("center").style.display = "block";
+            }
         });
 
         // zooms in and out of canvas
         canvas.on('mouse:wheel', function (event) {
-            var delta = event.e.deltaY;
-            var zoom = canvas.getZoom();
+            let delta = event.e.deltaY;
+            let zoom = canvas.getZoom();
             zoom *= 0.999 ** delta;
             if (zoom > 20) zoom = 20;
             if (zoom < 0.01) zoom = 0.01;
             canvas.zoomToPoint({ x: event.e.offsetX, y: event.e.offsetY }, zoom);
             event.e.preventDefault();
             event.e.stopPropagation();
+            document.getElementById("center").style.display = "block";
         });
+    }
+
+    function recenterCanvas() {
+
+        let zoom = canvas.getZoom();
+        let width = document.body.clientWidth;
+        let height = document.body.clientHeight;
+        let x = (height / 2) - ((canvas.getHeight() / 2) * zoom);
+        let y = (width / 2) - ((canvas.getWidth() / 2) * zoom);
+        canvas.viewportTransform[4] = y;
+        canvas.viewportTransform[5] = x;
+        canvas.requestRenderAll();
+        canvas.lastPosX = x;
+        canvas.lastPosY = y;
+        document.getElementById("center").style.display = "none";
     }
 
     // Renders the delete icon from svg source.
@@ -266,6 +282,7 @@ function Canvas(props) {
 
     return (
         <Droppable drop={drop} allowDrop={allowDrop}>
+            <div id="center" onClick={recenterCanvas}><MdFilterCenterFocus /></div>
             <canvas id="canvas" width={document.body.clientWidth} height={document.body.clientHeight} />
         </Droppable>
     );
