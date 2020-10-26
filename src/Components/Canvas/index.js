@@ -84,7 +84,7 @@ function Canvas(props) {
     }
 
     // Renders grid lines to canvas
-    function drawGrid(canvas, scale) {
+    function drawGrid(canvas, scale, xOffset = 0, yOffset = 0) {
         let width = document.body.clientWidth;
         let height = document.body.clientHeight;
 
@@ -93,12 +93,17 @@ function Canvas(props) {
             canvas.remove(objects[i]);
         }
 
-        for (let i = 0; i < (height / scale); i++) {
-            canvas.add(new fabric.Line([0, i * scale, width, i * scale], { stroke: "grey", selectable: false }));
+        let widthScale = Math.floor(height / scale) + 6;
+        let heightScale = Math.floor(width / scale) + 6;
+        let start = -2*scale;
+
+        for (let i = 0; i <  widthScale; i++) {
+            canvas.add(new fabric.Line([start, (i * scale) + start, (width + xOffset) - start, (i * scale) + start], { stroke: "grey", selectable: false }));
         }
-        for (let i = 0; i < (width / scale); i++) {
-            canvas.add(new fabric.Line([i * scale, 0, i * scale, height], { stroke: "grey", selectable: false }));
+        for (let i = 0; i < heightScale; i++) {
+            canvas.add(new fabric.Line([(i * scale) + start, start, (i * scale) + start , (height + yOffset) - start], { stroke: "grey", selectable: false }));
         }
+
     }
 
 
