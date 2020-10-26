@@ -194,7 +194,7 @@ function Canvas(props) {
             let zoom = canvas.getZoom();
             zoom *= 0.999 ** delta;
             if (zoom > 20) zoom = 20;
-            if (zoom < 0.01) zoom = 0.01;
+            if (zoom < 0.5) zoom = 0.5;
             canvas.zoomToPoint({ x: event.e.offsetX, y: event.e.offsetY }, zoom);
             event.e.preventDefault();
             event.e.stopPropagation();
