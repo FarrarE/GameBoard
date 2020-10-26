@@ -16,6 +16,9 @@ import deleteFiles from './libs/deleteFiles';
 import './App.css';
 import * as Constants from './constants';
 
+import testToken1 from './Data/tokens/dax.jpg';
+import testToken2 from './Data/tokens/pop.jpg';
+
 function App(props) {
   // List of game states
   const [gameList, setGameList] = useState(null);
@@ -45,12 +48,42 @@ function App(props) {
   useEffect(() => {
     checkForUser();
     loadDB();
+
+    if (isTest)
+      prepareTest();
+
   }, [isAuthenticated]);
 
-  function defaultMode(stored){
-    if(stored === null)
+  function defaultMode(stored) {
+    if (stored === null)
       return "light-mode"
     else return stored;
+  }
+
+  function prepareTest() {
+
+
+    let img = new Image();
+    let img2 = new Image();
+    let array = new Array();
+
+    img.src = testToken1;
+    img2.src = testToken2;
+
+    let newToken = {
+      img: img,
+      key: "testToken1"
+    }
+
+    let newToken2 = {
+      img: img2,
+      key: "testToken2"
+    }
+
+    array.push(newToken);
+    array.push(newToken2);
+
+    setTokenList(array);
   }
 
   // State object function. Returns an object with the correct attributes to match schema for backend.
@@ -114,6 +147,18 @@ function App(props) {
   }
 
   async function deleteMap(key) {
+
+    if (isTest) {
+      let newList = new Array();
+      for (let i = 0; i < mapList.length; i++) {
+        if (mapList[i].key !== key) {
+          newList.push(mapList[i]);
+        }
+      }
+      setMapList(newList);
+      return;
+    }
+
     try {
       let index = gameState.mapKeys.indexOf(key);
       if (index > -1) {
@@ -133,6 +178,20 @@ function App(props) {
   }
 
   async function deleteToken(key) {
+
+    // If not logged in, delete works locally only.
+    if (isTest) {
+      let newList = new Array();
+      for (let i = 0; i < tokenList.length; i++) {
+        if (tokenList[i].key !== key) {
+          newList.push(tokenList[i]);
+        }
+      }
+      setTokenList(newList);
+      return;
+    }
+
+    // If logged in, delete needs update DB
     try {
       let index = gameState.tokenKeys.indexOf(key);
       if (index > -1) {
@@ -269,8 +328,9 @@ function App(props) {
   // Fetch file from user functions
   async function uploadBackground(event) {
 
-    const imageFiles = event.target.files;
     let reader = new FileReader();
+
+    const imageFiles = event.target.files;
     let file = imageFiles[0];
 
     // checkMapSize fails if file is too large 
@@ -308,6 +368,13 @@ function App(props) {
       }
     }
 
+
+    // This should only happen when isTesting is true
+    if (fileKey === undefined) {
+      let date = new Date();
+      fileKey = date.getTime();
+    }
+
     reader.onload = () => {
       let img = new Image();
       img.src = reader.result;
@@ -321,7 +388,6 @@ function App(props) {
     }
 
     reader.readAsDataURL(file);
-
   }
 
   async function uploadTokenHandler(event) {
@@ -365,6 +431,12 @@ function App(props) {
       }
     }
 
+    // This should only happen when isTesting is true
+    if (fileKey === undefined) {
+      let date = new Date();
+      fileKey = date.getTime();
+    }
+
     reader.onload = () => {
       let img = new Image();
       img.src = reader.result;
@@ -405,12 +477,12 @@ function App(props) {
 
       {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
-        <Login 
-          mode={mode} 
+        <Login
+          mode={mode}
           toggleMode={toggleModeHandler}
-          runTest={runTest} 
-          authenticateLogin={authenticateLogin} 
-          signUp={signUp} confirmSignUp={confirmSignUp} 
+          runTest={runTest}
+          authenticateLogin={authenticateLogin}
+          signUp={signUp} confirmSignUp={confirmSignUp}
           handleSubmit={loginHandler}
         />
         :
