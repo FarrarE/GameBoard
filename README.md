@@ -20,7 +20,7 @@ Features with a ✅ are available on the deployed demo.
 - Backend Storage       ✅
 - Dark Mode             ✅
 - Canvas Repositioning  ✅ 
-- Map Respositioning
+- Map Respositioning    ✅
 - Touch Event Handling
 - Responsive Design
 - Token cropping
