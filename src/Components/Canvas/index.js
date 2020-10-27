@@ -93,15 +93,25 @@ function Canvas(props) {
             canvas.remove(objects[i]);
         }
 
-        let widthScale = Math.floor(height / scale) + 6;
-        let heightScale = Math.floor(width / scale) + 6;
-        let start = -2*scale;
+        let widthScale = Math.floor(height / scale) + 3;
+        let heightScale = Math.floor(width / scale) + 3;
+        let start = -1*scale;
 
         for (let i = 0; i <  widthScale; i++) {
-            canvas.add(new fabric.Line([start, (i * scale) + start, (width + xOffset) - start, (i * scale) + start], { stroke: "grey", selectable: false }));
+            canvas.add(new fabric.Line([
+                (start + xOffset), 
+                (i * scale) + start + yOffset, 
+                (width - start)  + xOffset, 
+                (i * scale) + start + yOffset], 
+                { stroke: "grey", selectable: false }));
         }
         for (let i = 0; i < heightScale; i++) {
-            canvas.add(new fabric.Line([(i * scale) + start, start, (i * scale) + start , (height + yOffset) - start], { stroke: "grey", selectable: false }));
+            canvas.add(new fabric.Line([
+                (i * scale) + start + xOffset, 
+                (start + yOffset), 
+                (i * scale) + start + xOffset, 
+                (height - start) + yOffset], 
+                { stroke: "grey", selectable: false }));
         }
 
     }
@@ -130,28 +140,27 @@ function Canvas(props) {
 
 
     // Sets the grid snap points for tokens
-    function setSnap(canvas, scale) {
+    function setSnap(canvas, scale, offsetX = 0, offsetY = 0) {
 
         // Clears canvas events so events don't stack on rerender
         canvas.off()
+        canvas.on('object:moving', function (event) {
 
-        canvas.on('object:moving', function (eventions) {
-            eventions.target.left = Math.round(eventions.target.left / scale) * scale;
-            eventions.target.top = Math.round(eventions.target.top / scale) * scale;
-            eventions.target.setCoords();
-        })
+            if(offsetX === 0 && offsetY === 0){
+                event.target.left = (Math.round(event.target.left / scale) * scale);
+                event.target.top = (Math.round(event.target.top / scale ) * scale);
+            }else{
+                event.target.left = (Math.round(event.target.left / scale) * scale) +  (offsetX % scale);
+                event.target.top = (Math.round(event.target.top / scale ) * scale)  +  (offsetY % scale);
+            }
 
-        canvas.on('mouse:dblclick', function (eventions) {
-            const active = canvas.getActiveObject()
-            if (!active)
-                return;
-
-            active.scaleToWidth(scale);
-            active.scaleToHeight(scale);
-            canvas.renderAll();
+            event.target.setCoords();
         })
 
         canvas.on('mouse:down', function (event) {
+            const active = canvas.getActiveObject()
+            if (active)
+                return;
 
             let evt = event.e;
             if (evt.altKey === true) {
@@ -173,7 +182,32 @@ function Canvas(props) {
 
         canvas.on('mouse:move', function (event) {
             if (this.isDragging) {
+
                 let e = event.e;
+                if (e.altKey === true) {
+                    let x = e.clientX - this.lastPosX;
+                    let y = e.clientY - this.lastPosY;
+
+                    if(x >= 20){
+                        x = 20;
+                    }
+                    if(x <= -20){
+                        x = -20;
+                    }
+
+                    if(y >= 20){
+                        y = 20;
+                    }
+                    if(y <= -20){
+                        y = -20;
+                    }
+
+                    console.log(x + " " + y)
+                    setSnap(this,props.gridScale, x, y);
+                    drawGrid(this, props.gridScale,x,y);
+                    return;
+                }
+
                 let vpt = this.viewportTransform;
                 vpt[4] += e.clientX - this.lastPosX;
                 vpt[5] += e.clientY - this.lastPosY;
@@ -184,8 +218,7 @@ function Canvas(props) {
         });
         canvas.on('mouse:up', function (event) {
             if (this.isDragging) {
-                // on mouse up we want to recalculate new interaction
-                // for all objects, so we call setViewportTransform
+
                 this.setViewportTransform(this.viewportTransform);
                 this.isDragging = false;
                 this.selection = true;
