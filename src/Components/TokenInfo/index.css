@@ -3,23 +3,15 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border-radius: 0.5rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  max-width: 90%;
-  max-height: 90%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  border-radius: 0.5rem;
+  height: 10rem;
   width: 10rem;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
   left: 0;
   right: 0;
   top: 0;
@@ -30,5 +22,17 @@
   margin-bottom: auto;
   z-index: 100;
   padding: 1rem;
+}
+
+.token-information input {
+  border-radius: .5rem;
+  border: none;
+  padding: .5rem;
+  color: grey;
+  font-weight: bold;
+}
+
+.none {
+  display: none;
 }
 /*# sourceMappingURL=index.css.map */

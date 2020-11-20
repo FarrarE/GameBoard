@@ -1,14 +1,11 @@
 .token-information {
     position: absolute;
     display: flex;
-    border-radius: 0.5rem;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 90%;
-    max-height: 90%;
+    justify-content: space-around;
+    border-radius: 0.5rem;
+    height:10rem;
     width: 10rem;
-    height: max-content;
     left: 0;
     right: 0;
     top: 0;
@@ -19,4 +16,14 @@
     margin-bottom: auto;
     z-index: 100;
     padding: 1rem;
+
+    input{
+        border-radius: .5rem;
+        border:none;
+        padding:.5rem;
+        color:grey;
+        font-weight: bold;
+    }
 }
+
+.none{display:none;}
