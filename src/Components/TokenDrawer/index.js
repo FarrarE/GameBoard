@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { RiAddLine } from 'react-icons/ri';
+import { RiContactsLine } from 'react-icons/ri';
+import { RiDeleteBin7Line } from 'react-icons/ri';
 import Draggable from "../Draggable";
 import Droppable from "../Droppable";
 import * as Constants from '../../constants';
@@ -67,7 +69,14 @@ function TokenDrawer(props) {
                         onClick={hideOptions}
                       />
                     }
-                    <img className="delete-token" src={Constants.DELETE_ICON} onClick={() => props.deleteToken(token.key)} />
+                    <div className="token-options">
+                      <div className="delete-token option-btn" onClick={() => props.deleteToken(token.key)}>
+                        <RiDeleteBin7Line />
+                      </div>
+                      <div className="info-token option-btn">
+                        <RiContactsLine />
+                      </div>
+                    </div>
                   </div>
                 </Draggable>
               </Droppable>
