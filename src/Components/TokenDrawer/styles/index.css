@@ -64,8 +64,11 @@
 }
 
 .searchbar input {
+  padding: .1rem;
   margin: 1rem;
-  color: black !important;
+  border-radius: 0.5rem;
+  color: grey !important;
+  border: none;
 }
 
 #droppable2 {
@@ -113,7 +116,7 @@
   background: white;
   color: black;
   line-height: 1.6rem;
-  padding: .1rem;
+  padding: 0.1rem;
   font-size: 1rem;
   -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
           box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
