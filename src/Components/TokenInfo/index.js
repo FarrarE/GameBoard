@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import './styles/index.css';
-import './styles/mode.css';
+import './index.css';
 
 function TokenInfo(props) {
 
   return (
-    <div>
+    <div className="token-information">
     </div>
   );
 }
