@@ -69,6 +69,8 @@
   border-radius: 0.5rem;
   color: grey !important;
   border: none;
+  -webkit-box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
 }
 
 #droppable2 {
