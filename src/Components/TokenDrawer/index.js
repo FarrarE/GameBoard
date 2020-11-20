@@ -4,7 +4,6 @@ import { RiContactsLine } from 'react-icons/ri';
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import Draggable from "../Draggable";
 import Droppable from "../Droppable";
-import * as Constants from '../../constants';
 import './styles/index.css';
 import './styles/mode.css';
 
