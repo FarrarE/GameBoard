@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Auth } from "aws-amplify";
+
+// Components
 import EditTray from './Components/EditTray';
 import TokenDrawer from './Components/TokenDrawer';
 import MapDrawer from './Components/MapDrawer';
@@ -7,15 +8,20 @@ import OptionTray from './Components/OptionTray';
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Canvas from "./Components/Canvas";
+import TokenInfo from "./Components/TokenInfo";
+
+// Backend Imports
+import { Auth } from "aws-amplify";
 import s3Upload from "./libs/s3Bucket";
 import s3Get from './libs/s3Get';
 import postFiles from './libs/postFiles';
 import getFiles from './libs/getFiles';
 import updateFile from './libs/updateFile';
 import deleteFiles from './libs/deleteFiles';
+
+// css and constants
 import './App.css';
 import * as Constants from './constants';
-
 import testToken1 from './Data/tokens/dax.jpg';
 import testToken2 from './Data/tokens/pop.jpg';
 
@@ -514,7 +520,8 @@ function App(props) {
           scaleMap={scaleMap}
           handleLogout={handleLogout}
           toggleMode={toggleModeHandler}
-        />}
+        />
+      }
       <EditTray
         mode={mode}
         toggleTokens={toggleTokenTray}
