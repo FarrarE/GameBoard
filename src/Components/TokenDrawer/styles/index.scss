@@ -1,100 +1,123 @@
-.token-drawer{ 
-  left:0;
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
+.token-drawer {
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   position: fixed;
   bottom: 0;
-  height:9rem;
+  height: 9rem;
   z-index: 300;
   transform: translateY(100%);
   transition: transform 0.3s ease-out;
   overflow-y: scroll;
- }
+}
 
 .token-drawer.open {
-    transform: translateY(20%);
- }
+  transform: translateY(20%);
+}
 
 .token-drawer.docked {
-    transform: translateY(0%);
- }
+  transform: translateY(0%);
+}
 
-.add-icon-token{
+.add-icon-token {
   font-size: 2rem;
 
-  svg{
-    margin-top:.5rem;
-    border-radius: .3rem;
+  svg {
+    margin-top: 0.5rem;
+    border-radius: 0.3rem;
   }
 }
 
-.token-container{
-    padding:1rem;
-    padding-top: 0;
-    display:flex;
-    flex-wrap: wrap;
-    p{
-      margin-right:auto;
-      margin-left:auto;
-    }
- }
+.token-container {
+  padding: 1rem;
+  padding-top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  p {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
 
- .token-img {
-  .token{
-    margin:0 .5rem;
-    width:4rem;
-    height:4rem;
+.token-img {
+  .token {
+    margin: 0 0.5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
   }
- }
- 
-.upload-form-token{
-  width:4rem;
-  height:4rem;
-  border-radius: 50%;
-} 
+}
 
-.searchbar{
-  input{
-    margin:1rem;
-    color:black !important;
+.upload-form-token {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.searchbar {
+  input {
+    margin: 1rem;
+    color: black !important;
   }
 }
 
-#droppable2{
+#droppable2 {
   height: 50px;
   width: 200px;
 }
 
-.token-form{
- padding:10px;
+.token-form {
+  padding: 10px;
 }
 
-.token-thumbnails{
+.token-thumbnails {
   position: relative;
 }
 
-.token-form{
-  input{
+.token-form {
+  input {
     display: none;
   }
 }
 
-.show-options + .delete-token{
-  display:block;
+.token-options {
+  display: none;
 }
 
-.delete-token{
-  display:none;
+.token-options:hover{
+  cursor:pointer;
+}
+
+.show-options + .token-options {
+  display: block;
+}
+
+.option-btn {
   position: absolute;
-  right: 0;
-  top: -1rem;
-  width:2rem;
-  z-index:300;
+  width: 1.5rem;
+  height: 1.5rem;
+  z-index: 300;
   opacity: 1;
   animation-name: fadeInOpacity;
   animation-timing-function: ease-in;
-  animation-duration: .2s;
+  animation-duration: 0.2s;
+  border-radius: 50%;
+  background: white;
+  color: black;
+  line-height: 1.6rem;
+  padding:.1rem;
+  font-size: 1rem;
+
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.5);
 }
- 
+
+.delete-token {
+  right: 0.2rem;
+  top: -1.2rem;
+}
+
+.info-token {
+  right: -1rem;
+  top: 0.5rem;
+}
