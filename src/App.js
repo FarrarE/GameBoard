@@ -37,6 +37,7 @@ function App(props) {
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
+  const [selectedToken, setSelectedToken] = useState(false)
 
   // Canvas state variables
   const [mapList, setMapList] = useState([]);
@@ -493,7 +494,7 @@ function App(props) {
 
   return (
     <div className="App">
-
+      <TokenInfo mode={mode} display={selectedToken}/>
       {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
         <Login
