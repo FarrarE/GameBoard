@@ -1,31 +1,66 @@
 .options {
-    position: absolute;
-    display: flex;
-    border-radius: .5rem;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 90%;
-    max-height: 90%;
-    width: max-content;
-    height: max-content;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding: 1%;
-    z-index: 100;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 0.5rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-width: 90%;
+  max-height: 90%;
+  width: 10rem;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.options #help-icon {
+  font-size: 1rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
 }
 
 .drag-icon {
-    margin-top: -1rem;
-    font-size: 2rem;
+  margin-top: -1rem;
+  font-size: 2rem;
 }
 
 input {
-    text-align: center;
+  text-align: center;
 }
+
+@media only screen and (max-width: 1300px) {
+  .options {
+    font-size: 1.5rem;
+  }
+  .options .logout-button span {
+    padding: .5rem;
+  }
+  .options .handle {
+    font-size: 4rem;
+  }
+  .options #help-icon {
+    top: 1.5rem;
+    right: 1rem;
+  }
+}
+/*# sourceMappingURL=index.css.map */

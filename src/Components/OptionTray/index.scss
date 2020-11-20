@@ -1,0 +1,57 @@
+.options {
+    position: absolute;
+    display: flex;
+    border-radius: 0.5rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90%;
+    width: 10rem;
+    height: max-content;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    z-index: 100;
+    padding: 1rem;
+
+    #help-icon {
+        font-size: 1rem;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
+}
+
+.drag-icon {
+    margin-top: -1rem;
+    font-size: 2rem;
+}
+
+input {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1300px) {
+    .options {
+        font-size: 1.5rem;
+
+        .logout-button {
+            span{
+                padding:.5rem;
+            }
+        }
+        .handle{
+            font-size: 4rem;
+        }
+        #help-icon{
+            top:1.5rem;
+            right:1rem;
+        }
+    }
+}
