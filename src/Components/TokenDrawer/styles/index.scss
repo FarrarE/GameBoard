@@ -31,6 +31,7 @@
 
 .token-container{
     padding:1rem;
+    padding-top: 0;
     display:flex;
     flex-wrap: wrap;
     p{
@@ -49,11 +50,17 @@
  }
  
 .upload-form-token{
-  margin:1rem 0;
   width:4rem;
   height:4rem;
   border-radius: 50%;
 } 
+
+.searchbar{
+  input{
+    margin:1rem;
+    color:black !important;
+  }
+}
 
 #droppable2{
   height: 50px;
