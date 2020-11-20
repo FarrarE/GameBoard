@@ -60,8 +60,8 @@ function App(props) {
     else return stored;
   }
 
+  // This function creates an initial board state so none-users can try out the application.
   function prepareTest() {
-
 
     let img = new Image();
     let img2 = new Image();
@@ -99,6 +99,7 @@ function App(props) {
 
   // Backend file upload functions
 
+  // Fetches information from DB using the libs hook getFiles.
   async function loadDB() {
     if (!isAuthenticated || isTest)
       return;
@@ -146,6 +147,7 @@ function App(props) {
     }
   }
 
+  // onClick handler for map removal
   async function deleteMap(key) {
 
     if (isTest) {
@@ -177,6 +179,7 @@ function App(props) {
     }
   }
 
+  // onClick handler for token removal
   async function deleteToken(key) {
 
     // If not logged in, delete works locally only.
@@ -213,6 +216,7 @@ function App(props) {
 
   // User authentication functions
 
+  // loginHandler. Auth functionality should be moved to hook eventually
   async function loginHandler(email, password) {
 
     try {
@@ -246,6 +250,7 @@ function App(props) {
     closeAll();
   }
 
+  // Toggles signUp form visibility
   function signUp() {
     setSigningUp(true);
   }
@@ -254,10 +259,12 @@ function App(props) {
     setSigningUp(false);
   }
 
+  // Toggles auth form visibility
   function authenticateLogin() {
     userHasAuthenticated(true);
   }
 
+  // test state handler.
   function runTest() {
     userHasAuthenticated(true);
     setIsTest(true);
@@ -268,12 +275,14 @@ function App(props) {
     setOptionTray(!optionTray);
   }
 
+  // sets all visible panels to hidden.
   function closeAll() {
     setOptionTray(false);
     setTokenDrawerState("drawerClosed");
     setMapDrawerState("drawerClosed");
   }
 
+  // Changes classNames. Only affects appearance of elements.
   function toggleModeHandler() {
     if (mode === "light-mode") {
       setMode("dark-mode")
@@ -285,6 +294,7 @@ function App(props) {
 
   }
 
+  // Toggles visibility of token tray panel
   function toggleTokenTray() {
 
     if (MapDrawerState === "drawerOpen")
@@ -296,6 +306,7 @@ function App(props) {
       setTokenDrawerState("drawerClosed")
   }
 
+  // Toggles visibility of map tray panel
   function toggleMaps() {
 
     if (TokenDrawerState === "drawerDocked")
@@ -314,11 +325,13 @@ function App(props) {
     setCurrentMap(newMap.img);
   }
 
+  // function called on slider change in optionTray. Uses slider value to define map scale
   function scaleMap(event) {
     let scale = event.target.value / 50;
     setMapScale(scale);
   }
 
+  // function called on slider change in optionTray. Uses slider value to define grid scale.
   function scaleGrid(event) {
     let scale = parseInt(event.target.value);
     setGridScale(scale);
