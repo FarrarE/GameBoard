@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Draggable from 'react-draggable';
 import { MdDragHandle } from 'react-icons/md';
-import './index.css';
+import './styles/index.css';
 import './styles/mode.css'
 
 function TokenInfo(props) {
