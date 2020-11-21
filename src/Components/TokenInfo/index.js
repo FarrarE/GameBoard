@@ -10,10 +10,10 @@ function TokenInfo(props) {
     useEffect(() =>{
         if(props.display){
             setDisplay(props.display);
-            setName(props.display);
+            setName(props.display.name);
         }
             
-    },[]);
+    },[props.display]);
     
     return (
         <div className={props.mode + " " + display}>
