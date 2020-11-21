@@ -72,7 +72,7 @@ function TokenDrawer(props) {
                       <div className="delete-token option-btn" onClick={() => props.deleteToken(token.key)}>
                         <RiDeleteBin7Line />
                       </div>
-                      <div className="info-token option-btn">
+                      <div className="info-token option-btn" onClick={() => props.tokenInformation(token.key)}>
                         <RiContactsLine />
                       </div>
                     </div>
