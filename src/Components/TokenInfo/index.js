@@ -14,7 +14,17 @@ function TokenInfo(props) {
         } else setDisplay("none");
             
     },[props.selected]);
+
+    function handleChange(event){
+        setName(event.target.value)
+    }
     
+    function handleSave(){
+        let info = props.selected;
+        info.name = name;
+        alert("saved")
+    }
+
     return (
         <div className={props.mode + " " + display}>
             <Draggable handle=".handle">
@@ -22,8 +32,8 @@ function TokenInfo(props) {
                     <div>
                         <MdDragHandle className="drag-icon handle" />
                     </div>
-                    <input type="text" placeholder="Name" value={name}/>
-                    <button className="info-button">Save</button>
+                    <input type="text" placeholder="Name" value={name} onChange={handleChange}/>
+                    <button className="info-button" onClick={handleSave} >Save</button>
                 </div>
             </Draggable>
         </div>
