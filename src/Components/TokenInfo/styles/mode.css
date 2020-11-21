@@ -5,7 +5,7 @@
   color: grey;
 }
 
-.light-mode .logout-button {
+.light-mode .info-button {
   padding: 0.5rem;
   background-color: #f0f0f0;
   position: relative;
@@ -19,17 +19,17 @@
   color: grey;
 }
 
-.light-mode .logout-button span {
+.light-mode .info-button span {
   font-size: 1rem;
 }
 
-.light-mode .logout-button:hover {
+.light-mode .info-button:hover {
   opacity: 0.5;
   -webkit-box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
           box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.light-mode .logout-button:active {
+.light-mode .info-button:active {
   opacity: 1;
   -webkit-box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
           box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.5), inset 8px 8px 16px rgba(0, 0, 0, 0.1);
@@ -43,7 +43,7 @@
   color: white;
 }
 
-.dark-mode button {
+.dark-mode .info-button {
   padding: 0.5rem;
   position: relative;
   border-radius: 0.5rem;
@@ -57,17 +57,17 @@
   background: #4f5453;
 }
 
-.dark-mode button span {
+.dark-mode .info-button span {
   font-size: 1rem;
 }
 
-.dark-mode button:hover {
+.dark-mode .info-button:hover {
   opacity: 0.5;
   -webkit-box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px rgba(0, 0, 0, 0.2);
           box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.dark-mode button:active {
+.dark-mode .info-button:active {
   opacity: 1;
   background-color: #313534;
   -webkit-box-shadow: inset -4px -4px 8px rgba(160, 160, 160, 0.5), inset 8px 8px 16px rgba(17, 17, 17, 0.1);
