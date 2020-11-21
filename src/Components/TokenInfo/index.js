@@ -23,7 +23,7 @@ function TokenInfo(props) {
                         <MdDragHandle className="drag-icon handle" />
                     </div>
                     <input type="text" placeholder="Name" value={name}/>
-                    <button>Save</button>
+                    <button className="info-button">Save</button>
                 </div>
             </Draggable>
         </div>
