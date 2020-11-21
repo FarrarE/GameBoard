@@ -8,12 +8,12 @@ function TokenInfo(props) {
     const [display, setDisplay] = useState("none");
     const [name, setName] = useState("");
     useEffect(() =>{
-        if(props.display){
-            setDisplay(props.display);
-            setName(props.display.name);
-        }
+        if(props.selected){
+            setDisplay("display");
+            setName(props.selected.name);
+        } else setDisplay("none");
             
-    },[props.display]);
+    },[props.selected]);
     
     return (
         <div className={props.mode + " " + display}>
