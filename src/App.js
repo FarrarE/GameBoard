@@ -485,7 +485,7 @@ function App(props) {
       let newToken = {
         img: img,
         key: fileKey,
-        name: img.fileName
+        name: ""
       }
       setTokenList(tokenList => [...tokenList, newToken]);
     }
