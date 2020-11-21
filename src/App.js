@@ -79,12 +79,14 @@ function App(props) {
 
     let newToken = {
       img: img,
-      key: "testToken1"
+      key: "testToken1",
+      name: "Dax"
     }
 
     let newToken2 = {
       img: img2,
-      key: "testToken2"
+      key: "testToken2",
+      name: "Pop"
     }
 
     array.push(newToken);
@@ -280,7 +282,16 @@ function App(props) {
   // User interface functions
 
   function tokenInformationHandler(target){
-    alert(target)
+
+    let size = tokenList.length;
+    let index = -1;
+    for(let i = 0;i < size;++i){
+      if(tokenList[i].key === target)
+        index = i;
+    }
+
+    if(index !== -1)
+      setSelectedToken(tokenList[index])
   }
 
   function toggleOptionTray() {
@@ -467,7 +478,8 @@ function App(props) {
       img.src = reader.result;
       let newToken = {
         img: img,
-        key: fileKey
+        key: fileKey,
+        name: img.fileName
       }
       setTokenList(tokenList => [...tokenList, newToken]);
     }
@@ -499,7 +511,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <TokenInfo mode={mode} display={selectedToken}/>
+      <TokenInfo mode={mode} display={selectedToken} selected={selectedToken} />
       {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
         <Login
