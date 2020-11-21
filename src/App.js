@@ -37,7 +37,6 @@ function App(props) {
   const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
   const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
   const [optionTray, setOptionTray] = useState(false);
-  const [selectedToken, setSelectedToken] = useState(false)
 
   // Canvas state variables
   const [mapList, setMapList] = useState([]);
@@ -45,6 +44,7 @@ function App(props) {
   const [currentMap, setCurrentMap] = useState(null);
   const [mapScale, setMapScale] = useState(1);
   const [gridScale, setGridScale] = useState(50);
+  const [selectedToken, setSelectedToken] = useState(false)
 
   // User authentication variables
   const [signingUp, setSigningUp] = useState(false);
@@ -278,6 +278,11 @@ function App(props) {
   }
 
   // User interface functions
+
+  function tokenInformationHandler(target){
+    alert(target)
+  }
+
   function toggleOptionTray() {
     setOptionTray(!optionTray);
   }
@@ -535,6 +540,7 @@ function App(props) {
         getToken={uploadTokenHandler}
         tokens={tokenList}
         deleteToken={deleteToken}
+        tokenInformation={tokenInformationHandler}
       />
       <MapDrawer
         mode={mode}
