@@ -22,6 +22,7 @@ function TokenInfo(props) {
     function handleSave(){
         let info = props.selected;
         info.name = name;
+        props.updateTokenInfo(info);
     }
 
     return (

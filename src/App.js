@@ -299,6 +299,18 @@ function App(props) {
       setSelectedToken(tokenList[index])
   }
 
+  function updateTokenInfoHandler(newInfo){
+    console.log(newInfo)
+    let newList = [...tokenList];
+    let size = newList.length;
+    for(let i = 0;i < size;++i){
+      if(newList[i].key === newInfo.key)
+        newList[i] = newInfo;
+    }
+
+    setTokenList(newList);
+  }
+
   function toggleOptionTray() {
     setOptionTray(!optionTray);
   }
@@ -517,7 +529,11 @@ function App(props) {
 
   return (
     <div className="App">
-      <TokenInfo mode={mode} selected={selectedToken} />
+      <TokenInfo 
+        mode={mode} 
+        selected={selectedToken} 
+        updateTokenInfo={updateTokenInfoHandler}
+      />
       {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
         <Login
