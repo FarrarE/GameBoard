@@ -290,7 +290,12 @@ function App(props) {
         index = i;
     }
 
-    if(index !== -1)
+    if(index === -1)
+      return;
+
+    if(tokenList[index].key === selectedToken.key)
+      setSelectedToken(false);
+    else
       setSelectedToken(tokenList[index])
   }
 
@@ -301,6 +306,7 @@ function App(props) {
   // sets all visible panels to hidden.
   function closeAll() {
     setOptionTray(false);
+    setSelectedToken(false);
     setTokenDrawerState("drawerClosed");
     setMapDrawerState("drawerClosed");
   }
@@ -511,7 +517,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <TokenInfo mode={mode} display={selectedToken} selected={selectedToken} />
+      <TokenInfo mode={mode} selected={selectedToken} />
       {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
       {!isAuthenticated ?
         <Login
