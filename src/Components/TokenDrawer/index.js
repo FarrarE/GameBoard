@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RiAddLine } from 'react-icons/ri';
 import { RiContactsLine } from 'react-icons/ri';
 import { RiDeleteBin7Line } from 'react-icons/ri';
@@ -10,6 +10,11 @@ import './styles/mode.css';
 function TokenDrawer(props) {
   const [selected, setSelected] = useState(null);
   const [className, setClassName] = useState("show-options");
+  const [visibleList, setVisibleList] = useState([]);
+
+  useEffect(() => {
+    setVisibleList(props.tokens);
+  },[props.tokens]);
 
   function showOptions(event) {
     setSelected(parseInt(event.target.id[0]));
@@ -27,11 +32,29 @@ function TokenDrawer(props) {
     drawerState = 'token-drawer';
   }
 
+  function handleSearch(event){
+    if(event.target.value === ""){
+      setVisibleList(props.tokens);
+      return;
+    }
+
+    let size = visibleList.length;
+    let newList = [];
+
+    for(let i = 0;i < size;++i){
+      if(visibleList[i].name.toLowerCase().includes(event.target.value.toLowerCase()))
+        newList.push(visibleList[i])
+    }
+
+    setVisibleList(newList);
+    console.log(newList)
+  }
+
   return (
     <div className={props.mode}>
       <div className={drawerState}>
         <div className="searchbar">
-          <input type="text" placeholder="Search.."></input>
+          <input type="text" placeholder="Search.." onChange={handleSearch}></input>
         </div>
         <div className="token-container">
           <div className="upload-form-token">
@@ -44,7 +67,7 @@ function TokenDrawer(props) {
               <input id="token-input" type="file" onChange={props.getToken} />
             </form>
           </div>
-          {props.tokens[0] ? props.tokens.map((token, index) => (
+          {visibleList[0] ? visibleList.map((token, index) => (
             <div className="token-img">
               <Droppable id={index + "droppable"} >
                 <Draggable id={index + "token"} >
