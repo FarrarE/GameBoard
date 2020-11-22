@@ -7,19 +7,19 @@ import './styles/mode.css'
 function TokenInfo(props) {
     const [display, setDisplay] = useState("none");
     const [name, setName] = useState("");
-    useEffect(() =>{
-        if(props.selected){
+    useEffect(() => {
+        if (props.selected) {
             setDisplay("display");
             setName(props.selected.name);
         } else setDisplay("none");
-            
-    },[props.selected]);
 
-    function handleChange(event){
+    }, [props.selected]);
+
+    function handleChange(event) {
         setName(event.target.value)
     }
-    
-    function handleSave(){
+
+    function handleSave() {
         let info = props.selected;
         info.name = name;
         props.updateTokenInfo(info);
@@ -32,7 +32,11 @@ function TokenInfo(props) {
                     <div>
                         <MdDragHandle className="drag-icon handle" />
                     </div>
-                    <input type="text" placeholder="Name" value={name} onChange={handleChange}/>
+                    <input type="text" placeholder="Name" value={name} onChange={handleChange} />
+                    <div className="binary-tracker">
+                        <input type="number" /><span> / </span><input type="number" />
+                    </div>
+
                     <button className="info-button" onClick={handleSave} >Save</button>
                 </div>
             </Draggable>
