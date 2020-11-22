@@ -59,7 +59,7 @@ function TokenDrawer(props) {
         <div className="token-container">
           <div className="upload-form-token">
             <form action="/action_page.php" className="token-form">
-              <label for="token-input" >
+              <label htmlFor="token-input" >
                 <div className="add-icon-token">
                   <RiAddLine />
                 </div>
