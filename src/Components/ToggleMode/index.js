@@ -7,9 +7,9 @@ function ToggleMode(props) {
             <div id="mode-container">
                 <label>Dark Mode</label>
                 <div>
-                    <label class="switch">
-                        <input onClick={props.toggleMode} type="checkbox" checked={props.check}/>
-                        <span class="slider round"></span>
+                    <label className="switch">
+                        <input onClick={props.toggleMode} type="checkbox" checked={props.check} readOnly />
+                        <span className="slider round"></span>
                     </label>
                 </div>
             </div>
