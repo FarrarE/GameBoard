@@ -25,6 +25,20 @@ function MapDrawer(props) {
       setClassName("selected show-options");
   }
 
+  function deleteHandler(event) {
+    let mapList = props.maps;
+    let key = parseInt(event.target.id);
+
+    let newList = new Array();
+    for (let i = 0; i < mapList.length; i++) {
+      if (mapList[i].key !== key) {
+        newList.push(mapList[i]);
+        console.log(mapList[i].key, key)
+      }
+    }
+    props.deleteMap(newList);
+  }
+
   let drawerState = 'map-drawer';
   if (props.state === "drawerOpen") {
     drawerState = 'map-drawer open'
@@ -69,7 +83,7 @@ function MapDrawer(props) {
                     onDoubleClick={showOptions}
                   />
                 }
-                <img className="delete-map" src={Constants.DELETE_ICON} onClick={() => props.deleteMap(map.key)} />
+                <img className="delete-map" id={map.key} src={Constants.DELETE_ICON} onClick={deleteHandler} />
               </div>
             ))
             :

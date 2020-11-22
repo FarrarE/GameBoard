@@ -157,15 +157,8 @@ function App(props) {
   }
 
   // onClick handler for map removal
-  async function deleteMap(key) {
-
+  async function deleteMap(newList) {
     if (isTest) {
-      let newList = new Array();
-      for (let i = 0; i < mapList.length; i++) {
-        if (mapList[i].key !== key) {
-          newList.push(mapList[i]);
-        }
-      }
       setMapList(newList);
       return;
     }
@@ -281,30 +274,30 @@ function App(props) {
 
   // User interface functions
 
-  function tokenInformationHandler(target){
+  function tokenInformationHandler(target) {
 
     let size = tokenList.length;
     let index = -1;
-    for(let i = 0;i < size;++i){
-      if(tokenList[i].key === target)
+    for (let i = 0; i < size; ++i) {
+      if (tokenList[i].key === target)
         index = i;
     }
 
-    if(index === -1)
+    if (index === -1)
       return;
 
-    if(tokenList[index].key === selectedToken.key)
+    if (tokenList[index].key === selectedToken.key)
       setSelectedToken(false);
     else
       setSelectedToken(tokenList[index])
   }
 
-  function updateTokenInfoHandler(newInfo){
+  function updateTokenInfoHandler(newInfo) {
     console.log(newInfo)
     let newList = [...tokenList];
     let size = newList.length;
-    for(let i = 0;i < size;++i){
-      if(newList[i].key === newInfo.key)
+    for (let i = 0; i < size; ++i) {
+      if (newList[i].key === newInfo.key)
         newList[i] = newInfo;
     }
 
@@ -529,9 +522,9 @@ function App(props) {
 
   return (
     <div className="App">
-      <TokenInfo 
-        mode={mode} 
-        selected={selectedToken} 
+      <TokenInfo
+        mode={mode}
+        selected={selectedToken}
         updateTokenInfo={updateTokenInfoHandler}
       />
       {signingUp && <Signup mode={mode} userHasAuthenticated={userHasAuthenticated} confirmSignUp={confirmSignUp} />}
