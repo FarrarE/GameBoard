@@ -36,7 +36,7 @@ function MapDrawer(props) {
         console.log(mapList[i].key, key)
       }
     }
-    props.deleteMap(newList);
+    props.deleteMap(newList, key);
   }
 
   let drawerState = 'map-drawer';

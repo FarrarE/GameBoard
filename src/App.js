@@ -157,7 +157,7 @@ function App(props) {
   }
 
   // onClick handler for map removal
-  async function deleteMap(newList) {
+  async function deleteMap(newList, key) {
     if (isTest) {
       setMapList(newList);
       return;
