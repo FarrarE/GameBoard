@@ -5,13 +5,14 @@ import Signup from "../Components/Signup";
 
 function LoginPage(props) {
     const [mode, setMode] = useState(null);
+    const [view, setView] = useState(null);
+
     const [signingUp, setSigningUp] = useState(false);
-    const [isAuthenticating, setIsAuthenticating] = useState(true);
     const [isAuthenticated, userHasAuthenticated] = useState(false);
     const [isTest, setIsTest] = useState(false);
 
     useEffect(() => {
-        checkForUser();
+        handleRender();
     }, []);
 
     async function loginHandler(email, password) {
@@ -28,9 +29,11 @@ function LoginPage(props) {
         try {
             await Auth.currentSession();
             authenticateLogin();
+            return true;
         }
         catch (e) {
             console.log(e)
+            return false;
         }
     }
 
@@ -52,10 +55,16 @@ function LoginPage(props) {
     // Toggles signUp form visibility
     function signUp() {
         setSigningUp(true);
+        setView(<Signup
+            mode={mode}
+            userHasAuthenticated={userHasAuthenticated}
+            confirmSignUp={confirmSignUp}
+        />);
     }
 
     function confirmSignUp() {
         setSigningUp(false);
+        handleRender();
     }
 
     // Toggles auth form visibility
@@ -69,25 +78,31 @@ function LoginPage(props) {
         setIsTest(true);
     }
 
-    function toggleModeHandler(){
+    function toggleModeHandler() {
 
+    }
+
+    function handleRender() {
+        if (isAuthenticated)
+            return;
+
+        let authenticated = checkForUser();
+        if (authenticated) {
+            setView(
+                < Login
+                    mode={mode}
+                    toggleMode={toggleModeHandler}
+                    runTest={runTest}
+                    authenticateLogin={authenticateLogin}
+                    signUp={signUp} confirmSignUp={confirmSignUp}
+                    handleSubmit={loginHandler}
+                />);
+        }
     }
 
     return (
         <div >
-            <Login
-                mode={mode}
-                toggleMode={toggleModeHandler}
-                runTest={runTest}
-                authenticateLogin={authenticateLogin}
-                signUp={signUp} confirmSignUp={confirmSignUp}
-                handleSubmit={loginHandler}
-            />
-            <Signup
-                mode={mode}
-                userHasAuthenticated={userHasAuthenticated}
-                confirmSignUp={confirmSignUp}
-            />
+            {view}
         </div>
     );
 }
