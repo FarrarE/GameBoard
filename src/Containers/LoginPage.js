@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
+
 import Login from "../Components/Login";
 import Signup from "../Components/Signup";
 
@@ -34,21 +35,6 @@ function LoginPage(props) {
         }
     }
 
-    async function handleLogout() {
-        await Auth.signOut();
-
-        /*
-        userHasAuthenticated(false);
-        setTokenList([]);
-        setMapList([]);
-        setCurrentMap(null);
-        setGridScale(50);
-        setMapScale(1);
-        setIsTest(false);
-        closeAll();
-        */
-    }
-
     // Toggles auth form visibility
     function authenticateLogin() {
         userHasAuthenticated(true);
@@ -62,7 +48,6 @@ function LoginPage(props) {
     function confirmSignUp() {
         handleRender();
     }
-
 
     // 
     function handleRender() {
