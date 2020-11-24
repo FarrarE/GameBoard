@@ -13,6 +13,7 @@ function App(props) {
   }, []);
 
   function defaultMode(stored) {
+    console.log(stored)
     if (stored === null)
       return "light-mode"
     else return stored;

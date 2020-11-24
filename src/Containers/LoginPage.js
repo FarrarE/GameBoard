@@ -4,13 +4,11 @@ import Login from "../Components/Login";
 import Signup from "../Components/Signup";
 
 function LoginPage(props) {
-    const [mode, setMode] = useState(props.mode)
     const [view, setView] = useState(null);
     const [isAuthenticated, userHasAuthenticated] = useState(false);
 
     useEffect(() => {
         handleRender();
-        setMode(props.mode);
     }, [props.mode]);
 
     // wrapper function for login authentication
@@ -75,7 +73,7 @@ function LoginPage(props) {
         if (authenticated) {
             setView(
                 <Login
-                    mode={mode}
+                    mode={props.mode}
                     toggleMode={props.toggleMode}
                     runTest={runTest}
                     authenticateLogin={authenticateLogin}
@@ -87,7 +85,7 @@ function LoginPage(props) {
 
     function signUp() {
         setView(<Signup
-            mode={mode}
+            mode={props.mode}
             userHasAuthenticated={userHasAuthenticated}
             confirmSignUp={confirmSignUp}
         />);
