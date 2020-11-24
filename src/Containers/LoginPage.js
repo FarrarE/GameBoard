@@ -4,27 +4,16 @@ import Login from "../Components/Login";
 import Signup from "../Components/Signup";
 
 function LoginPage(props) {
-    const [mode, setMode] = useState(null);
+    const [mode, setMode] = useState(props.mode)
     const [view, setView] = useState(null);
-
-    const [signingUp, setSigningUp] = useState(false);
     const [isAuthenticated, userHasAuthenticated] = useState(false);
-    const [isTest, setIsTest] = useState(false);
 
     useEffect(() => {
         handleRender();
-    }, []);
+        setMode(props.mode);
+    }, [props.mode]);
 
-    async function loginHandler(email, password) {
-
-        try {
-            await Auth.signIn(email, password);
-            authenticateLogin();
-        } catch (e) {
-            alert("Login error:" + e.message);
-        }
-    }
-
+    // wrapper function for login authentication
     async function checkForUser() {
         try {
             await Auth.currentSession();
@@ -34,6 +23,16 @@ function LoginPage(props) {
         catch (e) {
             console.log(e)
             return false;
+        }
+    }
+
+    // wrapper function for login credentials
+    async function loginHandler(email, password) {
+        try {
+            await Auth.signIn(email, password);
+            authenticateLogin();
+        } catch (e) {
+            alert("Login error:" + e.message);
         }
     }
 
@@ -52,36 +51,22 @@ function LoginPage(props) {
         */
     }
 
-    // Toggles signUp form visibility
-    function signUp() {
-        setSigningUp(true);
-        setView(<Signup
-            mode={mode}
-            userHasAuthenticated={userHasAuthenticated}
-            confirmSignUp={confirmSignUp}
-        />);
-    }
-
-    function confirmSignUp() {
-        setSigningUp(false);
-        handleRender();
-    }
-
     // Toggles auth form visibility
     function authenticateLogin() {
         userHasAuthenticated(true);
     }
 
-    // test state handler.
+    // Lets user use application without authentication
     function runTest() {
-        userHasAuthenticated(true);
-        setIsTest(true);
+        setView(null);
     }
 
-    function toggleModeHandler() {
-
+    function confirmSignUp() {
+        handleRender();
     }
 
+
+    // 
     function handleRender() {
         if (isAuthenticated)
             return;
@@ -89,15 +74,23 @@ function LoginPage(props) {
         let authenticated = checkForUser();
         if (authenticated) {
             setView(
-                < Login
+                <Login
                     mode={mode}
-                    toggleMode={toggleModeHandler}
+                    toggleMode={props.toggleMode}
                     runTest={runTest}
                     authenticateLogin={authenticateLogin}
                     signUp={signUp} confirmSignUp={confirmSignUp}
                     handleSubmit={loginHandler}
                 />);
         }
+    }
+
+    function signUp() {
+        setView(<Signup
+            mode={mode}
+            userHasAuthenticated={userHasAuthenticated}
+            confirmSignUp={confirmSignUp}
+        />);
     }
 
     return (
