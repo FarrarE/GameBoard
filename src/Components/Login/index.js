@@ -7,10 +7,10 @@ import './styles/lightmode.css';
 function OptionTray(props) {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
-  const [mode, setMode] = useState();
+  const [mode, setMode] = useState(props.mode);
 
   useEffect(() => {
-    setMode(props.mode)
+    setMode(props.mode);
   }, [props.mode]);
 
   function validateForm() {
