@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as Constants from '../constants';
 
 // Components
 import EditTray from '../Components/EditTray';
@@ -24,7 +25,6 @@ function MapPage(props) {
     const [gameState, SetGameState] = useState({ gameId: null, mapKeys: [], tokenKeys: [] });
 
     // User interface variables
-    const [mode, setMode] = useState(defaultMode(localStorage.getItem('mode')));
     const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
     const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
     const [optionTray, setOptionTray] = useState(false);
@@ -48,8 +48,8 @@ function MapPage(props) {
         let img2 = new Image();
         let array = new Array();
 
-        img.src = testToken1;
-        img2.src = testToken2;
+        img.src = props.testState.token1;
+        img2.src = props.testState.token2;
 
         let newToken = {
             img: img,
@@ -84,8 +84,9 @@ function MapPage(props) {
 
     // Fetches information from DB using the libs hook getFiles.
     async function loadDB() {
-        if (!isAuthenticated || isTest)
+        if (props.isTest)
             return;
+
         try {
             // getFiles is a lib function that queries backend for content
             const games = await getFiles();
@@ -132,7 +133,7 @@ function MapPage(props) {
 
     // onClick handler for map removal
     async function deleteMap(newList, key) {
-        if (isTest) {
+        if (props.isTest) {
             setMapList(newList);
             return;
         }
@@ -159,7 +160,7 @@ function MapPage(props) {
     async function deleteToken(key) {
 
         // If not logged in, delete works locally only.
-        if (isTest) {
+        if (props.isTest) {
             let newList = new Array();
             for (let i = 0; i < tokenList.length; i++) {
                 if (tokenList[i].key !== key) {
@@ -233,18 +234,6 @@ function MapPage(props) {
         setMapDrawerState("drawerClosed");
     }
 
-    // Changes classNames. Only affects appearance of elements.
-    function toggleModeHandler() {
-        if (mode === "light-mode") {
-            setMode("dark-mode")
-            localStorage.setItem('mode', 'dark-mode');
-        } else {
-            setMode("light-mode")
-            localStorage.setItem('mode', 'light-mode');
-        }
-
-    }
-
     // Toggles visibility of token tray panel
     function toggleTokenTray() {
 
@@ -310,7 +299,7 @@ function MapPage(props) {
         let fileKey;
         let gameId;
 
-        if (!gameList && !isTest) {
+        if (!gameList && !props.isTest) {
             try {
                 fileKey = await s3Upload(file, file.type, "map");
                 gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -320,7 +309,7 @@ function MapPage(props) {
                 alert(e);
             }
         } else {
-            if (!isTest) {
+            if (!props.isTest) {
                 try {
                     fileKey = await s3Upload(file, file.type, "map");
                     let list = gameState.mapKeys;
@@ -333,7 +322,7 @@ function MapPage(props) {
         }
 
 
-        // This should only happen when isTesting is true
+        // This should only happen when props.isTesting is true
         if (fileKey === undefined) {
             let date = new Date();
             fileKey = date.getTime();
@@ -373,7 +362,7 @@ function MapPage(props) {
         let fileKey;
         let gameId;
 
-        if (!gameList && !isTest) {
+        if (!gameList && !props.isTest) {
             try {
                 fileKey = await s3Upload(file, file.type, "token");
                 gameId = await postFiles(boardState(gameState.mapKeys, gameState.tokenKeys));
@@ -383,7 +372,7 @@ function MapPage(props) {
                 alert(e);
             }
         } else {
-            if (!isTest) {
+            if (!props.isTest) {
                 try {
                     fileKey = await s3Upload(file, file.type, "token");
                     let list = gameState.tokenKeys;
@@ -395,7 +384,7 @@ function MapPage(props) {
             }
         }
 
-        // This should only happen when isTesting is true
+        // This should only happen when props.isTesting is true
         if (fileKey === undefined) {
             let date = new Date();
             fileKey = date.getTime();
@@ -441,26 +430,27 @@ function MapPage(props) {
     return (
         <div >
             <Canvas
-                mode={mode}
+                mode={props.mode}
                 gridScale={gridScale}
                 currentMap={currentMap}
                 mapScale={mapScale}
             />
             <OptionTray
-                mode={mode}
+                mode={props.mode}
                 scaleGrid={scaleGrid}
                 scaleMap={scaleMap}
-                toggleMode={toggleModeHandler}
+                toggleMode={props.toggleMode}
+                handleLogout={props.handleLogout}
             />
             <EditTray
-                mode={mode}
+                mode={props.mode}
                 toggleTokens={toggleTokenTray}
                 toggleMaps={toggleMaps}
                 toggleOptions={toggleOptionTray}
                 close={closeAll}
             />
             <TokenDrawer
-                mode={mode}
+                mode={props.mode}
                 state={TokenDrawerState}
                 getToken={uploadTokenHandler}
                 tokens={tokenList}
@@ -468,14 +458,14 @@ function MapPage(props) {
                 tokenInformation={tokenInformationHandler}
             />
             <MapDrawer
-                mode={mode}
+                mode={props.mode}
                 state={MapDrawerState}
                 getMap={uploadBackground}
                 maps={mapList} changeMap={changeMap}
                 deleteMap={deleteMap}
             />
             <TokenInfo
-                mode={mode}
+                mode={props.mode}
                 selected={selectedToken}
                 updateTokenInfo={updateTokenInfoHandler}
             />
