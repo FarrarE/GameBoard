@@ -30,7 +30,7 @@ function MapPage(props) {
     // User interface variables
     const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
     const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
-    const [optionTray, setOptionTray] = useState(false);
+    const [optionTrayState, setOptionTrayState] = useState(false);
 
     // Canvas state variables
     const [mapList, setMapList] = useState([]);
@@ -227,12 +227,12 @@ function MapPage(props) {
     }
 
     function toggleOptionTray() {
-        setOptionTray(!optionTray);
+        setOptionTrayState(!optionTrayState);
     }
 
     // sets all visible panels to hidden.
     function closeAll() {
-        setOptionTray(false);
+        setOptionTrayState(false);
         setSelectedToken(false);
         setTokenDrawerState("drawerClosed");
         setMapDrawerState("drawerClosed");
@@ -445,6 +445,7 @@ function MapPage(props) {
                 scaleMap={scaleMap}
                 toggleMode={props.toggleMode}
                 handleLogout={props.handleLogout}
+                state={optionTrayState}
             />
             <EditTray
                 mode={props.mode}
