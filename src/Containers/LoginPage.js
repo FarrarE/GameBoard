@@ -9,7 +9,7 @@ function LoginPage(props) {
     const [isAuthenticated, userHasAuthenticated] = useState(false);
 
     useEffect(() => {
-        handleRender();
+        defaultView();
     }, [props.mode]);
 
     // wrapper function for login authentication
@@ -43,31 +43,27 @@ function LoginPage(props) {
     // Lets user use application without authentication
     function runTest() {
         setView(null);
+        props.setIsTest(true);
     }
 
     function confirmSignUp() {
-        handleRender();
+        defaultView();
     }
 
-    // 
-    function handleRender() {
-        if (isAuthenticated)
-            return;
-
-        let authenticated = checkForUser();
-        if (authenticated) {
-            setView(
-                <Login
-                    mode={props.mode}
-                    toggleMode={props.toggleMode}
-                    runTest={runTest}
-                    authenticateLogin={authenticateLogin}
-                    signUp={signUp} confirmSignUp={confirmSignUp}
-                    handleSubmit={loginHandler}
-                />);
-        }
+    // Sets the home view for the page component
+    function defaultView() {
+        setView(
+            <Login
+                mode={props.mode}
+                toggleMode={props.toggleMode}
+                runTest={runTest}
+                authenticateLogin={authenticateLogin}
+                signUp={signUp} confirmSignUp={confirmSignUp}
+                handleSubmit={loginHandler}
+            />);
     }
 
+    // Sets view to signUp component
     function signUp() {
         setView(<Signup
             mode={props.mode}
