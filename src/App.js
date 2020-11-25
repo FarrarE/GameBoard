@@ -11,6 +11,7 @@ import testToken2 from './Data/tokens/pop.jpg';
 
 function App(props) {
   const [mode, setMode] = useState(defaultMode(localStorage.getItem('mode')));
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isTest, setIsTest] = useState(false);
 
   // preloaded assets for user testing
@@ -39,8 +40,11 @@ function App(props) {
   }
 
   async function handleLogout() {
-    await Auth.signOut();
-
+    try {
+      await Auth.signOut();
+    } catch { console.log("No user") }
+    setIsTest(false);
+    setLoggedIn(false);
     /*
     userHasAuthenticated(false);
     setTokenList([]);
@@ -48,24 +52,27 @@ function App(props) {
     setCurrentMap(null);
     setGridScale(50);
     setMapScale(1);
-    setIsTest(false);
     closeAll();
     */
   }
 
   return (
     <div className="App">
-      <LoginPage
-        mode={mode}
-        toggleMode={toggleMode}
-      />
-      <MapPage
-        mode={mode}
-        isTest={isTest}
-        toggleMode={toggleMode}
-        testState={testState}
-        handleLogout={handleLogout}
-      />
+      {(loggedIn || isTest) ?
+        <MapPage
+          mode={mode}
+          isTest={isTest}
+          toggleMode={toggleMode}
+          testState={testState}
+          handleLogout={handleLogout}
+        />
+        :
+        <LoginPage
+          mode={mode}
+          toggleMode={toggleMode}
+          setIsTest={setIsTest}
+        />
+      }
     </div>
   );
 }
