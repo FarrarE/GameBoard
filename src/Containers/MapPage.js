@@ -40,6 +40,8 @@ function MapPage(props) {
     useEffect(() => {
         if(props.isTest)
             prepareTest();
+
+        loadDB();
     }, []);
 
 
@@ -130,6 +132,7 @@ function MapPage(props) {
                 }
             }
         } catch (e) {
+            console.log(e)
         }
     }
 
