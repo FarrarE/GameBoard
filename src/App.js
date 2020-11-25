@@ -23,7 +23,6 @@ function App(props) {
   }, []);
 
   function defaultMode(stored) {
-    console.log(stored)
     if (stored === null)
       return "light-mode"
     else return stored;
@@ -71,6 +70,7 @@ function App(props) {
           mode={mode}
           toggleMode={toggleMode}
           setIsTest={setIsTest}
+          setLoggedIn={setLoggedIn}
         />
       }
     </div>
