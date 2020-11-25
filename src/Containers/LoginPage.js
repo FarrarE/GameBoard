@@ -15,7 +15,7 @@ function LoginPage(props) {
     // wrapper function for login authentication
     async function checkForUser() {
         try {
-            await Auth.currentSession();
+            let session = await Auth.currentSession();
             authenticateLogin();
             return true;
         }
@@ -30,14 +30,18 @@ function LoginPage(props) {
         try {
             await Auth.signIn(email, password);
             authenticateLogin();
+            return true;
         } catch (e) {
             alert("Login error:" + e.message);
+            return false;
         }
     }
 
     // Toggles auth form visibility
     function authenticateLogin() {
         userHasAuthenticated(true);
+        setView(null);
+        props.setLoggedIn(true);
     }
 
     // Lets user use application without authentication
@@ -52,6 +56,9 @@ function LoginPage(props) {
 
     // Sets the home view for the page component
     function defaultView() {
+        if(!checkForUser())
+            return;
+
         setView(
             <Login
                 mode={props.mode}
