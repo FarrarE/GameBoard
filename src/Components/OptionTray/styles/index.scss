@@ -37,6 +37,10 @@ input {
     text-align: center;
 }
 
+#optionTray{
+    display:none;
+}
+
 @media only screen and (max-width: 1300px) {
     .options {
         font-size: 1.5rem;
