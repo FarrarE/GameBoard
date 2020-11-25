@@ -10,7 +10,7 @@ import testToken1 from './Data/tokens/dax.jpg';
 import testToken2 from './Data/tokens/pop.jpg';
 
 function App(props) {
-  const [mode, setMode] = useState(defaultMode(localStorage.getItem('mode')));
+  const [mode, setMode] = useState(defaultMode());
   const [loggedIn, setLoggedIn] = useState(false);
   const [isTest, setIsTest] = useState(false);
 
@@ -22,12 +22,15 @@ function App(props) {
   useEffect(() => {
   }, []);
 
-  function defaultMode(stored) {
+  // Checks if user has set mode previously by checking local storage
+  function defaultMode() {
+    let stored = localStorage.getItem('mode');
     if (stored === null)
       return "light-mode"
     else return stored;
   }
 
+  // Saves mode to local storage and toggles between the two modes
   function toggleMode() {
     if (mode === "light-mode") {
       setMode("dark-mode")
@@ -41,18 +44,9 @@ function App(props) {
   async function handleLogout() {
     try {
       await Auth.signOut();
-    } catch { console.log("No user") }
+    } catch (e) { console.log(e) }
     setIsTest(false);
     setLoggedIn(false);
-    /*
-    userHasAuthenticated(false);
-    setTokenList([]);
-    setMapList([]);
-    setCurrentMap(null);
-    setGridScale(50);
-    setMapScale(1);
-    closeAll();
-    */
   }
 
   return (
