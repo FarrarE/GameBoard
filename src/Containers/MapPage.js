@@ -38,6 +38,8 @@ function MapPage(props) {
     const [selectedToken, setSelectedToken] = useState(false)
 
     useEffect(() => {
+        if(props.isTest)
+            prepareTest();
     }, []);
 
 
@@ -48,9 +50,9 @@ function MapPage(props) {
         let img2 = new Image();
         let array = new Array();
 
-        img.src = props.testState.token1;
-        img2.src = props.testState.token2;
-
+        img.src = props.testState.tokens[0];
+        img2.src = props.testState.tokens[1];
+        console.log(img.src)
         let newToken = {
             img: img,
             key: "testToken1",
