@@ -142,22 +142,18 @@ function MapPage(props) {
             setMapList(newList);
             return;
         }
-
         try {
-            let index = gameState.mapKeys.indexOf(key);
+            let index = gameState.mapKeys.indexOf(key + "map");
             if (index > -1) {
                 gameState.mapKeys.splice(index, 1);
-
                 // Array needs to be copied so when setMapList is called, the app rerenders.
-                let newList = [...mapList];
                 newList.splice(index, 1);
                 setMapList(newList);
             }
-
             const newState = boardState(gameState.mapKeys, gameState.tokenKeys);
             await deleteFiles(gameState.gameId, newState, key);
         } catch (e) {
-            alert(e);
+            console.log(e);
         }
     }
 
