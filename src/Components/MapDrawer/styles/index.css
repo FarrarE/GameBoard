@@ -37,7 +37,7 @@
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  height: 100%;
+  padding-top: 1rem;
 }
 
 .add-icon {
@@ -68,19 +68,8 @@
 }
 
 .delete-map {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: -1rem;
-  width: 2rem;
-  z-index: 300;
-  opacity: 1;
-  -webkit-animation-name: fadeInOpacity;
-          animation-name: fadeInOpacity;
-  -webkit-animation-timing-function: ease-in;
-          animation-timing-function: ease-in;
-  -webkit-animation-duration: .2s;
-          animation-duration: .2s;
+  right: 0.2rem;
+  top: -1.2rem;
 }
 
 @media only screen and (max-width: 1300px) {

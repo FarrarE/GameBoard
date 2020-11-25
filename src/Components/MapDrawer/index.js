@@ -83,7 +83,7 @@ function MapDrawer(props) {
                     onDoubleClick={showOptions}
                   />
                 }
-                <div className="delete-map" onClick={ () => deleteHandler(map.key)} >
+                <div className="delete-map option-btn" onClick={ () => deleteHandler(map.key)} >
                   <RiDeleteBin7Line />
                 </div>
               </div>
