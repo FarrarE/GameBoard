@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RiAddLine } from 'react-icons/ri';
-import './index.css';
+import { RiDeleteBin7Line } from 'react-icons/ri';
+import './styles/index.css';
 import './styles/mode.css';
 import * as Constants from '../../constants';
 
@@ -25,9 +26,8 @@ function MapDrawer(props) {
       setClassName("selected show-options");
   }
 
-  function deleteHandler(event) {
+  function deleteHandler(key) {
     let mapList = props.maps;
-    let key = parseInt(event.target.id);
 
     let newList = new Array();
     for (let i = 0; i < mapList.length; i++) {
@@ -83,7 +83,9 @@ function MapDrawer(props) {
                     onDoubleClick={showOptions}
                   />
                 }
-                <img className="delete-map" id={map.key} src={Constants.DELETE_ICON} onClick={deleteHandler} />
+                <div className="delete-map" onClick={ () => deleteHandler(map.key)} >
+                  <RiDeleteBin7Line />
+                </div>
               </div>
             ))
             :

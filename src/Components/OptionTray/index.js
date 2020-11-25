@@ -3,13 +3,19 @@ import Draggable from 'react-draggable';
 import ToggleMode from '../ToggleMode';
 import { MdDragHandle } from 'react-icons/md';
 
-import './index.css';
+import './styles/index.css';
 import './styles/mode.css'
 
 function OptionTray(props) {
 
+    useEffect(()=>{
+        if(props.state)
+            document.getElementById("optionTray").style.display = 'block';
+        else document.getElementById("optionTray").style.display = 'none';
+    }, [props.state]);
+
     return (
-        <div className={props.mode}>
+        <div className={props.mode} id="optionTray" >
             <Draggable handle=".handle">
                 <div className="options">
                     <div>
@@ -36,7 +42,6 @@ function OptionTray(props) {
                 </div>
             </Draggable>
         </div>
-
     );
 }
 
