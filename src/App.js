@@ -6,18 +6,11 @@ import MapPage from './Containers/MapPage';
 
 // css and constants
 import './App.css';
-import testToken1 from './Data/tokens/dax.jpg';
-import testToken2 from './Data/tokens/pop.jpg';
 
 function App(props) {
   const [mode, setMode] = useState(defaultMode());
   const [loggedIn, setLoggedIn] = useState(false);
   const [isTest, setIsTest] = useState(false);
-
-  // preloaded assets for user testing
-  const testState = {
-    tokens: [testToken1, testToken2]
-  }
 
   useEffect(() => {
   }, []);
@@ -56,7 +49,6 @@ function App(props) {
           mode={mode}
           isTest={isTest}
           toggleMode={toggleMode}
-          testState={testState}
           handleLogout={handleLogout}
         />
         :

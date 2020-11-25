@@ -17,6 +17,9 @@ import getFiles from '../libs/getFiles';
 import updateFile from '../libs/updateFile';
 import deleteFiles from '../libs/deleteFiles';
 
+import testToken1 from '../Data/tokens/dax.jpg';
+import testToken2 from '../Data/tokens/pop.jpg';
+
 function MapPage(props) {
     // List of game states
     const [gameList, setGameList] = useState(null);
@@ -38,7 +41,7 @@ function MapPage(props) {
     const [selectedToken, setSelectedToken] = useState(false)
 
     useEffect(() => {
-        if(props.isTest)
+        if (props.isTest)
             prepareTest();
 
         loadDB();
@@ -52,8 +55,8 @@ function MapPage(props) {
         let img2 = new Image();
         let array = new Array();
 
-        img.src = props.testState.tokens[0];
-        img2.src = props.testState.tokens[1];
+        img.src = testToken1;
+        img2.src = testToken2;
         console.log(img.src)
         let newToken = {
             img: img,
