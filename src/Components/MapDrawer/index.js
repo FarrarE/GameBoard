@@ -12,9 +12,7 @@ function MapDrawer(props) {
   function setFocus(event) {
     setSelected(parseInt(event.target.id[0]));
     props.changeMap(event);
-
-    if (className === "selected show-options")
-      setClassName("selected");
+    setClassName("selected");
   }
 
   function showOptions(event) {
