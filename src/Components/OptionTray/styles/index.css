@@ -14,12 +14,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  max-width: 90%;
-  max-height: 90%;
   width: 10rem;
-  height: -webkit-max-content;
-  height: -moz-max-content;
-  height: max-content;
+  height: 14rem;
   left: 0;
   right: 0;
   top: 0;
@@ -28,7 +24,7 @@
   margin-right: auto;
   margin-top: auto;
   margin-bottom: auto;
-  z-index: 100;
+  z-index: 301;
   padding: 1rem;
 }
 
