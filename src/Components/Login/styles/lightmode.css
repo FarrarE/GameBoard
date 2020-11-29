@@ -59,14 +59,15 @@
 }
 
 .light-mode .links button {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
   -webkit-box-shadow: none;
           box-shadow: none;
   color: #2196f3;
-  margin: 0 0.3rem 0 0.3rem;
+}
+
+.light-mode .links button:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: inherit;
 }
 
 .light-mode .links button:hover {
