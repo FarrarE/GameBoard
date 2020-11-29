@@ -21,8 +21,8 @@ Features with a ✅ are available on the deployed demo.
 - Dark Mode             ✅
 - Canvas Repositioning  ✅ 
 - Map Respositioning    ✅
-- Touch Event Handling
-- Responsive Design
+- Touch Event Handling  ✅
+- Responsive Design     ✅
 - Token cropping
 - Social Features
 
