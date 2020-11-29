@@ -16,13 +16,12 @@ function Canvas(props) {
     useEffect(() => {
         onLoad();
 
-        touchDrop();
         window.addEventListener('contextmenu', function (e) {
             // do something here... 
             e.preventDefault();
         }, false);
 
-    }, [props.currentMap, props.gridScale, props.mapScale, props.mode, props.toDrop]);
+    }, [props.currentMap, props.gridScale, props.mapScale, props.mode]);
 
     // Canvas initialization
     function onLoad() {
@@ -79,6 +78,7 @@ function Canvas(props) {
             let background = img.set({ left: x, top: y });
             background.scaleToWidth(props.gridScale);
             background.scaleToHeight(props.gridScale);
+            canvas.add(background)
         });
 
     }
@@ -95,22 +95,22 @@ function Canvas(props) {
 
         let widthScale = Math.floor(height / scale) + 3;
         let heightScale = Math.floor(width / scale) + 3;
-        let start = -1 * scale;
+        let start = -1*scale;
 
-        for (let i = 0; i < widthScale; i++) {
+        for (let i = 0; i <  widthScale; i++) {
             canvas.add(new fabric.Line([
-                (start + xOffset),
-                (i * scale) + start + yOffset,
-                (width - start) + xOffset,
-                (i * scale) + start + yOffset],
+                (start + xOffset), 
+                (i * scale) + start + yOffset, 
+                (width - start)  + xOffset, 
+                (i * scale) + start + yOffset], 
                 { stroke: "grey", selectable: false }));
         }
         for (let i = 0; i < heightScale; i++) {
             canvas.add(new fabric.Line([
-                (i * scale) + start + xOffset,
-                (start + yOffset),
-                (i * scale) + start + xOffset,
-                (height - start) + yOffset],
+                (i * scale) + start + xOffset, 
+                (start + yOffset), 
+                (i * scale) + start + xOffset, 
+                (height - start) + yOffset], 
                 { stroke: "grey", selectable: false }));
         }
 
@@ -146,12 +146,12 @@ function Canvas(props) {
         canvas.off()
         canvas.on('object:moving', function (event) {
 
-            if (offsetX === 0 && offsetY === 0) {
+            if(offsetX === 0 && offsetY === 0){
                 event.target.left = (Math.round(event.target.left / scale) * scale);
-                event.target.top = (Math.round(event.target.top / scale) * scale);
-            } else {
-                event.target.left = (Math.round(event.target.left / scale) * scale) + (offsetX % scale);
-                event.target.top = (Math.round(event.target.top / scale) * scale) + (offsetY % scale);
+                event.target.top = (Math.round(event.target.top / scale ) * scale);
+            }else{
+                event.target.left = (Math.round(event.target.left / scale) * scale) +  (offsetX % scale);
+                event.target.top = (Math.round(event.target.top / scale ) * scale)  +  (offsetY % scale);
             }
 
             event.target.setCoords();
@@ -188,23 +188,23 @@ function Canvas(props) {
                     let x = e.clientX - this.lastPosX;
                     let y = e.clientY - this.lastPosY;
 
-                    if (x >= 20) {
+                    if(x >= 20){
                         x = 20;
                     }
-                    if (x <= -20) {
+                    if(x <= -20){
                         x = -20;
                     }
 
-                    if (y >= 20) {
+                    if(y >= 20){
                         y = 20;
                     }
-                    if (y <= -20) {
+                    if(y <= -20){
                         y = -20;
                     }
 
                     console.log(x + " " + y)
-                    setSnap(this, props.gridScale, x, y);
-                    drawGrid(this, props.gridScale, x, y);
+                    setSnap(this,props.gridScale, x, y);
+                    drawGrid(this, props.gridScale,x,y);
                     return;
                 }
 
@@ -237,9 +237,6 @@ function Canvas(props) {
             event.e.preventDefault();
             event.e.stopPropagation();
             document.getElementById("center").style.display = "block";
-        });
-        canvas.on('touch:longpress', function (event) {
-            alert("pop")
         });
     }
 
@@ -307,23 +304,9 @@ function Canvas(props) {
         let tokenImage = new Image();
         tokenImage.src = data;
 
-        console.log(props.gridScale)
         let x = event.clientX;
         let y = event.clientY;
         drawToken(tokenImage, x, y);
-    }
-
-    function touchDrop() {
-        if (props.toDrop === null)
-            return;
-
-        let tokenImage = new Image();
-        tokenImage.src = props.toDrop.src;
-
-        let x = props.toDrop.x;
-        let y = props.toDrop.y;
-        drawToken(tokenImage, x, y);
-        props.setToDrop(null);
     }
 
     function allowDrop(event) {
