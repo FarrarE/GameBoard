@@ -239,6 +239,9 @@ function Canvas(props) {
             event.e.stopPropagation();
             document.getElementById("center").style.display = "block";
         });
+        canvas.on('touch:longpress', function (event) {
+            alert("pop")
+        });
     }
 
     function recenterCanvas() {
@@ -321,6 +324,7 @@ function Canvas(props) {
         let x = props.toDrop.x;
         let y = props.toDrop.y;
         drawToken(tokenImage, x, y);
+        props.setToDrop(null);
     }
 
     function allowDrop(event) {

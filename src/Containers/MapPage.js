@@ -437,6 +437,9 @@ function MapPage(props) {
         setToDrop(target);
     }
 
+    function dropHandler(){
+    }
+
 
     return (
         <div >
@@ -446,6 +449,7 @@ function MapPage(props) {
                 currentMap={currentMap}
                 mapScale={mapScale}
                 toDrop={toDrop}
+                setToDrop={setToDrop}
             />
             <OptionTray
                 mode={props.mode}
