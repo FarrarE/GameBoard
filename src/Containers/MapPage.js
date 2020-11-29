@@ -52,13 +52,13 @@ function MapPage(props) {
     // This function creates an initial board state so none-users can try out the application.
     function prepareTest() {
 
-        let img = new Image();
-        let img2 = new Image();
-        let array = new Array();
+        let img = [];
+        let img2 = [];
+        let array = [];
 
         img.src = testToken1;
         img2.src = testToken2;
-        console.log(img.src)
+        
         let newToken = {
             img: img,
             key: "testToken1",
@@ -106,9 +106,12 @@ function MapPage(props) {
                 setGameList(games);
 
                 // parses out that information into state
-                gameState.gameId = games[0].gameid;
-                gameState.mapKeys = games[0].content.maps;
-                gameState.tokenKeys = games[0].content.tokens
+                let newState = gameState;
+
+                newState.gameId = games[0].gameid;
+                newState.mapKeys = games[0].content.maps;
+                newState.tokenKeys = games[0].content.tokens;
+                SetGameState(newState);
 
                 // Fetches assets from backend and populates local data structures
                 for (let i = 0; i < gameState.mapKeys.length; ++i) {
@@ -168,7 +171,7 @@ function MapPage(props) {
 
         // If not logged in, delete works locally only.
         if (props.isTest) {
-            let newList = new Array();
+            let newList = [];
             for (let i = 0; i < tokenList.length; i++) {
                 if (tokenList[i].key !== key) {
                     newList.push(tokenList[i]);
@@ -436,10 +439,6 @@ function MapPage(props) {
     function dragHandler(target){
         setToDrop(target);
     }
-
-    function dropHandler(){
-    }
-
 
     return (
         <div >

@@ -79,7 +79,6 @@ function Canvas(props) {
             let background = img.set({ left: x, top: y });
             background.scaleToWidth(props.gridScale);
             background.scaleToHeight(props.gridScale);
-            canvas.add(background)
         });
 
     }

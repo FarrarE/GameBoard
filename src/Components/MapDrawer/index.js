@@ -3,7 +3,6 @@ import { RiAddLine } from 'react-icons/ri';
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import './styles/index.css';
 import './styles/mode.css';
-import * as Constants from '../../constants';
 
 function MapDrawer(props) {
   const [selected, setSelected] = useState(null);
@@ -27,7 +26,7 @@ function MapDrawer(props) {
   function deleteHandler(key) {
     let mapList = props.maps;
 
-    let newList = new Array();
+    let newList = [];
     for (let i = 0; i < mapList.length; i++) {
       if (mapList[i].key !== key) {
         newList.push(mapList[i]);
@@ -64,7 +63,7 @@ function MapDrawer(props) {
               <div className="map-thumbnails">
                 {(selected === index) ?
                   <img
-                    className={className + " " + "map"}
+                    className={className.concat(' ', 'map')}
                     src={map.img.src}
                     alt="..."
                     id={index + "m"}
@@ -81,7 +80,7 @@ function MapDrawer(props) {
                     onDoubleClick={showOptions}
                   />
                 }
-                <div className="delete-map option-btn" onClick={ () => deleteHandler(map.key)} >
+                <div className="delete-map option-btn" onClick={() => deleteHandler(map.key)} >
                   <RiDeleteBin7Line />
                 </div>
               </div>

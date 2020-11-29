@@ -9,7 +9,6 @@ import './styles/mode.css';
 
 function TokenDrawer(props) {
   const [selected, setSelected] = useState(null);
-  const [className, setClassName] = useState("show-options");
   const [visibleList, setVisibleList] = useState([]);
 
   useEffect(() => {
@@ -68,7 +67,7 @@ function TokenDrawer(props) {
             </form>
           </div>
           {visibleList[0] ? visibleList.map((token, index) => (
-            <div className="token-img">
+            <div className="token-img" key={token + index}>
               <Droppable id={index + "droppable"} >
                 <Draggable id={index + "token"}
                   dragHandler={props.dragHandler}
@@ -76,7 +75,7 @@ function TokenDrawer(props) {
                   <div className="token-thumbnails">
                     {(selected === index) ?
                       <img
-                        className={className + " " + "token"}
+                        className={"show-options token"}
                         alt="..."
                         id={index + "token"}
                         draggable="true" src={token.img.src}

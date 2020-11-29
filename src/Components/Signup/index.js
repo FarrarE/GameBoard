@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
-import "./index.css";
+import "./styles/index.css";
 import "./styles/lightmode.css";
 import "./styles/darkmode.css";
 
 export default function Signup(props) {
 
   const [newUser, setNewUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Need to find a loading animation or make one
   const [userName, setUserName] = useState(null);
   const [pass, setPass] = useState(null);
   const [passConfirm, setPassConfirm] = useState(null);
@@ -21,34 +20,27 @@ export default function Signup(props) {
       return;
     }
 
-    setIsLoading(true);
-
     try {
       const newUser = await Auth.signUp({
         username: userName,
         password: pass,
       });
 
-      setIsLoading(false);
       setNewUser(newUser);
     } catch (e) {
       alert(e.message)
-      setIsLoading(false);
     }
   }
 
   async function handleConfirmationSubmit(event) {
     event.preventDefault();
-    setIsLoading(true);
 
     try {
       await Auth.confirmSignUp(userName, code);
       await Auth.signIn(userName, pass);
       props.confirmSignUp();
-      props.userHasAuthenticated(true);
     } catch (e) {
       alert(e.message);
-      setIsLoading(false);
     }
   }
 

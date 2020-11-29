@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from "react";
+import React, { useEffect, } from "react";
 import Draggable from 'react-draggable';
 import ToggleMode from '../ToggleMode';
 import { MdDragHandle } from 'react-icons/md';
@@ -25,13 +25,13 @@ function OptionTray(props) {
                         Grid Size
                     </div>
                     <div>
-                        <input type="range" min="10" max="100" class="slider" onInput={props.scaleGrid.bind(this)} />
+                        <input type="range" min="10" max="100" className="slider" onInput={props.scaleGrid.bind(this)} />
                     </div>
                     <div>
                         Map Size
                     </div>
                     <div>
-                        <input type="range" min="10" max="100" class="slider" onInput={props.scaleMap.bind(this)} />
+                        <input type="range" min="10" max="100" className="slider" onInput={props.scaleMap.bind(this)} />
                     </div>
                     <div>
                         <ToggleMode check={props.mode === "dark-mode" ? true : false} toggleMode={props.toggleMode} mode={props.mode} />

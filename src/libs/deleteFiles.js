@@ -1,5 +1,4 @@
 import { Storage } from "aws-amplify";
-import { API } from "aws-amplify";
 import updateFile from './updateFile';
 
 export default async function deleteFiles(id, boardState, key) {

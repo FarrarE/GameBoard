@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Auth } from "aws-amplify";
 
 import LoginPage from './Containers/LoginPage';

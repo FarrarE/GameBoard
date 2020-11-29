@@ -6,7 +6,6 @@ import Signup from "../Components/Signup";
 
 function LoginPage(props) {
     const [view, setView] = useState(null);
-    const [isAuthenticated, userHasAuthenticated] = useState(false);
 
     useEffect(() => {
         defaultView();
@@ -15,7 +14,7 @@ function LoginPage(props) {
     // wrapper function for login authentication
     async function checkForUser() {
         try {
-            let session = await Auth.currentSession();
+            await Auth.currentSession();
             authenticateLogin();
             return true;
         }
@@ -39,7 +38,6 @@ function LoginPage(props) {
 
     // Toggles auth form visibility
     function authenticateLogin() {
-        userHasAuthenticated(true);
         setView(null);
         props.setLoggedIn(true);
     }
@@ -74,7 +72,6 @@ function LoginPage(props) {
     function signUp() {
         setView(<Signup
             mode={props.mode}
-            userHasAuthenticated={userHasAuthenticated}
             confirmSignUp={confirmSignUp}
         />);
     }

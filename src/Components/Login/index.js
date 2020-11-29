@@ -36,12 +36,10 @@ function OptionTray(props) {
               <input
                 autoFocus
                 type="email"
-                value={email}
                 placeholder="Email"
                 onChange={e => setEmail(e.target.value)}
               />
               <input
-                value={password}
                 placeholder="Password"
                 onChange={e => setPassword(e.target.value)}
                 type="password"
@@ -57,9 +55,9 @@ function OptionTray(props) {
             </form>
             <div className="links">
               <span>Dont have an account?</span>
-              <a onClick={props.signUp} tabIndex="1"><span> Sign up here</span></a>
+              <button onClick={props.signUp} tabIndex="1">Sign up here</button>
               <span>or</span>
-              <a onClick={props.runTest} tabIndex="2"><span>Try without signing up</span></a>
+              <button onClick={props.runTest} tabIndex="2">Try without signing up</button>
             </div>
           </div>
         </div>

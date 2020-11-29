@@ -96,35 +96,19 @@ button {
 .links {
     display: flex;
     font-size: 1rem;
-}
-
-.links a {
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
-    color: rgb(128, 173, 207);
-}
-
-.links > a {
-    position: relative;
-    text-decoration: none;
-}
-
-.links > a:hover::before {
-    visibility: visible;
-    transform: scaleX(1);
-}
-
-.links > a::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: rgb(128, 173, 207);
-    visibility: hidden;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out 0s;
+    button{
+        background:none;
+        border:none;
+        padding:0;
+        margin:0;
+        box-shadow: none;
+        font-size: inherit;
+        color:rgb(0, 42, 228);
+        margin:0 .3rem 0 .3rem;
+    }
+    button:hover{
+        box-shadow: none;
+    }
 }
 
 #login-toggle{
