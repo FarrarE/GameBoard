@@ -39,6 +39,7 @@ function MapPage(props) {
     const [mapScale, setMapScale] = useState(1);
     const [gridScale, setGridScale] = useState(50);
     const [selectedToken, setSelectedToken] = useState(false)
+    const [toDrop, setToDrop] = useState(null);
 
     useEffect(() => {
         if (props.isTest)
@@ -61,13 +62,15 @@ function MapPage(props) {
         let newToken = {
             img: img,
             key: "testToken1",
-            name: "Dax"
+            name: "Dax",
+            hp: {max:0,min:0}
         }
 
         let newToken2 = {
             img: img2,
             key: "testToken2",
-            name: "Pop"
+            name: "Pop",
+            hp: {max:0,min:0}
         }
 
         array.push(newToken);
@@ -215,7 +218,6 @@ function MapPage(props) {
     }
 
     function updateTokenInfoHandler(newInfo) {
-        console.log(newInfo)
         let newList = [...tokenList];
         let size = newList.length;
         for (let i = 0; i < size; ++i) {
@@ -400,7 +402,8 @@ function MapPage(props) {
             let newToken = {
                 img: img,
                 key: fileKey,
-                name: ""
+                name: "",
+                hp: {max:0,min:0}
             }
             setTokenList(tokenList => [...tokenList, newToken]);
         }
@@ -430,6 +433,10 @@ function MapPage(props) {
         return 1;
     }
 
+    function dragHandler(target){
+        setToDrop(target);
+    }
+
 
     return (
         <div >
@@ -438,6 +445,7 @@ function MapPage(props) {
                 gridScale={gridScale}
                 currentMap={currentMap}
                 mapScale={mapScale}
+                toDrop={toDrop}
             />
             <OptionTray
                 mode={props.mode}
@@ -461,6 +469,7 @@ function MapPage(props) {
                 tokens={tokenList}
                 deleteToken={deleteToken}
                 tokenInformation={tokenInformationHandler}
+                dragHandler={dragHandler}
             />
             <MapDrawer
                 mode={props.mode}

@@ -14,7 +14,7 @@ function TokenDrawer(props) {
 
   useEffect(() => {
     setVisibleList(props.tokens);
-  },[props.tokens]);
+  }, [props.tokens]);
 
   function showOptions(event) {
     setSelected(parseInt(event.target.id[0]));
@@ -32,8 +32,8 @@ function TokenDrawer(props) {
     drawerState = 'token-drawer';
   }
 
-  function handleSearch(event){
-    if(event.target.value === ""){
+  function handleSearch(event) {
+    if (event.target.value === "") {
       setVisibleList(props.tokens);
       return;
     }
@@ -41,8 +41,8 @@ function TokenDrawer(props) {
     let size = visibleList.length;
     let newList = [];
 
-    for(let i = 0;i < size;++i){
-      if(visibleList[i].name.toLowerCase().includes(event.target.value.toLowerCase()))
+    for (let i = 0; i < size; ++i) {
+      if (visibleList[i].name.toLowerCase().includes(event.target.value.toLowerCase()))
         newList.push(visibleList[i])
     }
 
@@ -70,7 +70,9 @@ function TokenDrawer(props) {
           {visibleList[0] ? visibleList.map((token, index) => (
             <div className="token-img">
               <Droppable id={index + "droppable"} >
-                <Draggable id={index + "token"} >
+                <Draggable id={index + "token"}
+                  dragHandler={props.dragHandler}
+                >
                   <div className="token-thumbnails">
                     {(selected === index) ?
                       <img
