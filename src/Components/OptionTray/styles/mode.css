@@ -6,7 +6,6 @@
 }
 
 .light-mode .logout-button {
-  padding: 0.5rem;
   background-color: #f0f0f0;
   position: relative;
   border-radius: 0.5rem;
@@ -40,7 +39,6 @@
 }
 
 .dark-mode .logout-button {
-  padding: 0.5rem;
   position: relative;
   border-radius: 0.5rem;
   text-align: center;
