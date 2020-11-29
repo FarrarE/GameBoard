@@ -13,9 +13,12 @@
   margin-right: auto;
   z-index: 100;
   width: 15rem;
-  padding: .5rem;
   font-size: 1.5rem;
   margin-top: 1rem;
+}
+
+.edit-icon {
+  padding: .5rem;
 }
 
 .edit-icon:hover {
