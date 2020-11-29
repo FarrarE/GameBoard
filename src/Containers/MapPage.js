@@ -39,6 +39,7 @@ function MapPage(props) {
     const [mapScale, setMapScale] = useState(1);
     const [gridScale, setGridScale] = useState(50);
     const [selectedToken, setSelectedToken] = useState(false)
+    const [toDrop, setToDrop] = useState(null);
 
     useEffect(() => {
         if (props.isTest)
@@ -432,6 +433,10 @@ function MapPage(props) {
         return 1;
     }
 
+    function dragHandler(target){
+        setToDrop(target);
+    }
+
 
     return (
         <div >
@@ -440,6 +445,7 @@ function MapPage(props) {
                 gridScale={gridScale}
                 currentMap={currentMap}
                 mapScale={mapScale}
+                toDrop={toDrop}
             />
             <OptionTray
                 mode={props.mode}
@@ -463,6 +469,7 @@ function MapPage(props) {
                 tokens={tokenList}
                 deleteToken={deleteToken}
                 tokenInformation={tokenInformationHandler}
+                dragHandler={dragHandler}
             />
             <MapDrawer
                 mode={props.mode}
