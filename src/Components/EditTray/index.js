@@ -9,19 +9,18 @@ import './styles/mode.css';
 function EditBar(props) {
     return (
         <div className={props.mode}>
-            <div className="tray">
-                <div className="edit-icon">
-                    <TiContacts onClick={props.toggleTokens} />
+            <div className="tray" >
+                <div className="edit-icon" onClick={props.toggleTokens}>
+                    <TiContacts />
                 </div>
-
-                <div className="edit-icon">
-                    <RiTreasureMapLine onClick={props.toggleMaps} />
+                <div className="edit-icon" onClick={props.toggleMaps}>
+                    <RiTreasureMapLine />
                 </div>
-                <div className="edit-icon">
-                    <CgMinimizeAlt onClick={props.close} />
+                <div className="edit-icon" onClick={props.close} >
+                    <CgMinimizeAlt />
                 </div>
-                <div className="edit-icon">
-                    <BiCog onClick={props.toggleOptions} />
+                <div className="edit-icon" onClick={props.toggleOptions} >
+                    <BiCog />
                 </div>
             </div>
         </div>
