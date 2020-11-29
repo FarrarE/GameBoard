@@ -4,7 +4,7 @@ import './styles/darkmode.css';
 import './styles/index.css';
 import './styles/lightmode.css';
 
-function OptionTray(props) {
+function Login(props) {
   const [email, setEmail] = useState(undefined);
   const [password, setPassword] = useState(undefined);
   const [mode, setMode] = useState(props.mode);
@@ -79,4 +79,4 @@ function OptionTray(props) {
   );
 }
 
-export default OptionTray;
+export default Login;
