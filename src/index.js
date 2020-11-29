@@ -30,7 +30,8 @@ Amplify.configure({
   }
 });
 
-ReactDOM.hydrate(
+const renderMethod = module.hot ? ReactDOM.render : ReactDOM.hydrate;
+renderMethod(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
