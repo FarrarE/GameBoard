@@ -83,11 +83,7 @@ h1 {
 .login-form input {
   margin-right: 1rem;
   margin-bottom: 1rem;
-  font-size: 1.2rem;
-  width: 99%;
-  border: 1px solid grey;
-  background-color: #e7eff5;
-  color: grey;
+  width: 100%;
 }
 
 .login-form input:focus {
@@ -95,7 +91,7 @@ h1 {
 }
 
 .login-button {
-  width: 99%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -128,13 +124,14 @@ button {
   -webkit-box-shadow: none;
           box-shadow: none;
   font-size: inherit;
-  color: #002ae4;
+  color: blue;
   margin: 0 .3rem 0 .3rem;
 }
 
 .links button:hover {
   -webkit-box-shadow: none;
           box-shadow: none;
+  color: inherit;
 }
 
 #login-toggle {

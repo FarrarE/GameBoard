@@ -64,11 +64,7 @@ h1 {
 .login-form input {
     margin-right: 1rem;
     margin-bottom: 1rem;
-    font-size: 1.2rem;
-    width: 99%;
-    border: 1px solid grey;
-    background-color: rgb(231, 239, 245);
-    color: grey;
+    width: 100%;
 }
 
 .login-form input:focus {
@@ -76,7 +72,7 @@ h1 {
 }
 
 .login-button {
-    width: 99%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -103,11 +99,12 @@ button {
         margin:0;
         box-shadow: none;
         font-size: inherit;
-        color:rgb(0, 42, 228);
+        color:blue;
         margin:0 .3rem 0 .3rem;
     }
     button:hover{
         box-shadow: none;
+        color:inherit;
     }
 }
 
