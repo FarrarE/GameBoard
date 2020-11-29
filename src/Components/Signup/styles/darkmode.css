@@ -50,10 +50,6 @@
   background: #4f5453;
 }
 
-.dark-mode .signup-page button span {
-  font-size: 1rem;
-}
-
 .dark-mode .signup-page button:hover {
   opacity: 0.5;
   -webkit-box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px rgba(0, 0, 0, 0.2);

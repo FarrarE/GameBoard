@@ -59,10 +59,6 @@ $button-highlight: -2px -2px 7px #5d6362;
             background: $secondary-color;
         }
 
-        button span {
-            font-size: 1rem;
-        }
-
         button:hover {
             opacity: 0.5;
             box-shadow: $button-highlight, 3px 3px 5px rgba(0, 0, 0, 0.2);

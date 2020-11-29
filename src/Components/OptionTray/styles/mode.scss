@@ -17,10 +17,6 @@
         color: grey;
     }
 
-    .logout-button span {
-        font-size: 1rem;
-    }
-
     .logout-button:hover {
         opacity: 0.5;
         box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
@@ -58,10 +54,6 @@
         box-shadow: $button-highlight, 3px 3px 5px $shadow-color;
         color: $font-color;
         background: $secondary-color;
-    }
-
-    .logout-button span {
-        font-size: 1rem;
     }
 
     .logout-button:hover {

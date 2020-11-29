@@ -19,10 +19,6 @@
   color: grey;
 }
 
-.light-mode .info-button span {
-  font-size: 1rem;
-}
-
 .light-mode .info-button:hover {
   opacity: 0.5;
   -webkit-box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(0, 0, 0, 0.2);
@@ -55,10 +51,6 @@
           box-shadow: -3px -3px 7px #383d3c, 3px 3px 5px #282b2b;
   color: white;
   background: #4f5453;
-}
-
-.dark-mode .info-button span {
-  font-size: 1rem;
 }
 
 .dark-mode .info-button:hover {

@@ -29,10 +29,6 @@
   color: white;
 }
 
-.dark-mode button span {
-  font-size: 1rem;
-}
-
 .dark-mode button {
   -webkit-box-shadow: -2px -2px 7px #5d6362, 3px 3px 5px #282b2b;
           box-shadow: -2px -2px 7px #5d6362, 3px 3px 5px #282b2b;

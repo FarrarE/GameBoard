@@ -10,7 +10,7 @@
     margin-bottom: auto;
     z-index: 200;
     background-size: 50px 50px;
-    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .ribbon {
@@ -32,8 +32,8 @@
 
 h1 {
     text-transform: Uppercase;
-    margin-bottom: 0.5em;
-    font-size: 6rem;
+    font-size: 5rem;
+    font-family: arial;
 }
 
 .title {
@@ -44,40 +44,37 @@ h1 {
 
 .title p {
     margin-top: -3.5rem;
-    color: rgb(158, 158, 158);
-    font-size: 2.1rem;
+    font-size: 2.5rem;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
     padding: 3rem;
     border-radius: 1rem;
 }
 
-.login-form form {
+.login-form-content {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.5rem;
+    justify-content: space-evenly;
 }
 
 .login-form input {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    width: 100%;
+    width: 99%;
+    margin: 0.2rem 0;
+    font-weight: inherit;
+    font-size: 1.5rem !important;
+    color:rgb(111, 109, 114);
 }
 
-.login-form input:focus {
-    color: grey;
-}
 
 .login-button {
+    margin: 0.5rem 0.1rem 1.5rem;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 1.5rem;
 }
 
 button {
+    font-weight: bold;
     padding: 0.5rem;
     position: relative;
     border: none;
@@ -86,51 +83,86 @@ button {
     text-align: center;
     cursor: pointer;
     transition: all 0.1s ease-in-out;
-    margin: 0.1rem;
 }
 
 .links {
     display: flex;
-    font-size: 1rem;
-    button{
-        background:none;
-        border:none;
-        padding:0;
-        margin:0;
+    font-size:1.1rem;
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
         box-shadow: none;
-        font-size: inherit;
-        color:blue;
-        margin:0 .3rem 0 .3rem;
+        color: blue;
+        margin: .25rem 0.4rem 0 0.5rem;
+        font-size: 1.1rem;
     }
-    button:hover{
+    button:hover {
         box-shadow: none;
-        color:inherit;
+        color: inherit;
     }
 }
 
-#login-toggle{
-    position:fixed;
-    right:1rem;
-    top:1rem;
+#login-toggle {
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
     z-index: 400;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    font-size: 1.5rem;
 }
 
 @media only screen and (max-width: 1300px) {
     .ribbon {
         flex-direction: column;
         height: 75%;
+        margin:0;
+        top:5rem;
+        padding:1rem 0;
         .login-form {
             border-radius: 0;
+            input {
+                font-size: 1.2rem;
+                padding: 0.2rem;
+            }
+        }
+        p {
+            margin: 0;
+            font-size: 1.5rem;
         }
     }
     h1 {
         font-size: 3rem;
+        padding: 0;
+        margin: 0.5rem;
+        line-height: 1;
     }
     .title {
         width: 100%;
-        padding-right: 0;
+        padding:0;
     }
-    .title p {
-        margin-top: -2rem;
+    .login-form {
+        margin: 2rem 0;
+    }
+    .links{
+        display:flex;
+        flex-direction: column;
+        font-size: 1.5rem;
+        line-height: 1.2;
+        button{
+            font-size:1.5rem;
+            line-height: 1.2;
+        }
     }
 }

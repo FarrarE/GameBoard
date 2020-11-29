@@ -24,7 +24,11 @@ function OptionTray(props) {
         <link rel="stylesheet" type="text/css" href="./styles/lightmode.css" />
         <div className={"ribbon ribbon-" + mode}>
           <div className={"title title-" + mode}>
-            <h1 className={"h1-" + mode}>Battlemaps</h1>
+            <h1 className={"h1-" + mode}>
+              <span>
+                Battlemap Arena
+              </span>
+            </h1>
             <p>Virtual Tabletop Toolset</p>
           </div>
           <div className="login-form">
@@ -33,25 +37,31 @@ function OptionTray(props) {
                 props.handleSubmit(email, password);
                 e.preventDefault();
               }}>
-              <input
-                autoFocus
-                type="email"
-                placeholder="Email"
-                onChange={e => setEmail(e.target.value)}
-              />
-              <input
-                placeholder="Password"
-                onChange={e => setPassword(e.target.value)}
-                type="password"
-              />
-              <div>
-                <button className="login-button lightMode" disabled={!validateForm()} type="submit" tabIndex="3">
-                  <span>
-                    Login
-              </span>
-                </button>
+              <div className="login-form-content">
+                <div>
+                  <input
+                    autoFocus
+                    autocomplete="off"
+                    type="email"
+                    placeholder="Email"
+                    onChange={e => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <input
+                    placeholder="Password"
+                    onChange={e => setPassword(e.target.value)}
+                    type="password"
+                  />
+                </div>
+                <div>
+                  <button className="login-button lightMode" disabled={!validateForm()} type="submit" tabIndex="3">
+                    <span>
+                      Login
+                  </span>
+                  </button>
+                </div>
               </div>
-
             </form>
             <div className="links">
               <span>Dont have an account?</span>
@@ -61,11 +71,11 @@ function OptionTray(props) {
             </div>
           </div>
         </div>
-      </div>
+      </div >
       <div id="login-toggle" className={props.mode}>
         <ToggleMode check={props.mode === "dark-mode" ? true : false} toggleMode={props.toggleMode} mode={props.mode} />
       </div>
-    </div>
+    </div >
   );
 }
 

@@ -24,10 +24,6 @@
   color: grey;
 }
 
-.light-mode button span {
-  font-size: 1rem;
-}
-
 .light-mode button {
   -webkit-box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(54, 51, 51, 0.2);
           box-shadow: -6px -6px 10px rgba(255, 255, 255, 0.8), 3px 3px 5px rgba(54, 51, 51, 0.2);
