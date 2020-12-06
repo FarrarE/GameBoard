@@ -33,6 +33,10 @@
   padding: .5rem;
 }
 
+.options .handle {
+  margin-bottom: .5rem;
+}
+
 .logout-button {
   font-size: 1.2rem;
   padding: 0.7rem;
