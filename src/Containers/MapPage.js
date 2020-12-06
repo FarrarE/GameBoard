@@ -31,6 +31,7 @@ function MapPage(props) {
     const [TokenDrawerState, setTokenDrawerState] = useState("drawerClosed");
     const [MapDrawerState, setMapDrawerState] = useState("drawerClosed");
     const [optionTrayState, setOptionTrayState] = useState(false);
+    const [locked, setLocked] = useState([]);
 
     // Canvas state variables
     const [mapList, setMapList] = useState([]);
@@ -235,10 +236,23 @@ function MapPage(props) {
         setOptionTrayState(!optionTrayState);
     }
 
+    function toggleLock(toLock){
+        let index = locked.indexOf(toLock);
+
+        if(index !== -1){
+            locked.splice(index, 1);
+        } else locked.push(toLock);
+
+    }
+
     // sets all visible panels to hidden.
     function closeAll() {
-        setOptionTrayState(false);
-        setSelectedToken(false);
+        if(!locked.includes("options"))
+            setOptionTrayState(false);
+
+        if(!locked.includes("tokenInfo"))
+            setSelectedToken(false);
+
         setTokenDrawerState("drawerClosed");
         setMapDrawerState("drawerClosed");
     }
@@ -457,6 +471,8 @@ function MapPage(props) {
                 toggleMode={props.toggleMode}
                 handleLogout={props.handleLogout}
                 state={optionTrayState}
+                toggleOptions={toggleOptionTray}
+                toggleLock={toggleLock}
             />
             <EditTray
                 mode={props.mode}
@@ -485,6 +501,8 @@ function MapPage(props) {
                 mode={props.mode}
                 selected={selectedToken}
                 updateTokenInfo={updateTokenInfoHandler}
+                toggleLock={toggleLock}
+                setSelectedToken={setSelectedToken}
             />
         </div>
     );
