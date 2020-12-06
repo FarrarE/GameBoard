@@ -1,25 +1,27 @@
-import React, { useEffect, } from "react";
+import React, { useEffect, useState } from "react";
 import Draggable from 'react-draggable';
 import ToggleMode from '../ToggleMode';
-import { MdDragHandle } from 'react-icons/md';
+import MenuBar from '../MenuBar';
+
 
 import './styles/index.css';
 import './styles/mode.css'
 
 function OptionTray(props) {
 
-    useEffect(()=>{
-        if(props.state)
+    useEffect(() => {
+        if (props.state)
             document.getElementById("optionTray").style.display = 'block';
         else document.getElementById("optionTray").style.display = 'none';
     }, [props.state]);
+
 
     return (
         <div className={props.mode} id="optionTray" >
             <Draggable handle=".handle">
                 <div className="options">
-                    <div>
-                        <MdDragHandle className="drag-icon handle" />
+                    <div className="handle">
+                        <MenuBar toggleLock={props.toggleLock} toggleOptions={props.toggleOptions} type="options" />
                     </div>
                     <div>
                         Grid Size

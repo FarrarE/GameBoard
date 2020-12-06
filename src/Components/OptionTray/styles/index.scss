@@ -5,34 +5,30 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 10rem;
-    height: 14rem;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+    width: max-content;
+    height: max-content;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
     z-index: 301;
-    padding: 1rem;
     font-weight: bold;
+    padding:.5rem;
 }
 
 .logout-button {
     font-size: 1.2rem;
-    padding:.7rem;
-}
-
-.drag-icon {
-    margin-top: -1rem;
-    font-size: 2rem;
+    padding: 0.7rem;
 }
 
 input {
     text-align: center;
 }
+
 
 #optionTray {
     display: none;

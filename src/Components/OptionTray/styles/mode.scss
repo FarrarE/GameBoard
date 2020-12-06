@@ -29,13 +29,11 @@
 }
 
 .dark-mode {
-
-
     $base-color: #313534;
     $secondary-color: #4f5453;
     $shadow-color: #282b2b;
     $font-color: white;
-    $button-highlight: -3px -3px 7px #383d3c;;
+    $button-highlight: -3px -3px 7px #383d3c;
 
     .options {
         background: linear-gradient(145deg, #2c302f, #343938);
