@@ -59,19 +59,19 @@ function MapPage(props) {
 
         img.src = testToken1;
         img2.src = testToken2;
-        
+
         let newToken = {
             img: img,
             key: "testToken1",
             name: "Dax",
-            hp: {max:0,min:0}
+            hp: { max: 0, min: 0 }
         }
 
         let newToken2 = {
             img: img2,
             key: "testToken2",
             name: "Pop",
-            hp: {max:0,min:0}
+            hp: { max: 0, min: 0 }
         }
 
         array.push(newToken);
@@ -233,13 +233,14 @@ function MapPage(props) {
     }
 
     function toggleOptionTray() {
-        setOptionTrayState(!optionTrayState);
+        if (!locked.includes("options"))
+            setOptionTrayState(!optionTrayState);
     }
 
-    function toggleLock(toLock){
+    function toggleLock(toLock) {
         let index = locked.indexOf(toLock);
 
-        if(index !== -1){
+        if (index !== -1) {
             locked.splice(index, 1);
         } else locked.push(toLock);
 
@@ -247,10 +248,10 @@ function MapPage(props) {
 
     // sets all visible panels to hidden.
     function closeAll() {
-        if(!locked.includes("options"))
+        if (!locked.includes("options"))
             setOptionTrayState(false);
 
-        if(!locked.includes("tokenInfo"))
+        if (!locked.includes("tokenInfo"))
             setSelectedToken(false);
 
         setTokenDrawerState("drawerClosed");
@@ -420,7 +421,7 @@ function MapPage(props) {
                 img: img,
                 key: fileKey,
                 name: "",
-                hp: {max:0,min:0}
+                hp: { max: 0, min: 0 }
             }
             setTokenList(tokenList => [...tokenList, newToken]);
         }
@@ -450,7 +451,7 @@ function MapPage(props) {
         return 1;
     }
 
-    function dragHandler(target){
+    function dragHandler(target) {
         setToDrop(target);
     }
 
