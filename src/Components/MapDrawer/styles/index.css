@@ -68,6 +68,7 @@
 }
 
 .delete-map {
+  display: none;
   right: 0.2rem;
   top: -1.2rem;
 }
