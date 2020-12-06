@@ -1,0 +1,14 @@
+.menu-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu-bar svg {
+  margin: .5rem;
+}
+/*# sourceMappingURL=index.css.map */

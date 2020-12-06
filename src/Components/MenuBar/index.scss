@@ -1,0 +1,8 @@
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+    cursor:pointer;
+    svg{
+        margin:.5rem;
+    }
+}
