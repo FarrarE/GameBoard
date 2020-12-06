@@ -1,11 +1,9 @@
 .token-information {
     position: absolute;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     border-radius: 0.5rem;
-    height:10rem;
-    width: 10rem;
+    height: max-content;
+    width: max-content;
     left: 0;
     right: 0;
     top: 0;
@@ -14,25 +12,35 @@
     margin-right: auto;
     margin-top: auto;
     margin-bottom: auto;
-    z-index: 100;
-    padding: 1rem;
+    z-index: 1;
+    padding: 0.5rem;
 
-    input{
-        border-radius: .5rem;
-        border:none;
-        padding:.5rem;
-        color:grey;
+    .handle {
+        margin-top: auto;
+    }
+    input {
+        border-radius: 0.5rem;
+        border: none;
+        margin: 0.5rem;
+        color: grey;
         font-weight: bold;
     }
-}
-
-.binary-tracker{
-    display:flex;
-    input{
-        width:3rem;
-        margin-left:auto;
-        margin-right:auto;
-        padding:0;
+    .name-label {
+        width: 10rem;
     }
 }
-.none{display:none;}
+
+.binary-tracker {
+    display: flex;
+    flex-direction: row;
+    input {
+        width: 3rem;
+    }
+    span{
+        padding-top:.2rem;
+    }
+}
+
+.none {
+    display: none;
+}
