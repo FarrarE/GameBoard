@@ -41,7 +41,7 @@ function Login(props) {
                 <div>
                   <input
                     autoFocus
-                    autocomplete="off"
+                    autoComplete="off"
                     type="email"
                     placeholder="Email"
                     onChange={e => setEmail(e.target.value)}
@@ -64,7 +64,7 @@ function Login(props) {
               </div>
             </form>
             <div className="links">
-              <span>Dont have an account?</span>
+              <span>Don't have an account?</span>
               <button onClick={props.signUp} tabIndex="1">Sign up here</button>
               <span>or</span>
               <button onClick={props.runTest} tabIndex="2">Try without signing up</button>
